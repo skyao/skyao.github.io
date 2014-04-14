@@ -80,7 +80,7 @@ disqus_shortname:
 # Extensions
 ## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
 ## Themes: https://github.com/tommy351/hexo/wiki/Themes
-theme: landscape
+theme: pacman
 exclude_generator:
 
 # Markdown
@@ -96,7 +96,7 @@ markdown:
 
 # Stylus
 stylus:
-  compress: false
+  compress: true
 
 # Deployment
 ## Docs: http://zespia.tw/hexo/docs/deployment.html
