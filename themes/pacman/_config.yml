@@ -69,8 +69,8 @@ author:
 
 #### Comment
 duoshuo: 
-  enable: false  ## duoshuo.com
-  short_name:    ## duoshuo short name.
+  enable: true  ## duoshuo.com
+  short_name: skyao   ## duoshuo short name.
 
 #### Share button
 jiathis:
