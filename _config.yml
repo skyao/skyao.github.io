@@ -105,3 +105,12 @@ deploy:
   repo: https://github.com/skyao/skyao.github.io.git
   branch: master
 
+plugins:
+- hexo-generator-feed
+- hexo-generator-sitemap
+
+feed:
+    type: atom
+    path: atom.xml
+    limit: 40
+
