@@ -1,6 +1,6 @@
-title: study-plan-2014
+title: 2014学习计划
 date: 2014-04-18 10:07:50
-categories: 
+categories: study
 tags: study
 ---
 

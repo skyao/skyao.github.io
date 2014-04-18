@@ -1,4 +1,4 @@
-title: new-blog-site
+title: 新的Blog站点
 date: 2014-04-14 15:45:37
 categories: blog-system
 tags: [blog, hexo]

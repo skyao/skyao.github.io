@@ -1,4 +1,4 @@
-title: hexo-setup
+title: 使用hexo搭建Blog
 date: 2014-04-14 17:07:32
 categories: blog-system
 tags: [hexo]
