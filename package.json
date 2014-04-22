@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "hexo-generator-feed": "^0.1.0",
-    "hexo-generator-sitemap": "^0.1.1"
+    "hexo-generator-sitemap": "^0.1.1",
+    "hexo-livereload": "0.0.1"
   }
 }
