@@ -1,7 +1,7 @@
 title: 2014学习计划
 date: 2014-04-18 10:07:50
-categories: study
-tags: study
+categories: 杂谈
+tags: [study]
 ---
 
 ## 前言 ##
@@ -46,6 +46,7 @@ tags: study
 ### 杂项 ###
 
 1. Markdown
+2. gitbook
 
 
 ## 更多兴趣 ##
@@ -79,3 +80,4 @@ tags: study
 ### 学习资料 ###
 
 1. 2014-04-18 book [Building Node Applications with MongoDB and Backbone](http://shop.oreilly.com/product/0636920026587.do) for both mongodb and node.js
+2. 2014-04-22 book [MongoDB.Applied.Design.Patterns](http://shop.oreilly.com/product/0636920027041.do)
