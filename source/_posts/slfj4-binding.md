@@ -4,10 +4,13 @@ categories: Log
 tags: [log,slf4j]
 ---
 
-通过翻看源码研究一下 Slf4j 是如何在运行时绑定具体的log api实现。  
+通过阅读源码研究一下 Slf4j 是如何在运行时绑定具体的log api实现。  
 
+<!--more-->
 
 # 源码追踪
+
+## slf4j-api的源码
 
 我们来看看slf4j的源代码，看当这段常见的写日志代码在第一次执行时，slf4j会如何工作
 
@@ -120,7 +123,8 @@ StaticLoggerBinder类是从哪里来的？我们看代码的时候，可以发�
 而且这个StaticLoggerBinder类的代码也明确说这个类不应当被打包到slf4j-api.jar：
 
 	private StaticLoggerBinder() {
-	    throw new UnsupportedOperationException("This code should have never made it into slf4j-api.jar");
+	    throw new UnsupportedOperationException(
+			"This code should have never made it into slf4j-api.jar");
 	}
 
 在slf4j-api项目的pom.xml文件中，我们可以找到下面的内容：
@@ -146,7 +150,11 @@ StaticLoggerBinder类是从哪里来的？我们看代码的时候，可以发�
 
 这里通过调用ant在打包为jar文件前，将package org.slf4j.impl和其下的class都删除掉了。
 
-我们再来看，具体的log api实现要如何做才能和slf4j转载。
+实际上这里的impl package内的代码，只是用来占位以保证可以编译通过(所谓dummy)。需要在运行时再进行绑定。
+
+##具体的log api的源码
+
+我们再来看，具体的log api实现要如何做才能和slf4j绑定和装载。
 
 slf4j自带了一个极度简化的log实现slf4j-simple,这里我们可以找到slf4j-api需要的"org/slf4j/impl/StaticLoggerBinder.class":
 
@@ -187,13 +195,9 @@ slf4j自带了一个极度简化的log实现slf4j-simple,这里我们可以找�
 SimpleLoggerFactory实现slf4j定义的ILoggerFactory interface，getLogger()方法中负责创建SimpleLogger对象并返回(为了提高性能做了cache)。
 
 类似的slf4j-log4j12中会返回Log4jLoggerFactory，而Log4jLoggerFactory中通过调用log4j的LogManager来创建log4j的Logger对象并通过Log4jLoggerAdapter类来包装为slf4j的Logger(adapter模式)。
-	
+
 	log4jLogger = LogManager.getLogger(name);
 	Logger newInstance = new Log4jLoggerAdapter(log4jLogger);
-
-
-# 过程总结
-
 
 # 代码和类分析 
 
@@ -202,7 +206,26 @@ SimpleLoggerFactory实现slf4j定义的ILoggerFactory interface，getLogger()方
 1. org.slf4j.Logger
 2. org.slf4j.LoggerFactory
 3. org.slf4j.ILoggerFactory
+4. org.slf4j.impl.StaticLoggerBinder
+5. org.slf4j.ILoggerFactory
+6. 具体log api的Logger实现类
 
 Logger和LoggerFactory是slf4j定义好的，业务代码通过LoggerFactory来创建Logger对象，并调用这个logger对象来写日志。业务代码在此时是无需知道（也无法知道）具体底层是哪个log api实现，从而摆脱对具体log api的依赖。
 
-LoggerFactory通过ILoggerFactory来调用底层log api的实现来获取logger(已经包装为slf4j的Logger)。
+LoggerFactory通过装载StaticLoggerBinder类来绑定具体的log api实现，得到该log api实现ILoggerFactory接口的类示例。
+
+这个ILoggerFactory接口的类示例调用底层log api的实现来获取需要logger。
+
+这里有个细节，如果该Logger类已经实现了org.slf4j.Logger这个interface，就直接返回。比如绑定slf4j-simple时：
+
+![slf4j-bind-simple.png](/images/slfj4-binding/slf4j-bind-simple.png)
+
+如果没有，比如Log4j的Logger，肯定不会实现org.slf4j.Logger这个interface，这时就需要包装为slf4j的Logger。在slf4j-log4jl2中，有一个Log4jLoggerAdapter类，实现了org.slf4j.Logger, 然后将方法调用转发给log4j的Logger：
+
+![slf4j-bind-log4j.png](/images/slfj4-binding/slf4j-bind-log4j.png)
+
+# 总结
+
+通过翻看Slf4j的代码，我们可以清楚的看到slf4j在运行时绑定具体的log api实现的方式。其实非常简单，关键之处就在于 org.slf4j.impl.StaticLoggerBinder 。
+
+

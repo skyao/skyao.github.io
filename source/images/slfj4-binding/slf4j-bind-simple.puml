@@ -1,0 +1,43 @@
+@startuml
+hide footbox
+title Slf4j Binding (Slf4j-simple)
+
+actor BusinessCode
+box "slf4j-api"
+    participant Logger
+    participant LoggerFactory
+end box
+box "slf4j-simple"
+    participant StaticLoggerBinder #red
+    participant SimpleLoggerFactory
+    participant SimpleLogger
+end box
+
+BusinessCode -> LoggerFactory: getLogger()
+
+
+group bind
+    create StaticLoggerBinder
+    LoggerFactory -> StaticLoggerBinder: classloader look up
+    LoggerFactory -> StaticLoggerBinder: getSingleton()
+    create SimpleLoggerFactory
+    StaticLoggerBinder -> SimpleLoggerFactory : create
+    SimpleLoggerFactory --> StaticLoggerBinder
+    StaticLoggerBinder --> LoggerFactory
+end
+
+LoggerFactory -> StaticLoggerBinder: getLoggerFactory()
+StaticLoggerBinder --> LoggerFactory: return SimpleLoggerFactory
+LoggerFactory -> SimpleLoggerFactory: getLogger()
+create SimpleLogger
+SimpleLoggerFactory -> SimpleLogger : create SimpleLogger
+SimpleLoggerFactory -> SimpleLoggerFactory: convert SimpleLogger to Logger
+SimpleLoggerFactory --> LoggerFactory : return logger instance
+
+LoggerFactory --> BusinessCode: return logger instance
+BusinessCode -> Logger: debug()
+Logger -> SimpleLogger: debug()
+SimpleLogger --> Logger
+Logger --> BusinessCode
+
+@enduml

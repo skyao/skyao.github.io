@@ -1,0 +1,50 @@
+@startuml
+hide footbox
+title Slf4j Binding (log4j)
+
+actor BusinessCode
+box "slf4j-api"
+    participant Logger
+    participant LoggerFactory
+end box
+box "slf4j-log4j12"
+    participant StaticLoggerBinder #red
+    participant Log4jLoggerFactory
+    participant Log4jLoggerAdapter
+    participant Log4jLogger
+end box
+
+BusinessCode -> LoggerFactory: getLogger()
+
+
+group bind
+    create StaticLoggerBinder
+    LoggerFactory -> StaticLoggerBinder: classloader look up
+    LoggerFactory -> StaticLoggerBinder: getSingleton()
+    create Log4jLoggerFactory
+    StaticLoggerBinder -> Log4jLoggerFactory : create
+    Log4jLoggerFactory --> StaticLoggerBinder
+    StaticLoggerBinder --> LoggerFactory
+end
+
+LoggerFactory -> StaticLoggerBinder: getLoggerFactory()
+StaticLoggerBinder --> LoggerFactory: return Log4jLoggerFactory
+LoggerFactory -> Log4jLoggerFactory: getLogger()
+create Log4jLogger
+Log4jLoggerFactory -> Log4jLogger : create Log4jLogger
+create Log4jLoggerAdapter
+Log4jLoggerFactory -> Log4jLoggerAdapter : create Log4jLoggerAdapter
+Log4jLoggerFactory -> Log4jLoggerFactory: adapt Log4jLogger to Log4jLoggerAdapter
+Log4jLoggerFactory -> Log4jLoggerFactory: convert Log4jLoggerAdapter to Logger
+Log4jLoggerFactory --> LoggerFactory : return logger instance
+
+LoggerFactory --> BusinessCode: return logger instance
+BusinessCode -> Logger: debug()
+Logger -> Log4jLoggerAdapter: debug()
+Log4jLoggerAdapter -> Log4jLogger: debug()
+note left: delegate to log4j
+Log4jLogger --> Log4jLoggerAdapter
+Log4jLoggerAdapter --> Logger
+Logger --> BusinessCode
+
+@enduml
