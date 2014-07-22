@@ -4,11 +4,13 @@ categories: 杂谈
 tags: [gitbook,grunt]
 ---
 
+总结并分享一下将gitbook生成的html page发布github pages上的简便方法。
+
+<!--more-->
+
 在将gitbook生成的html page发布github pages上(实际是提交内容到gh-pages 分支)时，发现比较麻烦。
 
 而gitbook的文档和资料都实在太少，好在还有万能的stackoverflow，顺利找到解决方法。
-
-<!--more-->
 
 ## 问题 ##
 

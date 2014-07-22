@@ -4,6 +4,10 @@ categories: 杂谈
 tags: [blog, hexo]
 ---
 
+将自己的技术类blog搬迁到github。
+
+<!--more-->
+
 ##反思
 
 前些年陆陆续续在写技术类的Blog，坚持了几年，然后2013年中断了。
