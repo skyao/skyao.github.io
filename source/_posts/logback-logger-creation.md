@@ -32,9 +32,9 @@ tags: [log,logback,logger]
 
 	public final Logger getLogger(final String name) {...}
 
-这里的getLogger()方法有两个版本，从代码上看，如果一个权限定名为"a.b.c.D"的类，通过getLogger(D.class)获取logger，本质上就是调用getLogger("a.b.c.D")。这个方式是slf4j定义的，logback只是简单遵循。
+这里的getLogger()方法有两个版本，从代码上看，如果一个权限定名为"a.b.c.D"的类，通过getLogger(D.class)获取logger，本质上就是调用getLogger("a.b.c.D")。这个方式是slf4j定义的，logback遵循。
 
-重点看getLogger(String name)方法的实现，忽略一些细节
+重点看getLogger(String name)方法的实现，忽略一些细节，我们首先会发现getLogger()方法中使用cache来缓存所有已经创建了的Logger对象实例：
 
 	private Map<String, Logger> loggerCache;
 
@@ -45,4 +45,63 @@ tags: [log,logback,logger]
 	    if (childLogger != null) {
 	      return childLogger;
 	    }
+		......
+		childLogger = logger.createChildByName(childName);
+        loggerCache.put(childName, childLogger);
 	}
+
+这个cache的存在可以优化Logger实例创建的效率，所以对于下面的两种Logger创建方式，其实性能差距不大(只多一个很小的从cache中取对象的开销)。
+
+	private static Logger logger = LoggerFactory.getLogger(Class1.class);
+	private Logger logger = LoggerFactory.getLogger(Class1.class);
+
+继续看getLogger()方法的时候，如果cache没有命中，那么就需要创建对应的实例：
+
+    String childName;
+    while (true) {
+      int h = LoggerNameUtil.getSeparatorIndexOf(name, i);
+      if (h == -1) {
+        childName = name;
+      } else {
+        childName = name.substring(0, h);
+      }
+      // move i left of the last point
+      i = h + 1;
+      synchronized (logger) {
+        childLogger = logger.getChildByName(childName);
+        if (childLogger == null) {
+          childLogger = logger.createChildByName(childName);
+          loggerCache.put(childName, childLogger);
+          incSize();
+        }
+      }
+      logger = childLogger;
+      if (h == -1) {
+        return childLogger;
+      }
+    }
+
+这里有个特殊处理，logback会从root开始依次检查并创建直到当前name的各层Logger实例。我们来看看Logger对象的实现：
+
+	public final class Logger implements org.slf4j.Logger {
+		private String name;
+		transient private Logger parent;
+		transient private List<Logger> childrenList;
+	}
+
+每个Logger对象都保存有自己的name，parent，和childrenList。其中的parent属性除了root logger之外都会指向当前logger的parent。
+
+对于我们的例子，getLogger("a.b.c.D")，logback会依次检查以下各个Logger实例的是否存在，如果不存在则依次创建，并加入cache。
+
+	a
+	a.b
+	a.b.c
+	a.b.c.D
+
+其中logger "a"的parent是root logger，"a.b"的parent是"a", 最后的"a.b.c.D"的parent是"a.b.c"。至此getLogger("a.b.c.D")方法完成了从root到当前"a.b.c.D" logger对象的所有相关的logger的创建。
+
+总结以下，在logger对象的创建过程中，logback实际做了以下两个事情：
+
+1. 创建了从root logger开始到当前logger的所有层次的logger
+2. 所有的logger对象都被cache
+
