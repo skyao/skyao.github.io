@@ -1,0 +1,32 @@
+@startuml
+hide footbox
+title logback logger process overview
+
+actor BusinessCode
+participant Logger
+participant TurboFilter
+participant AppenderAttachableImpl as aai
+participant Appender
+participant Encoder
+
+BusinessCode            ->              Logger: debug()
+Logger                  ->              TurboFilter
+TurboFilter             -->             Logger
+
+loop each logger till root
+    Logger                  ->              Logger:             check level
+    Logger                  ->              Logger:             create LoggerEvent
+    Logger                  ->              aai:                appendLoopOnAppenders(event)
+    loop each appender for this logger
+        aai                     ->              Appender:           doAppend(event)
+        Appender                ->              Encoder
+        Encoder                  ->             Encoder:           format
+        Encoder                  ->             Encoder:           print
+        Encoder                 -->             Appender
+        Appender                -->             aai
+    end
+    aai                     -->             Logger
+    Logger                  -->             BusinessCode
+end
+
+@enduml

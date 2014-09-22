@@ -100,7 +100,7 @@ tags: [log,logback,logger]
 
 其中logger "a"的parent是root logger，"a.b"的parent是"a", 最后的"a.b.c.D"的parent是"a.b.c"。至此getLogger("a.b.c.D")方法完成了从root到当前"a.b.c.D" logger对象的所有相关的logger的创建。
 
-总结以下，在logger对象的创建过程中，logback实际做了以下两个事情：
+总结一下，在logger对象的创建过程中，logback实际做了以下两个事情：
 
 1. 创建了从root logger开始到当前logger的所有层次的logger
 2. 所有的logger对象都被cache
