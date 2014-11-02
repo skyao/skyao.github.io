@@ -1,7 +1,7 @@
 title: (记录)Ubuntu下安装Redis
 date: 2014-09-25 15:01:29
 categories: Redis
-tags: [redis,install]
+tags: [redis,install,ubuntu]
 ---
 
 记录Redis在ubuntu server上的安装过程。
