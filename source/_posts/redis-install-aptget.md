@@ -1,7 +1,7 @@
 title: (记录)Ubuntu下用apt-get安装最新版本的Redis
 date: 2014-11-02 10:19:01
 categories: Redis
-tags: [redis,install,ubuntu]
+tags: [redis,install,ubuntu,linux]
 ---
 
 记录使用apt-get在ubuntu server上安装最新版本Redis的过程。
