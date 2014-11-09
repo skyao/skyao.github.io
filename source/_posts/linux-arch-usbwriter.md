@@ -1,7 +1,7 @@
-title: linux-arch-usbwriter
+title: (记录)用usbwriter来制作archlinux启动U盘
 date: 2014-11-09 08:19:17
 categories: Linux
-tags: [linux,arch]
+tags: [linux,archlinux]
 ---
 
 解决U盘安装archlinux时遇到的无法从u盘启动的问题。
