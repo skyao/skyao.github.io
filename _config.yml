@@ -86,7 +86,7 @@ exclude_generator:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: github
-  repo: https://github.com/skyao/skyao.github.io.git
+  repo: git@github.com:skyao/skyao.github.io.git
   branch: master
 
 plugins:
