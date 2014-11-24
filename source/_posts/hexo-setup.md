@@ -1,4 +1,4 @@
-title: 使用hexo搭建Blog
+title: (记录)使用hexo搭建Blog
 date: 2014-04-14 17:07:32
 categories: 杂谈
 tags: [hexo]
