@@ -223,7 +223,11 @@ tags: [linux,ubuntu,server]
 
 [参考地址](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu)。
 
-安装完成后Jenkins 运行于8080端口。
+安装完成后Jenkins 运行于8080端口。用PS命令可以看到一些Jenkins运行的配置信息，如JENKINS_HOME.
+
+	ps -ef |grep jenkins
+	jenkins   7158     1  0 07:50 ?        00:00:00 /usr/bin/daemon --name=jenkins --inherit --env=JENKINS_HOME=/var/lib/jenkins --output=/var/log/jenkins/jenkins.log --pidfile=/var/run/jenkins/jenkins.pid -- /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1
+	jenkins   7159  7158 99 07:50 ?        00:00:24 /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1
 
 同样安全起见，不能让匿名用户有太多权限。
 
