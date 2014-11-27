@@ -1,24 +1,22 @@
-title: (记录)在ubuntu服务器上搭建全套开发和运行环境
+title: (记录)在ubuntu服务器上搭建全套开发环境
 date: 2014-11-25 14:04:50
 categories: Linux
 tags: [linux,ubuntu,server]
 ---
 
-资料收集，在ubuntu服务器上搭建全套开发和运行环境。
+资料收集，在ubuntu服务器上搭建全套开发环境。
 
 <!--more-->
 
 #  前言
 
-一直都是在家里的下载机上，使用vmware安装linux服务器，搭建自己的开发测试环境。
-
-前段时间偶尔看到vpsdime推出的高内存VPS方案，4核+6G内存的VPS才一个月7美元。这个价格，结果只能是买买买啊。
-
-现在打算将全套开发测试环境搬过去，记录一下全过程，以备下次使用。
+最近打算更换开发用的服务器，需要将全套开发测试环境搬过去。坦白说这个过程挺麻烦的，记录一下全过程，以备下次使用。
 
 # 服务器配置
 
 在选择linux服务器版本，犹豫了一下，最后还是选择了自己最熟悉的ubuntu server 14.04版本。主要是这些年用apt-get用的比较爽...
+
+开发环境而已，要求不用高，符合自己习惯就好，就不折腾其他高级货色了。
 
 ## 增加user
 
@@ -126,7 +124,24 @@ tags: [linux,ubuntu,server]
 
 ### 安装ant
 
+执行命令：
+
+	sudo apt-get install ant
+
+检查安装之后的版本:
+
+	ant -version
+	Apache Ant(TM) version 1.9.3 compiled on April 8 2014
+
+默认没有设置ANT_HOME，还是自己手工加上吧。打开/etc/profile,在最后加入：
+
+	export ANT_HOME=/usr/share/ant
+
 ### 安装ivy
+
+理论上从apache ivy的网站下载ivy的jar包放到ant安装目录的lib文件夹下即可。复制时看到ant/lib下的jar包都是link到/usr/share/java下，所以也同样将ivy-2.4.0-rc1.jar复制到/usr/share/java，然后link过去：
+
+	sudo ln -s ../../java/ivy-2.4.0-rc1.jar .
 
 ### 安装maven
 
@@ -145,9 +160,93 @@ tags: [linux,ubuntu,server]
 	sudo apt-get install maven3
 	sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/mvn
 
-
 ### 安装artifactory
+
+从[http://www.jfrog.com/download.php](http://www.jfrog.com/download.php)下载到最新的artifactory，将zip包解压。
+
+安装前需要确保JAVA_HOME有正确设置，可以修改 /etc/environment，加入JAVA_HOME：
+
+	JAVA_HOME=/usr/lib/jvm/java-7-oracle
+
+将目录复制到/usr/lib，执行安装:
+
+	sudo mv artifactory*** /usr/lib/
+	sudo mv artifactory*** artifactory
+	cd artifactory/bin
+	sudo ./installService.sh
+	service artifactory check
+	sudo service artifactory start
+
+安装成功后就可以通过http://localhost:8081访问artifactory的页面了，默认管理员账号和密码为admin/password。
+
+[参考地址](http://www.softwarepassion.com/install-artifactory-on-ubuntu-box/)。
+
+安全起见，登录后先修改admin密码，点击Admin -> Security -> Users -> User List -> admin，修改密码即可。 
+
+另外，Admin -> Security -> General, 取消"Allow Anonymous Access"。
 
 ### 安装gradle
 
+为了安装最新的版本，增加gradle的源后再安装：
+
+	sudo add-apt-repository ppa:cwchien/gradle
+	sudo apt-get update
+	sudo apt-get install gradle
+
+执行gradle -version：
+	
+	------------------------------------------------------------
+	Gradle 2.2
+	------------------------------------------------------------
+	
+	Build time:   2014-11-10 13:31:44 UTC
+	Build number: none
+	Revision:     aab8521f1fd9a3484cac18123a72bcfdeb7006ec
+	
+	Groovy:       2.3.6
+	Ant:          Apache Ant(TM) version 1.9.3 compiled on December 23 2013
+	JVM:          1.7.0_72 (Oracle Corporation 24.72-b04)
+	OS:           Linux 2.6.32-042stab090.5 amd64
+
+版本2.2，看了官网最新版本是2.2.1,3天前发布的，估计源还没有来得及更新。
+
+## 持续集成环境
+
+### 安装Jenkins
+
+执行以下命令安装jenkins：
+
+	wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+	sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+	sudo apt-get update
+	sudo apt-get install jenkins
+
+[参考地址](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu)。
+
+安装完成后Jenkins 运行于8080端口。
+
+同样安全起见，不能让匿名用户有太多权限。
+
+1. Jenkins -> Configure Global Security -> 启用安全 勾上，访问控制选 Jenkins专用用户数据库（千万记得选上“容许用户注册”！）， 授权策略选 登录用户可以做任何事。
+2. 保存之后页面跳转要求登录，这个时候选注册，填写表单后注册成功，用刚注册的用户名登录
+3. Jenkins -> Configure Global Security，取消 “容许用户注册”
+
+# 运行环境搭建
+
+虽然是开发环境，好歹搭点东西可以跑个Demo什么的。
+
+## web服务器
+
+### 安装nginx
+
+执行命令：
+
+	sudo apt-get update
+	sudo apt-get install nginx
+
+默认nginx安装完成后自动启动，监听80端口，而且开机自启也是默认做好的。
+
+默认配置文件在/etc/nginx/nginx.conf，默认site配置在/etc/nginx/sites-enabled/default。
+
+默认site的文件在/usr/share/nginx/html。
 
