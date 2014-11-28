@@ -66,4 +66,42 @@ tags: [CI,jenkins]
 
 ### 配置artifactory
 
-### 配置upload账号
+在 artifactory 中增加一个新的jenkins 用户，设置权限为可以读和upload。
+
+### 配置maven
+
+修改maven的配置文件，server配置段：
+
+	  <servers>
+	   <server>
+	      <username>jenkins</username>
+	      <password>****</password>
+	      <id>releases</id>
+	    </server>
+	    <server>
+	      <username>jenkins</username>
+	      <password>****</password>
+	      <id>snapshots</id>
+	    </server>
+	  </servers>
+
+然后试着su 到 jenkins用户，试找打包代码和发布到artifactory，如果一切顺利，说明jenkins用户的git/maven/artifactory都可以正常使用。这样就可以去jenkins上创建相应的job了。
+
+### 常见问题
+
+配置后，在deploy打包好的jar包到artifactory时遇到两个问题，解决后才反应过来，原来N年前配置的时候也遇到过......
+
+真是无语，所以还是记录下来避免日后再浪费时间。
+
+
+1. 报错为"repository element was not specified in the POM inside distributionManagement element or in -DaltDeploymentRepository=id::layout::url parameter"
+	
+	这个报错的原因是pom.xml里面没有distributionManagement配置，这个是用来告诉maven要deploy打包之后的文件到artifactory的哪个仓库，没有这个信息artifactory无法工作。我不大喜欢在pom.xml文件中制定，因为可能在不同的机器上发布的artifactory是不一样的。所以一般用-DaltDeploymentRepository参数来制定。
+
+2. 报错为"Return code is: 405, ReasonPhrase: Method Not Allowed."
+
+	这个错误有点低级了，前面maven的settings.xml文件里面有一个release(或者snapshort)的仓库地址，如 http://localhost:8081/artifactory/libs-release 。 但是这个仓库是一个虚拟仓库，是不能直接deploy到这里的。应该修改为 http://localhost:8081/artifactory/libs-release-local 。 这个libs-release-local仓库才是满足我们要求的仓库。
+
+下面是一个执行deploy的maven命令：
+
+	mvn -DaltDeploymentRepository=releases::default::http://localhost:8081/artifactory/libs-release-local -DperformRelease=true -Dgpg.skip -DskipTests deploy

@@ -116,7 +116,7 @@ tags: [linux,ubuntu,server]
 	repo testing
 	    RW+     =   @all
 
-### 倒入原有git仓库
+### 导入原有git仓库
 
 将原有gitolite下的git 仓库打成tar包，然后传到新机器。解开tar，将tar包中repositories下各个git仓库复制到/home/git/repositories/下(记得gitolite-admin除外)，然后修改gitolite-admin/conf/gitolite.conf，增加各个仓库的对应访问信息即可。
 
@@ -184,6 +184,71 @@ tags: [linux,ubuntu,server]
 安全起见，登录后先修改admin密码，点击Admin -> Security -> Users -> User List -> admin，修改密码即可。 
 
 另外，Admin -> Security -> General, 取消"Allow Anonymous Access"。
+
+### 配置maven
+
+为了让mvn能连接到本地的artifactory，需要配置maven。
+
+修改maven的配置文件，全局配置文件在maven3安装路径 /usr/share/maven3/conf/ 下，需要更新server配置信息和profile 配置信息。
+
+server配置段：
+
+	  <servers>
+	   <server>
+	      <username>****</username>
+	      <password>****</password>
+	      <id>releases</id>
+	    </server>
+	    <server>
+	      <username>****</username>
+	      <password>****</password>
+	      <id>snapshots</id>
+	    </server>
+	  </servers>
+
+profile配置段：
+
+	  <profiles>
+	    <profile>
+	      <repositories>
+	        <repository>
+	          <snapshots>
+	            <enabled>false</enabled>
+	          </snapshots>
+	          <id>releases</id>
+	          <name>libs-release</name>
+	          <url>http://localhost:8081/artifactory/libs-release</url>
+	        </repository>
+	        <repository>
+	          <snapshots />
+	          <id>snapshots</id>
+	          <name>libs-snapshot</name>
+	          <url>http://localhost:8081/artifactory/libs-snapshot</url>
+	        </repository>
+	      </repositories>
+	      <pluginRepositories>
+	        <pluginRepository>
+	          <snapshots>
+	            <enabled>false</enabled>
+	          </snapshots>
+	          <id>releases</id>
+	          <name>plugins-release</name>
+	          <url>http://localhost:8081/artifactory/plugins-release</url>
+	        </pluginRepository>
+	        <pluginRepository>
+	          <snapshots />
+	          <id>snapshots</id>
+	          <name>plugins-snapshot</name>
+	          <url>http://localhost:8081/artifactory/plugins-snapshot</url>
+	        </pluginRepository>
+	      </pluginRepositories>
+	      <id>artifactory</id>
+	    </profile>
+	  </profiles>
+
+	  <activeProfiles>
+	    <activeProfile>artifactory</activeProfile>
+	  </activeProfiles>
 
 ### 安装gradle
 
@@ -253,4 +318,24 @@ tags: [linux,ubuntu,server]
 默认配置文件在/etc/nginx/nginx.conf，默认site配置在/etc/nginx/sites-enabled/default。
 
 默认site的文件在/usr/share/nginx/html。
+
+## 数据库服务器
+
+### 安装mongodb
+
+执行以下命令（[参考地址](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)）：
+
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+	echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+	sudo apt-get update
+	sudo apt-get install -y mongodb-org
+
+安装完成后，看看mongodb的版本，执行mongod --version：
+
+	db version v2.6.5
+	2014-11-28T06:50:30.454+0000 git version: e99d4fcb4279c0279796f237aa92fe3b64560bf6
+
+### 安装redis
+
+### 安装mysql
 
