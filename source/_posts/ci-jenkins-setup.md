@@ -35,6 +35,10 @@ tags: [CI,jenkins]
 1. Git Client Plugin
 2. Git Parameter Plugin
 
+### jenkins 排版
+
+### 
+
 # 配置Jenkins
 
 ## 修改系统配置
