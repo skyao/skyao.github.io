@@ -37,6 +37,8 @@ tags: [CI,jenkins]
 
 ### jenkins 排版
 
+greenball
+
 ### 
 
 # 配置Jenkins
