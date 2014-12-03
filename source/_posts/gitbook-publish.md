@@ -36,11 +36,50 @@ tags: [gitbook,grunt]
 
 	`npm install -g grunt-cli`
 
+3. 复制文件package.json, Gruntfile.js到当前book的根目录下
+
+	Grentfile.js文件需要根据实际数的情况稍作改动：
+
+> 	grunt.initConfig({
+>         'gitbook': {
+>             development: {
+>                 input: "./",
+>                 title: "Action In Java Performance Tuning",
+>                 description: "The Java Performance Tuning book.",
+>                 github: "skyao/action-in-java-performance-tuning"
+>             }
+>         }
+
+可以修改port来改变本地预览时的端口号：
+
+>         'http-server': {
+>             'dev': {
+>                 // the server root directory
+>                 root: '_book',
+> 
+>                 port: 4000,
+>                 host: "127.0.0.1",
+
+package.json文件也需要做一些小的改动，主要是提供一些必要信息如git仓库：
+
+>     "name": "Action-In-Java-Performance-Tuning",
+>     "version": "0.0.1",
+>     "description": "the Java Performance Tuning book",
+>     "repository": {
+>         "type": "git",
+>         "url": "https://github.com/skyao/action-in-java-performance-tuning"
+>     },
+>     "author": "Sky Ao <aoxiaojian@gmail.com>",
+
+4. 执行npm install
+
+	`npm install .`
+
 3. 测试时可以直接执行
 
     `grunt test`
 
-	这样可以直接在浏览器中预览到当前的最新内容。
+	这样可以直接在浏览器中预览到当前的最新内容。记得如果上述命令报错，"Fatal error: Unable to find local grunt."，说明是上一步npm install没有执行。
 
 4. 发布内容，执行
 
