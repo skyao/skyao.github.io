@@ -38,3 +38,18 @@ tags: [hexo]
 	/themes/pacman/_config.yml
 	/themes/pacman/source/img
 
+# 执行npm install
+
+如果发现执行hexo server后，用浏览器访问出现问题，页面无法正常显示，其内容是index.html的源代码，node.js代码没有执行。这种情况下需要额外执行一次npm install命令：
+
+	npm install
+
+这个问题困扰了很长时间，我在公司笔记本上安装正常，在家里的电脑上则遇到这个问题。很痛苦的检查各处，查不出来是哪里出来问题。后来我无可奈何下hexo init了一个新的blog，想测试一下，发现init命令执行后提示说别忘了运行"npm install"命令：
+
+	$ hexo init aaa
+	[info] Copying data
+	[info] You are almost done! Don't forget to run `npm install` before you start blogging with Hexo!
+
+我查了一下之前的安装记录和我参考的几个hexo安装文档，都没有提到需要这个步骤，我也糊涂于之之前安装为什么又没有遇到问题......
+
+
