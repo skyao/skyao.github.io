@@ -1,4 +1,4 @@
-title: 配置Jenkins服务器
+title: (记录)配置Jenkins服务器
 date: 2014-11-27 16:22:27
 categories: CI
 tags: [CI,jenkins]
