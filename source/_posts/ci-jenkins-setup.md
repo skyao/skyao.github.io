@@ -30,14 +30,19 @@ tags: [CI,jenkins]
 
 需要安装以下插件：
 
-### git相关插件
+### git相关
 
 1. Git Client Plugin
 2. Git Parameter Plugin
 
-### jenkins 排版
+### view 排版
 
-### 
+1. Nested View Plugin
+2. Sectioned View Plugin
+
+### 运行状态
+
+1. Green Balls
 
 # 配置Jenkins
 
