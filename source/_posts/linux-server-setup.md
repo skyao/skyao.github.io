@@ -24,6 +24,31 @@ tags: [linux,ubuntu,server]
 
 	adduser -g sudo sky
 
+## 设置apt源
+
+如果服务器在国内，则可以考虑设置apt源为国内代理，这样速度要好很多。
+
+首先备份源列表:
+
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+
+然后修改/etc/apt/sources.list文件，我选择用163的镜像:
+
+    deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+    deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+    deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+    deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+    deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+    deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+    deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+    deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+    deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+    deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+记得执行update命令：
+
+	sudo apt-get update
+
 # 开发环境搭建
 
 ## Java相关
@@ -119,6 +144,23 @@ tags: [linux,ubuntu,server]
 ### 导入原有git仓库
 
 将原有gitolite下的git 仓库打成tar包，然后传到新机器。解开tar，将tar包中repositories下各个git仓库复制到/home/git/repositories/下(记得gitolite-admin除外)，然后修改gitolite-admin/conf/gitolite.conf，增加各个仓库的对应访问信息即可。
+
+### 安装gitlab
+
+在配置另外一台ubuntu server时，决定试试gitlab，因为功能比gitolite强大。
+
+安装方式参考gitlab官方资料，打开 https://about.gitlab.com/downloads/ 页面，"select operating system"选"ubuntu14.04"，然后按照指示执行安装：
+
+	sudo apt-get install openssh-server
+	sudo apt-get install postfix
+	wget https://downloads-packages.s3.amazonaws.com/ubuntu-14.04/gitlab_7.7.2-omnibus.5.4.2.ci-1_amd64.deb
+	sudo dpkg -i gitlab_7.7.2-omnibus.5.4.2.ci-1_amd64.deb
+	sudo gitlab-ctl reconfigure
+
+完成后通过浏览器访问(地址？)默认管理员密码如下：
+
+	Username: root 
+	Password: 5iveL!fe
 
 ## 打包发布工具
 
