@@ -175,9 +175,20 @@ tags: [linux,ubuntu,server]
 	sudo apt-get install postfix
 	wget https://downloads-packages.s3.amazonaws.com/ubuntu-14.04/gitlab_7.7.2-omnibus.5.4.2.ci-1_amd64.deb
 	sudo dpkg -i gitlab_7.7.2-omnibus.5.4.2.ci-1_amd64.deb
+
+安装完成之后，修改一下配置文件，主要是设置端口，默认是用80端口。
+
+	sudo vi /etc/gitlab/gitlab.rb
+
+修改external_url，直接增加端口号即可，比如我这里用8800端口：
+
+	external_url 'http://skyserver:8800'
+
+修改之后再执行命令：
+
 	sudo gitlab-ctl reconfigure
 
-完成后通过浏览器访问(地址？)默认管理员密码如下：
+完成后通过浏览器访问(http://skyserver:8800)默认管理员密码如下：
 
 	Username: root 
 	Password: 5iveL!fe
