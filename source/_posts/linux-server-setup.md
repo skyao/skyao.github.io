@@ -74,6 +74,26 @@ tags: [linux,ubuntu,server]
 
 	/usr/lib/jvm/java-7-oracle
 
+如果手工安装，可以从oracle网站下载安装文件，如jdk-7u75-linux-x64.gz（对于ubuntu不要下载rpm版本）。
+
+手工解压缩到安装路径:
+
+	gunzip jdk-7u75-linux-x64.gz
+	gunzip jdk-7u75-linux-x64.gz
+	sudo mkdir /usr/lib/jvm
+	sudo mv jdk-7u75-linux-x64 /usr/lib/jvm/jdk7
+
+修改/etc/profile文件，在最后加入以下内容：
+
+	# java
+	export JAVA_HOME=/usr/lib/jvm/jdk7
+	export PATH=$JAVA_HOME/bin:$PATH
+
+安装好后检验一下：
+
+	source /etc/profile
+	java -version
+
 ## 版本控制
 
 ### 安装Git
