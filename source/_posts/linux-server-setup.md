@@ -367,6 +367,13 @@ profile配置段：
 	jenkins   7158     1  0 07:50 ?        00:00:00 /usr/bin/daemon --name=jenkins --inherit --env=JENKINS_HOME=/var/lib/jenkins --output=/var/log/jenkins/jenkins.log --pidfile=/var/run/jenkins/jenkins.pid -- /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1
 	jenkins   7159  7158 99 07:50 ?        00:00:24 /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1
 
+如果需要修改为8080之外的其他端口，需要修改配置文件"/etc/default/jenkins"
+
+	# port for HTTP connector (default 8080; disable with -1)
+	HTTP_PORT=8080
+
+修改后执行"sudo service jenkins restart"重启jenkins。
+
 同样安全起见，不能让匿名用户有太多权限。
 
 1. Jenkins -> Configure Global Security -> 启用安全 勾上，访问控制选 Jenkins专用用户数据库（千万记得选上“容许用户注册”！）， 授权策略选 登录用户可以做任何事。
