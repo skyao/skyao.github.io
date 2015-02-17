@@ -71,6 +71,8 @@ package.json文件也需要做一些小的改动，主要是提供一些必要�
 >     },
 >     "author": "Sky Ao <aoxiaojian@gmail.com>",
 
+注意： name 不能带有空格，否则npm install的时候会报错。
+
 4. 执行npm install
 
 	`npm install .`
