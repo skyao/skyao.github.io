@@ -43,3 +43,21 @@ tags: [windows]
 
 之后不用outlook的时候，只要点击最小化，就会隐藏到托盘，而不是默认的那种会最小化到任务栏。
 
+# 系统优化
+
+## 关闭Windows Defender
+
+参考 [win8.1如何关闭Windows Defender](http://jingyan.baidu.com/article/ca00d56c8e14f2e99eebcf9a.html)
+
+## 加速桌面右键菜单
+
+需要删除桌面右键菜单中显卡的选项，包括nvidia显卡和intel显卡。
+
+参考 [WIN7如何为桌面右键菜单减肥和加速？](http://jingyan.baidu.com/article/00a07f38b8224382d028dc3d.html)
+
+按照上述方法搞定了nvidia显卡， 但是intel显卡无效。
+
+最后参考这里 [win8.1右键单击桌面空白反应变慢](http://jingyan.baidu.com/article/6d704a130b7d0828db51ca2c.html)
+
+	运行 右键管家--菜单管理--目录背景    把“The DeskTopContextMenu Class”关闭可以了
+
