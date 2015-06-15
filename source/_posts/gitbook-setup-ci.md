@@ -1,6 +1,6 @@
 title: 自动出书-实现gitbook的持续集成
 date: 2015-02-17 15:18:54
-categories: 杂谈
+categories: Git
 tags: [gitbook]
 ---
 

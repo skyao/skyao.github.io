@@ -1,6 +1,6 @@
 title: 在gitbook中实现多级导航栏的支持
 date: 2015-06-15 14:36:49
-categories: 杂谈
+categories: Git
 tags: [gitbook]
 ---
 

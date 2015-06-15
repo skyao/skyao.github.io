@@ -1,6 +1,6 @@
 title: (记录)解决git bash启动时报错的问题
 date: 2015-02-05 15:09:19
-categories: VCS
+categories: Git
 tags: [git]
 ---
 

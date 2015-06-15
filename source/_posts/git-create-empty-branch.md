@@ -1,6 +1,6 @@
 title: git中创建新的空白分支
 date: 2015-03-18 15:51:23
-categories: VCS
+categories: Git
 tags: [git]
 ---
 

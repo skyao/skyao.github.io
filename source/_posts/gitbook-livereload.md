@@ -1,6 +1,6 @@
 title: 在gitbook中实现livereload的支持
 date: 2015-06-15 19:36:49
-categories: 杂谈
+categories: Git
 tags: [gitbook]
 ---
 

@@ -1,6 +1,6 @@
 title: 轻松将gitbook内容发布到github pages上
 date: 2014-04-22 23:45:19
-categories: 杂谈
+categories: Git
 tags: [gitbook,grunt]
 ---
 

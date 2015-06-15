@@ -1,6 +1,6 @@
 title: (资料)git tag命令资料收集
 date: 2014-12-03 12:08:12
-categories: VCS
+categories: Git
 tags: [git,tag]
 ---
 

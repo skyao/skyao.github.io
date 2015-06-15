@@ -1,6 +1,6 @@
 title: (记录)gitlab安装配置
 date: 2015-02-16 15:44:29
-categories: VCS
+categories: Git
 tags: [git,gitlab]
 ---
 
