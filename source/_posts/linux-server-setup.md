@@ -1,5 +1,5 @@
 title: (记录)在ubuntu服务器上搭建全套开发环境
-date: 2014-11-25 14:04:50
+date: 2015-07-03 22:15:50
 categories: Linux
 tags: [linux,ubuntu,server]
 ---
@@ -11,6 +11,8 @@ tags: [linux,ubuntu,server]
 #  前言
 
 最近打算更换开发用的服务器，需要将全套开发测试环境搬过去。坦白说这个过程挺麻烦的，记录一下全过程，以备下次使用。
+
+后续发生变化或者增加新的内容时，会持续更新此文。
 
 # 服务器配置
 
@@ -415,3 +417,61 @@ profile配置段：
 
 ### 安装mysql
 
+执行以下命令:
+
+	sudo apt-get install mysql-server
+
+中途会要求设置root密码，安装完成后mysql就已经自动启动了，可以用下面的命令来操作mysql：
+
+	sudo service mysql start
+	sudo service mysql stop
+	sudo service mysql restart
+
+执行下面命令来初始化mysql安装设置，记得容许root用户远程访问：
+
+	/usr/bin/mysql_secure_installation
+
+如果不执行上面的脚本，也可以自己登录mysql后手工设置：
+
+	mysql -uroot -p
+
+输入root密码，登录后在mysql的命令行中执行：
+
+	mysql>use mysql;
+	mysql>delete from user where password="";
+	mysql>update user set host = '%' where user = 'root';
+	mysql>flush privileges;
+	mysql>quit
+
+对于root账号，如果考虑安全应该新建其他账号用于远程登录，root账号可以不必开启远程登录。不过对于一般使用，没有太多安全需求，允许root用户远程登录可以方便管理，毕竟使用专用管理软件的图形界面在操作方面要方便的多。
+
+也可以用root账号设置好其他使用账号之后，再禁用root账号的远程访问功能。
+
+mysql默认是监听127.0.0.1地址的，为了让外网可以访问mysql，需要修改mysql配置文件：
+
+	sudo vi /etc/mysql/my.cnf
+
+找到该行并注释掉
+
+	#bind-address　　　　　 = 127.0.0.1
+
+保存修改后的my.cnf文件后执行 sudo service mysql restart 重启mysql即可远程访问。
+
+## 开发工具
+
+### 安装sonar
+
+先准备好mysql，在mysql中新建名为sonar的database,encoding选择为UTF-8，然后新建名为sonar密码也是sonar的用户，设置好对sonar database的权限。
+
+从[sonar官网](http://www.sonarqube.org/downloads/)下载最新的[sonar zip包](http://downloads.sonarsource.com/sonarqube/sonarqube-5.1.1.zip)，然后解压缩。
+
+修改conf/sonar.properties文件，打开一下注释：
+
+	sonar.jdbc.username=sonar
+	sonar.jdbc.password=sonar
+	
+	sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance
+
+	sonar.web.port=6800
+
+然后执行 "./bin/linux-x86-32/sonar.sh start"，启动sonar。打开浏览器访问http://yourip:6800/ 即可。默认管理员账号密码为: admin/admin。
