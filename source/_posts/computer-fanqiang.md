@@ -64,3 +64,20 @@ https://github.com/shadowsocks/shadowsocks-android/releases
 
 安装配置好就可以在手机上看u2b啦！
 
+# 安装linux客户端
+
+从 [shadowsocks-gui](https://github.com/shadowsocks/shadowsocks-gui) 得知，linux客户端是shadowsocks-qt5，居然还提供中文版本的[安装指南](https://github.com/librehat/shadowsocks-qt5/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97) 。赞一个！
+
+按照安装指南，执行安装：
+
+	sudo add-apt-repository ppa:hzwhuang/ss-qt5
+	sudo apt-get update
+	sudo apt-get install shadowsocks-qt5
+
+安装完成后，执行命令启动：
+
+	ss-qt5
+
+图形界面上可以找到shadowsocks-qt5的图标，或者gnome do 之类的工具也可以。
+
+启动后配置和windows版本类似。
