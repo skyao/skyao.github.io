@@ -85,6 +85,10 @@ tags: [linux,mint linux]
 	sudo apt-get update
 	sudo apt-get install cpufreqd
 
+配置中发现cpufreqd 提供了非常灵活的调节方式, 惊为天人! 
+
+为此单独写了一个blog来记录, 详情请参考这里:  [linux下的cpu节能神器cpufreqd](../../08/linux-cpufreqd/)
+
 注: 看到有人推荐indicator-cpufreq, 实际安装后发现不好用,后来选择了 Conky.
 
 ### 轻量级系统监控工具Conky
