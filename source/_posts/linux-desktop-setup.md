@@ -103,6 +103,49 @@ tags: [linux,mint linux]
 
 然后执行 hardinfo 命令就可以在图形界面上看到硬件信息. 
 
+### Intel cpu睿频查看工具i7z
+
+参考这个文章: 
+
+[i7z: Monitor Intel i7, i5 And i3 Frequencies, Multipliers And More Under Linux](http://www.tuicool.com/articles/UnQzie)
+
+安装方式:
+
+	sudo apt-get install i7z
+	sudo apt-get install i7z-gui
+
+运行命令: 
+
+	sudo i7z
+
+或者看图形界面:
+
+	gksu i7z_GUI
+
+注: 这个没有温度显示, 所以后面用Psensor了.
+
+### 硬件温度监控工具Psensor
+
+参考这个文章:  [如何在 Ubuntu 中检查笔记本 CPU 的温度](http://www.linuxidc.com/Linux/2015-06/119201.htm).
+
+运行安装命令:
+
+	sudo apt-get install lm-sensors hddtemp
+	
+检测硬件传感器：
+
+	sudo sensors-detect
+	
+确保已经工作，运行下面的命令：
+
+	sensors
+
+使用下面的命令安装Psensor：
+
+	sudo apt-get install psensor
+
+之后执行Psensor命令就可以看到各个传感器的温度,包括cpu温度,还可以设置温度报警.
+
 ## 系统工具
 
 注: 以下工具大都可以通过apt-get安装, 后来发现通过软件管理器安装更加简单,所以如果没有特别说明后面的软件都是通过软件管理器安装的.
