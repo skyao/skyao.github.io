@@ -6,13 +6,13 @@ tags: [linux,mint linux]
 
 打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。
 
+后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2015-08-08)。
+
 <!--more-->
 
 #  前言
 
 虽然windows 10很是不错，但是还是想试试用linux做桌面。坦白说这个过程挺麻烦的，记录一下全过程，以备下次使用。
-
-后续发生变化或者增加新的内容时，会持续更新此文。
 
 注: 我最后选定的linux发型版本时mint linux 17.2, 因为看评论这个发行版本比较容易上手. 安装过程不介绍了,挺简单,一路轻松安装好.
 
@@ -164,10 +164,65 @@ gnome do还支持插件, 有几个是非常使用的:
 - chromium: 可以搜索google chrome 浏览器的书签, 这个特别方便
 - putty: 可以访问保存的putty session
 
-### 终端guake 
+### 终端 guake 
 
 快捷的终端，安装完之后，记得在开机启动里面增加它的启动项. 
 
 补充: 发现开机自动启动guake也不见得是好事, 还是取消开机启动项吧.第一次用的时候,可以考虑用gnome do启动guake.
 
-### 
+# 日常软件
+
+## 工具
+
+### 截图程序 shutter 
+
+直接用软件管理器安装, 另外需要安装几个配套的软件才能使用全面的功能:
+
+- gnome-web-photo: a tool to generate full-size image files and thumbnails from HTML files and web pages 用于抓取整个网页
+- libgoo-canvas-perl: canvas widget 用于编辑抓图文件,增加标注等
+
+用了一下勉强还算凑合, 最主要的三个截图方式都支持: 特定区域、窗口、 整个屏幕。
+
+## 系统软件
+
+### windows兼容层 wine 
+
+Microsoft windows compatibility layer 
+
+### vmware workstation
+
+http://down.tech.sina.com.cn/page/3748.html
+
+下载下来的bundle文件，打开文件属性设置为可执行，然后用root账号执行就可开始安装界面。
+
+系列号： 1F04Z-6D111-7Z029-AV0Q4-3AEH8
+
+## 网络软件
+
+### 常用网络工具软件
+
+这几个算是最常用的网络工具软件了: 
+
+- ftp客户端 filezilla  
+- curl
+- putty: 注意gnome do有putty的插件,可以非常方便的打开putty保存的session
+
+### google chrome 浏览器
+
+在[以下地址](http://www.google.cn/chrome/browser/thankyou.html?platform=linux)下载适合的64位debian dev 版本，然后直接安装即可
+
+或者直接用这个下载链接:
+
+https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+
+# 参考资料
+
+期间陆陆续续百度/谷歌, 部分信息参考自以下文章:
+
+- [安装Linux Mint 17后要做的20件事](http://linux.it.net.cn/e/Linuxit/2014/0710/2825.html)
+- [多快好省：10个技巧加速你的LinuxMint/Ubuntu](http://www.mintos.org/config/speedup-mint.html)
+- [查看linux系统CPU信息的经验](http://jingyan.baidu.com/article/6525d4b150b472ac7d2e94a6.html)
+- [如何在 Ubuntu 中检查笔记本 CPU 的温度](http://www.linuxidc.com/Linux/2015-06/119201.htm)
+
+
