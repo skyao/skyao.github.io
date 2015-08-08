@@ -215,6 +215,65 @@ http://down.tech.sina.com.cn/page/3748.html
 
 https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
+## 编辑器
+
+### markdown编辑器cutemarked
+
+详细见单独的blog: [推荐linux下的markdown编辑器cutemarked](../../../../2015/08/07/cutemarked-install/)
+
+# 编程开发软件
+
+## 工具软件
+
+### Git
+
+直接apt-get:
+
+	sudo add-apt-repository ppa:git-core/ppa
+	sudo apt-get update
+	sudo apt-get install git
+
+## Java相关
+
+### JDK
+
+安装jdk7，直接apt-get:
+
+	sudo add-apt-repository ppa:webupd8team/java
+	sudo apt-get update
+	sudo apt-get install oracle-java7-installer
+	sudo apt-get install oracle-java7-set-default
+
+之前都是这么搞定的, 但是今天遇到问题, 卡在这里无法继续: 
+
+Resolving edelivery.oracle.com (edelivery.oracle.com)... 104.90.218.20
+Connecting to edelivery.oracle.com (edelivery.oracle.com)|104.90.218.20|:443... connected.
+
+只好放弃,手工安装JDK: 
+
+	gunzip jdk-7u75-linux-x64.gz
+	gunzip jdk-7u75-linux-x64.gz
+	sudo mkdir /usr/lib/jvm
+	sudo mv jdk-7u75-linux-x64 /usr/lib/jvm/jdk7
+
+修改/etc/profile文件，在最后加入以下内容：
+
+	# java
+	export JAVA_HOME=/usr/lib/jvm/jdk7
+	export PATH=$JAVA_HOME/bin:$PATH
+
+安装好后检验一下：
+
+	source /etc/profile
+	java -version
+
+### java打包工具
+
+以下工具的安装参考之前的blog[在ubuntu服务器上搭建全套开发环境](../../../../2015/07/03/linux-server-setup/#打包发布工具),安装方式是一样的.
+
+- ant
+- maven
+- gradle
 
 # 参考资料
 
