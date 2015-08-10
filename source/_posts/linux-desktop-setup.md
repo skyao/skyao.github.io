@@ -215,11 +215,17 @@ http://down.tech.sina.com.cn/page/3748.html
 
 https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
+### 翻墙软件 shadowsocks
+
+之前有单独的 blog 谈到这个话题: [使用shadowsocks实现科学上网](../../../../2015/07/14/computer-fanqiang/), linux上我继续使用 shadowsocks.
+
 ## 编辑器
 
 ### 文本编辑器VIM
 
-直接用软件管理器安装Vim / Vim-gnome /
+直接用软件管理器安装Vim / Vim-gnome.
+
+但是郁闷的是操作系统中找不到安装好的vim,只能通过命令行的方式来启动vim.
 
 ### 文本编辑器sublime text 3
 
@@ -241,7 +247,7 @@ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 安装简单,直接运行下载好的 haroopad-v0.13.1-x64.deb 就可以了.
 
-简单试用了以下,这个软件还是比较好用的,不错的markdown编辑器,以后就用它了.
+简单试用了一下,这个软件还是比较好用的,不错的markdown编辑器,以后就用它了.
 
 # 编程开发软件
 
