@@ -39,10 +39,10 @@ tags: [linux,mint linux]
 
 默认不带中文输入法，这个当然不能容忍，第一时间执行以下命令安装搜狗中文输入法：
 
-	sudo add-apt-repository ppa:fcitx-team/nightly  
-	sudo aptitude update  
+	sudo add-apt-repository ppa:fcitx-team/nightly
+	sudo aptitude update
 	sudo ptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic
-	
+
 注意：fcitx-sogoupinyin" 会提示无法安装，忽略即可.在搜狗主页下载“搜狗for Linx”, 下载后双击安装.
 
 打开 菜单 -> 首选项 -> 输入法，设置为“fcitx". 重启就OK
@@ -61,7 +61,7 @@ tags: [linux,mint linux]
 
 ### 设置屏幕亮度
 
-默认屏幕亮度会自动设置到最大亮度, 很明显这个行为对眼睛很不友好...... 
+默认屏幕亮度会自动设置到最大亮度, 很明显这个行为对眼睛很不友好......
 
 通过功能键或者电源设置, 修改到适当亮度之后, 会发现一旦重启一切又变回来了.
 
@@ -85,7 +85,7 @@ tags: [linux,mint linux]
 	sudo apt-get update
 	sudo apt-get install cpufreqd
 
-配置中发现cpufreqd 提供了非常灵活的调节方式, 惊为天人! 
+配置中发现cpufreqd 提供了非常灵活的调节方式, 惊为天人!
 
 为此单独写了一个blog来记录, 详情请参考这里:  [linux下的cpu节能神器cpufreqd](../../08/linux-cpufreqd/)
 
@@ -99,17 +99,17 @@ tags: [linux,mint linux]
 	sudo apt-get update
 	sudo apt-get install conky-manager
 
-之后打开conky-manager,选择需要的weget,可以通过编辑weget的属性来调整在桌面的位置. 
+之后打开conky-manager,选择需要的weget,可以通过编辑weget的属性来调整在桌面的位置.
 
 ### 硬件信息查看工具hardinfo
 
 	sudo apt-get install hardinfo
 
-然后执行 hardinfo 命令就可以在图形界面上看到硬件信息. 
+然后执行 hardinfo 命令就可以在图形界面上看到硬件信息.
 
 ### Intel cpu睿频查看工具i7z
 
-参考这个文章: 
+参考这个文章:
 
 [i7z: Monitor Intel i7, i5 And i3 Frequencies, Multipliers And More Under Linux](http://www.tuicool.com/articles/UnQzie)
 
@@ -118,7 +118,7 @@ tags: [linux,mint linux]
 	sudo apt-get install i7z
 	sudo apt-get install i7z-gui
 
-运行命令: 
+运行命令:
 
 	sudo i7z
 
@@ -135,11 +135,11 @@ tags: [linux,mint linux]
 运行安装命令:
 
 	sudo apt-get install lm-sensors hddtemp
-	
+
 检测硬件传感器：
 
 	sudo sensors-detect
-	
+
 确保已经工作，运行下面的命令：
 
 	sensors
@@ -160,13 +160,13 @@ tags: [linux,mint linux]
 
 gnome do还支持插件, 有几个是非常使用的:
 
-- files and folds: 可以用来指定若干个目录, 然后可以方便的用gnome do 来查找这些目录和它的子目录 (有一个深度参数可以订制子目录层次) 
+- files and folds: 可以用来指定若干个目录, 然后可以方便的用gnome do 来查找这些目录和它的子目录 (有一个深度参数可以订制子目录层次)
 - chromium: 可以搜索google chrome 浏览器的书签, 这个特别方便
 - putty: 可以访问保存的putty session
 
-### 终端 guake 
+### 终端 guake
 
-快捷的终端，安装完之后，记得在开机启动里面增加它的启动项. 
+快捷的终端，安装完之后，记得在开机启动里面增加它的启动项.
 
 补充: 发现开机自动启动guake也不见得是好事, 还是取消开机启动项吧.第一次用的时候,可以考虑用gnome do启动guake.
 
@@ -174,7 +174,7 @@ gnome do还支持插件, 有几个是非常使用的:
 
 ## 工具
 
-### 截图程序 shutter 
+### 截图程序 shutter
 
 直接用软件管理器安装, 另外需要安装几个配套的软件才能使用全面的功能:
 
@@ -185,9 +185,9 @@ gnome do还支持插件, 有几个是非常使用的:
 
 ## 系统软件
 
-### windows兼容层 wine 
+### windows兼容层 wine
 
-Microsoft windows compatibility layer 
+Microsoft windows compatibility layer
 
 ### vmware workstation
 
@@ -201,9 +201,9 @@ http://down.tech.sina.com.cn/page/3748.html
 
 ### 常用网络工具软件
 
-这几个算是最常用的网络工具软件了: 
+这几个算是最常用的网络工具软件了:
 
-- ftp客户端 filezilla  
+- ftp客户端 filezilla
 - curl
 - putty: 注意gnome do有putty的插件,可以非常方便的打开putty保存的session
 
@@ -217,9 +217,31 @@ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 ## 编辑器
 
+### 文本编辑器VIM
+
+直接用软件管理器安装Vim / Vim-gnome /
+
+### 文本编辑器sublime text 3
+
+从[官网下载](http://www.sublimetext.com/3) 对应的deb包直接安装即可.
+
+但是发现安装完成之后找不到程序, 只能命令行启动.
+
+卸载后用软件管理器, 发现没有这个问题. 因此推荐使用软件管理器安装, 安装完成后系统和gnome do都可以识别.
+
 ### markdown编辑器cutemarked
 
 详细见单独的blog: [推荐linux下的markdown编辑器cutemarked](../../../../2015/08/07/cutemarked-install/)
+
+补充: 最后由于无法在cutemarked中使用搜狗输入法,不得已替换为haroopad.
+
+### markdown编辑器 Haroopad
+
+从 http://pad.haroopress.com/ 下载, 比较奇怪的是下载速度奇慢无比, 只有10k-20k的速度, 好不容易才下载好.
+
+安装简单,直接运行下载好的 haroopad-v0.13.1-x64.deb 就可以了.
+
+简单试用了以下,这个软件还是比较好用的,不错的markdown编辑器,以后就用它了.
 
 # 编程开发软件
 
@@ -244,12 +266,12 @@ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	sudo apt-get install oracle-java7-installer
 	sudo apt-get install oracle-java7-set-default
 
-之前都是这么搞定的, 但是今天遇到问题, 卡在这里无法继续: 
+之前都是这么搞定的, 但是今天遇到问题, 卡在这里无法继续:
 
 Resolving edelivery.oracle.com (edelivery.oracle.com)... 104.90.218.20
 Connecting to edelivery.oracle.com (edelivery.oracle.com)|104.90.218.20|:443... connected.
 
-只好放弃,手工安装JDK: 
+只好放弃,手工安装JDK:
 
 	gunzip jdk-7u75-linux-x64.gz
 	gunzip jdk-7u75-linux-x64.gz
@@ -275,6 +297,44 @@ Connecting to edelivery.oracle.com (edelivery.oracle.com)|104.90.218.20|:443... 
 - maven
 - gradle
 
+### IDE
+
+- intellij idea
+
+	从官网下载linux 版本例如 ideaIU-14.1.4.tar.gz, 解压后 然后依照 Install-Linux-tar.txt 的提示运行 idea.sh 就安装好了.
+
+	安装过程中记得选择"create desktop entry", 这样可以让操作系统知道有安装intellij idea并创建快捷方式. 
+
+	也可以在安装完成后通过菜单项 Tools -> "create desktop entry" 来处理.
+
+- webstorm
+
+	安装方式和intellij idea 一样.
+
+- eclipse
+
+	从[eclipse 官网下载](http://www.eclipse.org/downloads/) for linux 64 的版本如 eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz.
+
+	解压即可直接使用,为了方便我们需要为eclipse 增加desktop entry,执行命令:
+
+		sudo gedit /usr/share/applications/eclipse.desktop
+
+	输入以下内容并保存:
+
+		[Desktop Entry]
+		Name=eclipse
+		Name[zh_CN]=Eclipse
+		Comment=eclipse Client
+		Exec=/home/sky/work/soft/java/eclipse/eclipse
+		Icon=/home/sky/work/soft/java/eclipse/icon.xpm
+		Terminal=false
+		Type=Application
+		Categories=Application;Development;
+		Encoding=UTF-8
+		StartupNotify=true
+
+	备注: 暂时还没有找到方法可以让gnome do这样的应用启动工具可以支持eclipse.
+
 # 参考资料
 
 期间陆陆续续百度/谷歌, 部分信息参考自以下文章:
@@ -283,5 +343,5 @@ Connecting to edelivery.oracle.com (edelivery.oracle.com)|104.90.218.20|:443... 
 - [多快好省：10个技巧加速你的LinuxMint/Ubuntu](http://www.mintos.org/config/speedup-mint.html)
 - [查看linux系统CPU信息的经验](http://jingyan.baidu.com/article/6525d4b150b472ac7d2e94a6.html)
 - [如何在 Ubuntu 中检查笔记本 CPU 的温度](http://www.linuxidc.com/Linux/2015-06/119201.htm)
-
+-[Ubuntu常用软件合集](http://www.lvzejun.cn/2015/03/31/ubuntu-software/)
 

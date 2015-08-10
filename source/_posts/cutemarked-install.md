@@ -14,16 +14,18 @@ tags: [markdown,linux]
 
 ## 编译安装
 
-参考这里给出的编译安装指南: 
+参考这里给出的编译安装指南:
 
 https://github.com/cloose/CuteMarkEd/wiki/Build-Instructions#ubuntu-1404
 
-在我的mint linux 17.2 上顺利打包出deb包并安装成功. 
+在我的mint linux 17.2 上顺利打包出deb包并安装成功.
 
 ## 问题
 
 遇到一个很郁闷的问题, 我的搜狗拼音输入法, 在cutemarked下,居然无法输入中文.
 
-这个问题还不知道该怎么解决...... 汗! 
+这个问题还不知道该怎么解决...... 汗!
+
+补充: 实在没有办法解决这个问题, 也不清楚具体是到底哪个软件的问题. 不得不找到其他软件来替代,后来替换为haroopad. 可惜了, cutemarked 支持目录大纲本来时一个极好的卖点.
 
 
