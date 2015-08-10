@@ -219,6 +219,16 @@ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 之前有单独的 blog 谈到这个话题: [使用shadowsocks实现科学上网](../../../../2015/07/14/computer-fanqiang/), linux上我继续使用 shadowsocks.
 
+### chrome插件SwitchyOmega
+
+在google chrome中安装SwitchyOmega 插件,然后加入场景设置使用本地shadowsocks作为代理.
+
+为了方便, SwitchyOmega 中设置自动切换,规则列表设置格式为AutoProxy,规则列表网址为下面地址,保存后更新:
+
+https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt
+
+这样用chrome上网就可以自动切换代理,需要翻墙时自动连shadowsocks,不需要时直接走.
+
 ## 编辑器
 
 ### 文本编辑器VIM
