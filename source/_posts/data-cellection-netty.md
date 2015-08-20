@@ -27,3 +27,15 @@ tags: [netty]
 - [netty-zmtp](https://github.com/spotify/netty-zmtp): A Netty implementation of ZMTP, the ZeroMQ Message Transport Protocol.
 - [NettyRPC](https://github.com/dawnbreaks/NettyRPC): Yet another RPC framework based on Netty
 - [facebook/nifty](https://github.com/facebook/nifty): Thrift on Netty. Nifty is an implementation of Thrift clients and servers on Netty
+
+# 书籍文章
+
+## netty相关
+
+- [Netty5.0架构剖析和源码解读](http://vdisk.weibo.com/s/C9LV9iVqH13rW/1391437855): 作者李林锋
+
+## 背景知识
+
+- [Scalable IO in Java](http://gee.cs.oswego.edu/dl/cpjslides/nio.pdf): 作者 Doug Lea
+- [IO - 同步，异步，阻塞，非阻塞 （亡羊补牢篇）](http://blog.csdn.net/historyasamirror/article/details/5778378)
+- [高性能网络编程系列](http://blog.csdn.net/column/details/high-perf-network.html)

@@ -187,7 +187,15 @@ gnome do还支持插件, 有几个是非常使用的:
 
 ### windows兼容层 wine
 
-Microsoft windows compatibility layer
+wine是Microsoft windows compatibility layer,让我们可以在linux上跑起来一些windows下的软件,对于某些只有windows版本的软件也是一种选择.
+
+用mint linux的软件管理器, 搜索安装以下内容: 
+
+- wine
+- wine mono: microsoft .net framework 支持
+- wine gecho
+- playonelinux
+- ttf-mscorefonts-installer: PlayOnLinux 第一次开启时会建议安装这个包
 
 ### vmware workstation
 
@@ -229,6 +237,18 @@ https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt
 
 这样用chrome上网就可以自动切换代理,需要翻墙时自动连shadowsocks,不需要时直接走.
 
+### 远程桌面软件 Remmina
+
+需要使用软件管理器安装remmina和几个插件:
+
+- remmina
+- remmina-common
+- remmmina-plugin-gnome
+- remmina-plugin-rdp: 这个一定要安装,连接windows桌面就是走rdp协议
+- remmina-plugin-vnc
+
+安装完成之后,打开remmina, "connection" -> "new", Protocol 选 "RDP - Remote Desktop Protocol", 设置链接参数和账号,就可以连接到windows桌面.
+
 ## 编辑器
 
 ### 文本编辑器VIM
@@ -258,6 +278,39 @@ https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt
 安装简单,直接运行下载好的 haroopad-v0.13.1-x64.deb 就可以了.
 
 简单试用了一下,这个软件还是比较好用的,不错的markdown编辑器,以后就用它了.
+
+## 影音娱乐
+
+虽然是在linux下,但是我们也不能放弃音乐对不对?
+
+### 网易云音乐
+
+我最喜欢的在线音乐播放器了, 但是很遗憾的发现没有linux版本......
+
+只能想其他办法, 试着用wine安装了,结果打开时整个软件窗口都是黑的, 倒,估计时缺少某些包. 换成playonlinux,在默认的default虚拟盘上安装了两个包(mono/gecho)之后,就可以顺利安装网易云音乐了.
+
+试用了一下, 功能都正常,只是音量大小调节无效,只能通过linux系统来调节音量,其他都OK.
+
+致命问题: 
+
+1. 似乎音质一般, 猜测可能是跑在wine上?
+2. 居然会卡......
+
+看来还是需要linux原生的音乐播放器.
+
+### 酷我音乐linux客户端
+
+baidu时发现的好东东, 没有想到linux下居然有这么好的在线音乐播放器, 真是喜出望外![]()
+
+[网站在这里](https://github.com/LiuLang/kwplayer), 这是它的介绍: kwplayer是一款运行在linux桌面的网络音乐播放器, 它使用 酷我音乐盒 的音乐资源.
+
+[下载在这里](https://github.com/LiuLang/kwplayer-packages),建议在页面右边直接下载整个zip包.
+
+然后按照要求的顺序先后安装下面三个deb文件:
+
+- python3-xlib
+- python3-keybinder
+- kwplayer
 
 # 编程开发软件
 
