@@ -79,6 +79,21 @@ tags: [linux,mint linux]
 
 重启后生效。
 
+### 开机自动装载windows分区
+
+更新时间: 2015-10-30
+
+linux mint安装之后自带了ntfs-3g, 天然支持ntfs格式, 默认情况在开机的时候就会在桌面出现两个文件(我的windows C盘和D盘), 双击之后就可以安装windows分区. 虽然还是需要自己动手双击一下, 但是至少还算方便, 就这样一直用着.
+
+某天, 貌似是做了一个大的更新之后, 突然上述功能没有了, 导致访问windows分区非常不方便. 搞不懂出了什么状况, 只好自己动手. 参考[网上找到的文章](http://blog.csdn.net/cjw517/article/details/42586213).
+
+在开机启动程序中增加两个开机启动的命令, 内容为下面这两个命令, 分别装载两个ntfs分区:
+
+    udisksctl mount -p block_devices/sdb4
+    udisksctl mount -p block_devices/sdb5
+
+终于又可以愉快的访问windows了......
+
 ### cpu节能cpufreqd
 
 	sudo add-apt-repository ppa:artfwo/ppa
