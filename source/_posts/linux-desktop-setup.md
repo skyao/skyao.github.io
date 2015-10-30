@@ -185,6 +185,27 @@ gnome do还支持插件, 有几个是非常使用的:
 
 补充: 发现开机自动启动guake也不见得是好事, 还是取消开机启动项吧.第一次用的时候,可以考虑用gnome do启动guake.
 
+## 网络设置
+
+### 设置DNS
+
+设置阿里的DNS，提高网络响应速度, 实测效果明显.
+
+打开终端执行:
+
+	sudo vim /etc/resolvconf/resolv.conf.d/tail
+
+添加下面两行Alidns：
+
+    nameserver 223.5.5.5
+    nameserver 223.6.6.6
+
+保存后执行:
+
+	sudo resolvconf -u
+
+查看/etc/resolv.conf可以看到多了上面两条nameserver.
+
 # 日常软件
 
 ## 工具
