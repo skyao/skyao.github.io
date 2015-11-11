@@ -40,4 +40,12 @@ tags: [plantuml,uml]
 
 参考一下页面：
 
-`http://plantuml.sourceforge.net/eclipse.html`
+[http://plantuml.sourceforge.net/eclipse.html](http://plantuml.sourceforge.net/eclipse.html)`
+
+# Chrome插件
+
+## UML Diagram Editor
+
+同事推荐的plantuml的Chrome插件, 试用了一下非常的不错, 强烈推荐.
+
+安装方式: 在chrome的网上应用店中搜索"uml diagram editor"即可找到.
