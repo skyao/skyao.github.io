@@ -27,6 +27,10 @@ tags: [linux,ubuntu,server]
 	adduser sky
 	adduser sky sudo
 
+在某些机器上（如vpsdime的主机上）会发现sudo命令没有安装的变态事情，需要使用root账户先安装好sudo命令
+
+	apt-get install sudo
+
 ## 设置apt源
 
 如果服务器在国内，则可以考虑设置apt源为国内代理，这样速度要好很多。
