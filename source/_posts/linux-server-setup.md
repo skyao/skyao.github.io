@@ -24,7 +24,8 @@ tags: [linux,ubuntu,server]
 
 增加自己习惯的user，这个user需要拥有sudo的权限：
 
-	adduser -g sudo sky
+	adduser sky
+	adduser sky sudo
 
 ## 设置apt源
 
@@ -52,6 +53,10 @@ tags: [linux,ubuntu,server]
 	sudo apt-get update
 
 # 开发环境搭建
+
+搭建开发环境中会经常使用到add-apt-repository命令，如果系统没有默认安装，可以通过下面的命令来安装：
+
+	apt-get install software-properties-common
 
 ## Java相关
 
@@ -95,6 +100,13 @@ tags: [linux,ubuntu,server]
 
 	source /etc/profile
 	java -version
+
+如果要安装jdk8，只要简单修改命令
+
+	sudo add-apt-repository ppa:webupd8team/java
+	sudo apt-get update
+	sudo apt-get install oracle-java8-installer
+	sudo apt-get install oracle-java8-set-default
 
 ## 版本控制
 
