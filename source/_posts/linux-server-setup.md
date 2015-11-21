@@ -112,6 +112,11 @@ tags: [linux,ubuntu,server]
 	sudo apt-get install oracle-java8-installer
 	sudo apt-get install oracle-java8-set-default
 
+安装完成之后，用which java命令看java命令行的位置，如果发现使用jre，可以修改为使用jdk，修改/etc/profile文：
+
+	export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+	export PATH=$JAVA_HOME/bin:$PATH
+
 ## 版本控制
 
 ### 安装Git
