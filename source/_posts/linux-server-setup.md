@@ -216,6 +216,8 @@ tags: [linux,ubuntu,server]
 	Username: root 
 	Password: 5iveL!fe
 
+root账户第一次登录时会要求修改密码，为了安全我们在管理页面可以新建一个普通用户，注意新建用户过程中不能设置密码，在建立成功之后可以edit这个账号然后这里可以设置密码。
+
 ## 打包发布工具
 
 ### 安装ant
