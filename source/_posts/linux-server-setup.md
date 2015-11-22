@@ -234,11 +234,15 @@ tags: [linux,ubuntu,server]
 
 ### 安装artifactory
 
-从[http://www.jfrog.com/download.php](http://www.jfrog.com/download.php)下载到最新的artifactory，将zip包解压。
+从[https://www.jfrog.com/open-source/](https://www.jfrog.com/open-source/)下载到最新的artifactory，将zip包解压。
 
 安装前需要确保JAVA_HOME有正确设置，可以修改 /etc/environment，加入JAVA_HOME：
 
-	JAVA_HOME=/usr/lib/jvm/java-7-oracle
+	JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
+最新版本的artifactory会要求至少jdk1.8版本, 否则无法启动.如果遇到在安装好jdk8之后再安装jdk7一起安装的情况, 需要额外执行一次命令:
+
+	sudo apt-get install oracle-java8-set-default
 
 将目录复制到/usr/lib，执行安装:
 
@@ -249,7 +253,7 @@ tags: [linux,ubuntu,server]
 	service artifactory check
 	sudo service artifactory start
 
-安装成功后就可以通过http://localhost:8081访问artifactory的页面了，默认管理员账号和密码为admin/password。
+安装成功后就可以通过[http://localhost:8081](http://localhost:8081)访问artifactory的页面了，默认管理员账号和密码为admin/password。
 
 [参考地址](http://www.softwarepassion.com/install-artifactory-on-ubuntu-box/)。
 
@@ -331,17 +335,21 @@ profile配置段：
 	sudo apt-get install gradle
 
 执行gradle -version：
-	
-	Build time:   2014-11-10 13:31:44 UTC
-	Build number: none
-	Revision:     aab8521f1fd9a3484cac18123a72bcfdeb7006ec
-	
-	Groovy:       2.3.6
-	Ant:          Apache Ant(TM) version 1.9.3 compiled on December 23 2013
-	JVM:          1.7.0_72 (Oracle Corporation 24.72-b04)
-	OS:           Linux 2.6.32-042stab090.5 amd64
 
-版本2.2，看了官网最新版本是2.2.1,3天前发布的，估计源还没有来得及更新。
+    sky@sky2:~$ gradle -version
+
+    ------------------------------------------------------------
+    Gradle 2.9
+    ------------------------------------------------------------
+
+    Build time:   2015-11-17 07:02:17 UTC
+    Build number: none
+    Revision:     b463d7980c40d44c4657dc80025275b84a29e31f
+
+    Groovy:       2.4.4
+    Ant:          Apache Ant(TM) version 1.9.3 compiled on December 23 2013
+    JVM:          1.8.0_66 (Oracle Corporation 25.66-b17)
+    OS:           Linux 2.6.32-042stab102.9 amd64
 
 ## 持续集成环境
 
