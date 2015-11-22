@@ -129,7 +129,11 @@ tags: [linux,ubuntu,server]
 
 [参考地址](http://stackoverflow.com/questions/19109542/installing-latest-version-of-git-in-ubuntu)
 
-### 安装gitolite
+### 安装gitlab
+
+详细安装配置过程见另外一个blog:[gitlab安装配置](http://skyao.github.io/2015/02/16/git-gitlab-setup/).
+
+### 安装gitolite(弃用,改为gitlab)
 
 先增加git的group和user：
 
@@ -187,36 +191,6 @@ tags: [linux,ubuntu,server]
 ### 导入原有git仓库
 
 将原有gitolite下的git 仓库打成tar包，然后传到新机器。解开tar，将tar包中repositories下各个git仓库复制到/home/git/repositories/下(记得gitolite-admin除外)，然后修改gitolite-admin/conf/gitolite.conf，增加各个仓库的对应访问信息即可。
-
-### 安装gitlab
-
-在配置另外一台ubuntu server时，决定试试gitlab，因为功能比gitolite强大。
-
-安装方式参考gitlab官方资料，打开 https://about.gitlab.com/downloads/ 页面，"select operating system"选"ubuntu14.04"，然后按照指示执行安装：
-
-	sudo apt-get install openssh-server
-	sudo apt-get install postfix
-	wget https://downloads-packages.s3.amazonaws.com/ubuntu-14.04/gitlab_7.7.2-omnibus.5.4.2.ci-1_amd64.deb
-	sudo dpkg -i gitlab_7.7.2-omnibus.5.4.2.ci-1_amd64.deb
-
-安装完成之后，修改一下配置文件，主要是设置端口，默认是用80端口。
-
-	sudo vi /etc/gitlab/gitlab.rb
-
-修改external_url，直接增加端口号即可，比如我这里用8800端口：
-
-	external_url 'http://skyserver:8800'
-
-修改之后再执行命令：
-
-	sudo gitlab-ctl reconfigure
-
-完成后通过浏览器访问(http://skyserver:8800)默认管理员密码如下：
-
-	Username: root 
-	Password: 5iveL!fe
-
-root账户第一次登录时会要求修改密码，为了安全我们在管理页面可以新建一个普通用户，注意新建用户过程中不能设置密码，在建立成功之后可以edit这个账号然后这里可以设置密码。
 
 ## 打包发布工具
 

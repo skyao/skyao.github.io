@@ -41,6 +41,8 @@ tags: [git,gitlab]
 
 	external_url 'http://skyserver:8800'
 
+也可以在这里修改host为真实的公网host,比如"http://basiccloud.net:8800"
+
 修改后再次执行"sudo gitlab-ctl reconfigure"以便配置修改生效。
 
 注意：除了这个端口外，还有一个unicorn用的端口，默认是8080，如果8080端口被其他程序占用。那么unicorn就会无法启动，显示为502错误，"GitLab is not responding"。
@@ -50,14 +52,6 @@ tags: [git,gitlab]
 	unicorn['listen'] = '127.0.0.1'
 	unicorn['port'] = 8801
 
-# 集成
 
-## 使用外部nginx服务器
-
-gitlab默认使用自带的Nginx，如果需要使用外部Nginx，可以修改配置
-
-TBD： 居然没有配置成功......下次再试
-
-# 使用
 
 

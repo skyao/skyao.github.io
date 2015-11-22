@@ -25,18 +25,36 @@ tags: [git,gitlab]
 
 2. 在gitlab中为将要导入的项目做准备
 
-	通常gitlab在/var/opt/gitlab/git-data/gitlab-satellites/目录下保存各个项目的bare reposotory.
+	找到gitlab的配置文件gitlab.yml:
+
+        sky@sky2:~$ sudo find / -name gitlab.yml
+        /opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml
+        /var/opt/gitlab/gitlab-rails/etc/gitlab.yml
+        sky@sky2:~$ sudo vi /opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml
+
+	打开找到下面内容:
+
+    ```bash
+      ## GitLab Shell settings
+      gitlab_shell:
+        path: /opt/gitlab/embedded/service/gitlab-shell/
+
+        # REPOS_PATH MUST NOT BE A SYMLINK!!!
+        repos_path: /var/opt/gitlab/git-data/repositories
+    ```
+
+	通常gitlab在/var/opt/gitlab/git-data/repositories/目录下保存各个项目的bare reposotory.
 
 	gitlab中对于项目存放的方式有两种:
 
-    1. 项目属于某个用户, 比如root/abc.git项目,则保存路径为gitlab-satellites/root/abc.git
+    1. 项目属于某个用户, 比如root/abc.git项目,则保存路径为repositories/root/abc.git
     2. 项目属于某个group, 比如group1/cde.git项目, 则保存路径为gitlab-satellites/group1/cde.git
 
 	为了管理方便这里我们将为原来的a/b/c三个项目建立一个group, 在gitlab的管理界面上添加一个名为backup的group.
 
 3. 将打包后的文件传到目标机器上
 
-	然后解压后放到/var/opt/gitlab/git-data/gitlab-satellites/backup目录下,路径类似为gitlab-satellites/backup/a.git.
+	然后解压后放到/var/opt/gitlab/git-data/repositories/backup目录下,路径类似为gitlab-satellites/backup/a.git.
 
     执行命令:
 
