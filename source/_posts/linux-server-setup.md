@@ -24,7 +24,12 @@ tags: [linux,ubuntu,server]
 
 增加自己习惯的user，这个user需要拥有sudo的权限：
 
-	adduser -g sudo sky
+	adduser sky
+	adduser sky sudo
+
+在某些机器上（如vpsdime的主机上）会发现sudo命令没有安装的变态事情，需要使用root账户先安装好sudo命令
+
+	apt-get install sudo
 
 ## 设置apt源
 
@@ -52,6 +57,10 @@ tags: [linux,ubuntu,server]
 	sudo apt-get update
 
 # 开发环境搭建
+
+搭建开发环境中会经常使用到add-apt-repository命令，如果系统没有默认安装，可以通过下面的命令来安装：
+
+	apt-get install software-properties-common
 
 ## Java相关
 
@@ -95,6 +104,18 @@ tags: [linux,ubuntu,server]
 
 	source /etc/profile
 	java -version
+
+如果要安装jdk8，只要简单修改命令
+
+	sudo add-apt-repository ppa:webupd8team/java
+	sudo apt-get update
+	sudo apt-get install oracle-java8-installer
+	sudo apt-get install oracle-java8-set-default
+
+安装完成之后，用which java命令看java命令行的位置，如果发现使用jre，可以修改为使用jdk，修改/etc/profile文：
+
+	export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+	export PATH=$JAVA_HOME/bin:$PATH
 
 ## 版本控制
 
@@ -194,6 +215,8 @@ tags: [linux,ubuntu,server]
 
 	Username: root 
 	Password: 5iveL!fe
+
+root账户第一次登录时会要求修改密码，为了安全我们在管理页面可以新建一个普通用户，注意新建用户过程中不能设置密码，在建立成功之后可以edit这个账号然后这里可以设置密码。
 
 ## 打包发布工具
 
