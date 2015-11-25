@@ -52,11 +52,19 @@ tags: [git,gitlab]
 	unicorn['listen'] = '127.0.0.1'
 	unicorn['port'] = 8801
 
-完成后通过浏览器访问(http://skyserver:8800)默认管理员密码如下：
+完成后通过浏览器访问(http://skyserver:8800).
+
+## 账号设置
+
+默认管理员密码如下：
 
 	Username: root 
 	Password: 5iveL!fe
 
 root账户第一次登录时会要求修改密码，为了安全我们在管理页面可以新建一个普通用户，注意新建用户过程中不能设置密码，在建立成功之后可以edit这个账号然后这里可以设置密码。
 
+## 关闭注册功能
 
+默认注册功能是开启的, 对于个人的gitlab, 没有对外公布的必要(有就直接上github了), 因此需要考虑关闭注册功能.
+
+用管理员账号登录之后, 进入"Admin area", 点"settings", 取消"Signup enabled".
