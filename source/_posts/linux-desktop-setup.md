@@ -259,6 +259,20 @@ http://down.tech.sina.com.cn/page/3748.html
 - curl
 - putty: 注意gnome do有putty的插件,可以非常方便的打开putty保存的session
 
+### 使用终端做ssh client
+
+发现putty和Remmina做ssh客户端都不是太好用, 远不如windows平台上的securyCrt和putty. 后来看到大家一般都推荐直接用linux的终端做sshclient, 简单敲个"ssh server_name"就连上去了.
+
+为了减少每次敲击密码的麻烦, 还可以通过authorized_keys的方式来登录.
+
+1. 上传本机的.ssh/id_isa.pub文件到服务器端
+2. 在远程服务器上运行
+
+	> cd .ssh
+	> cat ~/id_rsa.pub >> authorized_keys
+
+3. 在本机终端中输入"ssh server_address"即可直接登录远程服务器
+
 ### google chrome 浏览器
 
 在[以下地址](http://www.google.cn/chrome/browser/thankyou.html?platform=linux)下载适合的64位debian dev 版本，然后直接安装即可
@@ -270,6 +284,14 @@ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 ### 翻墙软件 shadowsocks
 
 之前有单独的 blog 谈到这个话题: [使用shadowsocks实现科学上网](../../../../2015/07/14/computer-fanqiang/), linux上我继续使用 shadowsocks.
+
+### SSH快捷翻墙
+
+在本地执行以下命令
+
+> ssh -D 10085 server_address
+
+然后就可以在浏览器中设置代理服务器连接为socket4/127.0.0.1/10085端口, 就可以做代理上网. 如果远程服务器在国外, 就是翻墙了. 原理和用putty设置dynamic是一样的.
 
 ### chrome插件SwitchyOmega
 
