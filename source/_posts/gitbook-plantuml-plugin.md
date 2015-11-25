@@ -47,13 +47,13 @@ tags: [gitbook, plantuml]
 
 ## 使用插件
 
-在需要插入planttuml图片的地方, 插入plantuml内容:
+在需要插入planttuml图片的地方, 插入plantuml内容 (注意要放在类型为uml的代码块中):
 
-    ```uml
-    @startuml
-    a -> b
-    @enduml
-    ```
+```uml
+@startuml
+a -> b
+@enduml
+```
 
 之后执行gitbook server或者grunt test命令, 生成gitbook的html内容时, 这里的plantuml内容就会被转换为uml图片,然后替换对应的plantuml文本内容.
 
