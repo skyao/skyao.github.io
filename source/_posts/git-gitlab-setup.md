@@ -54,11 +54,13 @@ tags: [git,gitlab]
 
 完成后通过浏览器访问(http://skyserver:8800).
 
+Update(2015/11/26): 在ubuntu14.04服务器上, 发现按照上面的修改并执行"sudo gitlab-ctl reconfigure", 会发现默认的8080和新修改的8801两个端口都会同时被gitlab占用. 最后只有重启ubuntu服务器才能释放出8080端口, 原因不明.
+
 ## 账号设置
 
 默认管理员密码如下：
 
-	Username: root 
+	Username: root
 	Password: 5iveL!fe
 
 root账户第一次登录时会要求修改密码，为了安全我们在管理页面可以新建一个普通用户，注意新建用户过程中不能设置密码，在建立成功之后可以edit这个账号然后这里可以设置密码。
