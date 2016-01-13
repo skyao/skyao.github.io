@@ -6,7 +6,7 @@ tags: [linux,mint linux]
 
 打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。
 
-后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2015-08-08)。
+后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2016-01-13)。
 
 <!--more-->
 
@@ -41,7 +41,7 @@ tags: [linux,mint linux]
 
 	sudo add-apt-repository ppa:fcitx-team/nightly
 	sudo aptitude update
-	sudo ptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic
+	sudo aptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic
 
 注意：fcitx-sogoupinyin" 会提示无法安装，忽略即可.在搜狗主页下载“搜狗for Linx”, 下载后双击安装.
 
@@ -233,13 +233,20 @@ gnome do还支持插件, 有几个是非常使用的:
 
 wine是Microsoft windows compatibility layer,让我们可以在linux上跑起来一些windows下的软件,对于某些只有windows版本的软件也是一种选择.
 
-用mint linux的软件管理器, 搜索安装以下内容: 
+用mint linux的软件管理器, 搜索安装以下内容:
 
 - wine
 - wine mono: microsoft .net framework 支持
 - wine gecho
 - playonelinux
 - ttf-mscorefonts-installer: PlayOnLinux 第一次开启时会建议安装这个包
+
+为了安装最新版本的playonelinux，请参考[playonlinux的说明](https://www.playonlinux.com/en/download.html):
+
+    wget -q "http://deb.playonlinux.com/public.gpg" -O- | sudo apt-key add -
+    sudo wget http://deb.playonlinux.com/playonlinux_trusty.list -O /etc/apt/sources.list.d/playonlinux.list
+    sudo apt-get update
+    sudo apt-get install playonlinux
 
 ### vmware workstation
 
@@ -353,16 +360,19 @@ https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt
 
 我最喜欢的在线音乐播放器了, 但是很遗憾的发现没有linux版本......
 
-只能想其他办法, 试着用wine安装了,结果打开时整个软件窗口都是黑的, 倒,估计时缺少某些包. 换成playonlinux,在默认的default虚拟盘上安装了两个包(mono/gecho)之后,就可以顺利安装网易云音乐了.
+2016年1月更新： 找到[winetricks-zh](https://github.com/hillwoodroc/winetricks-zh)，安装很简单拿，将解压缩后得到的winetricks-zh文件复制到 /usr/bin/ 即可。
 
-试用了一下, 功能都正常,只是音量大小调节无效,只能通过linux系统来调节音量,其他都OK.
+winetricks-zh启动wine之后，还在在报告说需要安装gecho。
 
-致命问题: 
+gecho的安装，参考[官网的说明](http://wiki.winehq.org/Gecko):
 
-1. 似乎音质一般, 猜测可能是跑在wine上?
-2. 居然会卡......
+    wget http://dl.winehq.org/wine/wine-gecko/2.40//wine_gecko-2.40-x86_64.msi
+    sudo mkdir -p /usr/share/wine/gecko
+    sudo mv wine_gecko-2.40-x86_64.msi /usr/share/wine/gecko/
 
-看来还是需要linux原生的音乐播放器.
+这个地址下载速度非常的慢，而且还不能用百度云来离线下载。但是很奇怪的是，及时做了上面的工作，到winetricks-zh还是报需要装gecho...... 果断取消安装，然后安装过程继续，自动安装了directx等多个软件之后终于开始安装网易云音乐，一路顺利完成，打开之后可以。
+
+但是有个不好的地方：我的分辨率太高，3k分辨率下网易云音乐显得字很小，点的好累。
 
 ### 酷我音乐linux客户端
 
