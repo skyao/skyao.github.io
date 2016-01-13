@@ -1,0 +1,633 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>(记录)Ubuntu下用apt-get安装最新版本的Redis | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="记录使用apt-get在ubuntu server上安装最新版本Redis的过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(记录)Ubuntu下用apt-get安装最新版本的Redis">
+<meta property="og:url" content="http://skyao.github.io/2014/11/02/redis-install-aptget/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="记录使用apt-get在ubuntu server上安装最新版本Redis的过程。">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(记录)Ubuntu下用apt-get安装最新版本的Redis">
+<meta name="twitter:description" content="记录使用apt-get在ubuntu server上安装最新版本Redis的过程。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/02/redis-install-aptget/" title="(记录)Ubuntu下用apt-get安装最新版本的Redis" itemprop="url">(记录)Ubuntu下用apt-get安装最新版本的Redis</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-02T02:19:01.000Z" itemprop="datePublished"> 發表於 2014-11-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907_u5DE5_u4F5C"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u65B9_u5F0F_u4E00_uFF1A_u4FEE_u6539source_u6587_u4EF6"><span class="toc-number">2.1.</span> <span class="toc-text">方式一：修改source文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u65B9_u5F0F_u4E8C_uFF1A_u7528add-apt-repository_u547D_u4EE4"><span class="toc-number">2.2.</span> <span class="toc-text">方式二：用add-apt-repository命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5B89_u88C5"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u9996_u6B21_u5B89_u88C5Redis"><span class="toc-number">3.1.</span> <span class="toc-text">首次安装Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u66F4_u65B0_u65E7_u7248redis"><span class="toc-number">3.2.</span> <span class="toc-text">更新旧版redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u53C2_u8003_u4FE1_u606F"><span class="toc-number">4.</span> <span class="toc-text">参考信息</span></a></li></ol>
+		
+		</div>
+		
+		<p>记录使用apt-get在ubuntu server上安装最新版本Redis的过程。</p>
+<a id="more"></a>
+<h2 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h2><p>在ubuntu安装redis最简单的方式，就是使用apt-get</p>
+<pre><code>sudo apt-get install redis-server
+</code></pre><p>但是这个方式有个问题，就是仓库中的redis-server很可能不是最新的版本。比如我用ubuntu 14.04 server，apt-get udpate 到最新后，redis-server的版本也只有2.8.4。而官网最新已经到了2.8.17. </p>
+<p>在之前的Blog里面，因为使用这个原因，我采用了手工安装的方式。</p>
+<p>今天在准备另外一个环境时，想了想apt-get应该更方便一些，只要仓库中的redis-server版本足够新就好了。</p>
+<h2 id="u51C6_u5907_u5DE5_u4F5C"><a href="#u51C6_u5907_u5DE5_u4F5C" class="headerlink" title="准备工作"></a>准备工作</h2><p>要拿到最新的redis-server版本，就必须将redis的仓库加入到源。方法有两种：</p>
+<h3 id="u65B9_u5F0F_u4E00_uFF1A_u4FEE_u6539source_u6587_u4EF6"><a href="#u65B9_u5F0F_u4E00_uFF1A_u4FEE_u6539source_u6587_u4EF6" class="headerlink" title="方式一：修改source文件"></a>方式一：修改source文件</h3><pre><code>deb http://ppa.launchpad.net/rwky/redis/ubuntu trusty main 
+deb-src http://ppa.launchpad.net/rwky/redis/ubuntu trusty main
+</code></pre><h3 id="u65B9_u5F0F_u4E8C_uFF1A_u7528add-apt-repository_u547D_u4EE4"><a href="#u65B9_u5F0F_u4E8C_uFF1A_u7528add-apt-repository_u547D_u4EE4" class="headerlink" title="方式二：用add-apt-repository命令"></a>方式二：用add-apt-repository命令</h3><pre><code>add-apt-repository -y ppa:rwky/redis
+</code></pre><p>这个方式无疑要方便很多。</p>
+<p>不过 add-apt-repository 命令一般系统是没有自带的，所以还需要自己安装一下。</p>
+<p>这个命令的安装有点麻烦，ubuntu不同版本中这个命令的安装方式不同：</p>
+<ol>
+<li><p>对于12.04以及以下版本，需要安装python-software-properties</p>
+<p> sudo apt-get install python-software-properties</p>
+</li>
+<li><p>对于12.10以及以上版本，需要安装software-properties-common</p>
+<p> sudo apt-get install software-properties-common</p>
+</li>
+</ol>
+<p>比较爽快而无需费脑的方法是两个都安装一下……</p>
+<h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><h3 id="u9996_u6B21_u5B89_u88C5Redis"><a href="#u9996_u6B21_u5B89_u88C5Redis" class="headerlink" title="首次安装Redis"></a>首次安装Redis</h3><p>安装过程简单，update再install就好了，加上前面准备add-apt-repository，命令依次如下：</p>
+<pre><code>sudo apt-get install -y python-software-properties
+sudo apt-get install software-properties-common
+sudo add-apt-repository -y ppa:rwky/redis
+sudo apt-get update
+sudo apt-get install -y redis-server
+</code></pre><p>如果是第一次用apt-get安装redis-server，那么这样就搞定了。</p>
+<h3 id="u66F4_u65B0_u65E7_u7248redis"><a href="#u66F4_u65B0_u65E7_u7248redis" class="headerlink" title="更新旧版redis"></a>更新旧版redis</h3><p>如果之前已经用apt-get安装过redis-server的旧版本，再执行apt-get install时就有可能遇到问题。</p>
+<p>我遇到的错误信息如下：</p>
+<blockquote>
+<p>Unpacking redis-server (2:2.8.17-rwky1~trusty) …<br>dpkg: error processing archive /var/cache/apt/archives/redis-server_2%3a2.8.17-rwky1~trusty_amd64.deb (–unpack):<br> trying to overwrite ‘/usr/bin/redis-check-dump’, which is also in package redis-tools 2:2.8.4-2<br>dpkg-deb: error: subprocess paste was killed by signal (Broken pipe)<br>Errors were encountered while processing:<br> /var/cache/apt/archives/redis-server_2%3a2.8.17-rwky1~trusty_amd64.deb<br>E: Sub-process /usr/bin/dpkg returned an error code (1)</p>
+</blockquote>
+<p>为了解决问题，决定先uninstall掉老版本的redis</p>
+<pre><code>apt-get remove redis-server
+apt-get autoremove
+</code></pre><p>再次执行apt-get install就可以顺利安装了。</p>
+<h2 id="u53C2_u8003_u4FE1_u606F"><a href="#u53C2_u8003_u4FE1_u606F" class="headerlink" title="参考信息"></a>参考信息</h2><ol>
+<li><a href="http://tosbourn.com/install-latest-version-redis-ubuntu/" target="_blank" rel="external">http://tosbourn.com/install-latest-version-redis-ubuntu/</a></li>
+<li><a href="http://stackoverflow.com/questions/13018626/add-apt-repository-not-found" target="_blank" rel="external">http://stackoverflow.com/questions/13018626/add-apt-repository-not-found</a></li>
+<li><a href="http://askubuntu.com/questions/88265/how-to-find-the-latest-version-of-redis-server-in-repos" target="_blank" rel="external">http://askubuntu.com/questions/88265/how-to-find-the-latest-version-of-redis-server-in-repos</a></li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/install/">install</a><a href="/tags/linux/">linux</a><a href="/tags/redis/">redis</a><a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2014/11/02/redis-install-aptget/" data-title="(记录)Ubuntu下用apt-get安装最新版本的Redis | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/11/02/linux-systemd-upstart/" title="(资料)linux初始化之upstart VS systemd">
+  <strong>上一篇：</strong><br/>
+  <span>
+  (资料)linux初始化之upstart VS systemd</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/09/25/redis-repl-check/"  title="判断Redis复制是否完成的方法">
+ <strong>下一篇：</strong><br/> 
+ <span>判断Redis复制是否完成的方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/11/02/redis-install-aptget/" data-title="(记录)Ubuntu下用apt-get安装最新版本的Redis" data-url="http://skyao.github.io/2014/11/02/redis-install-aptget/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907_u5DE5_u4F5C"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u65B9_u5F0F_u4E00_uFF1A_u4FEE_u6539source_u6587_u4EF6"><span class="toc-number">2.1.</span> <span class="toc-text">方式一：修改source文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u65B9_u5F0F_u4E8C_uFF1A_u7528add-apt-repository_u547D_u4EE4"><span class="toc-number">2.2.</span> <span class="toc-text">方式二：用add-apt-repository命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5B89_u88C5"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u9996_u6B21_u5B89_u88C5Redis"><span class="toc-number">3.1.</span> <span class="toc-text">首次安装Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u66F4_u65B0_u65E7_u7248redis"><span class="toc-number">3.2.</span> <span class="toc-text">更新旧版redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u53C2_u8003_u4FE1_u606F"><span class="toc-number">4.</span> <span class="toc-text">参考信息</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

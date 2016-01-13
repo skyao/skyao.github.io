@@ -1,0 +1,705 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>logback中日志打印流程源码分析 | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="继续研究logback，看看logback中是如何将日志信息打印出来的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="logback中日志打印流程源码分析">
+<meta property="og:url" content="http://skyao.github.io/2014/09/11/logback-process/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="继续研究logback，看看logback中是如何将日志信息打印出来的。">
+<meta property="og:image" content="http://skyao.github.io/images/logback-process/logback-process.png">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="logback中日志打印流程源码分析">
+<meta name="twitter:description" content="继续研究logback，看看logback中是如何将日志信息打印出来的。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/11/logback-process/" title="logback中日志打印流程源码分析" itemprop="url">logback中日志打印流程源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-11T03:57:09.000Z" itemprop="datePublished"> 發表於 2014-09-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4EE3_u7801_u5206_u6790"><span class="toc-number">1.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Logger"><span class="toc-number">1.1.</span> <span class="toc-text">Logger</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Appender"><span class="toc-number">1.2.</span> <span class="toc-text">Appender</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+		
+		</div>
+		
+		<p>继续研究logback，看看logback中是如何将日志信息打印出来的。</p>
+<a id="more"></a>
+<h2 id="u4EE3_u7801_u5206_u6790"><a href="#u4EE3_u7801_u5206_u6790" class="headerlink" title="代码分析"></a>代码分析</h2><h3 id="Logger"><a href="#Logger" class="headerlink" title="Logger"></a>Logger</h3><p>以下面这件最简单的日志打印代码为例：</p>
+<pre><code>logger.debug(&quot;hello world!&quot;);
+</code></pre><p>先看一下代码实现：</p>
+<pre><code>public void debug(String msg) {
+    filterAndLog_0_Or3Plus(FQCN, null, Level.DEBUG, msg, null, null);
+}
+</code></pre><p>只是对filterAndLog_0_Or3Plus()方法的简单调用，和其他的info(),error()等方法的差别只是参数Level的取值。干货在filterAndLog_0_Or3Plus()方法中：</p>
+<pre><code>private void filterAndLog_0_Or3Plus(final String localFQCN,
+  final Marker marker, final Level level, final String msg,
+  final Object[] params, final Throwable t) {
+
+    // step1
+    final FilterReply decision = loggerContext
+        .getTurboFilterChainDecision_0_3OrMore(marker, this, level, msg,
+            params, t);
+
+    // step2
+    if (decision == FilterReply.NEUTRAL) {
+      if (effectiveLevelInt &gt; level.levelInt) {
+        return;
+      }
+    } else if (decision == FilterReply.DENY) {
+      return;
+    }
+
+    //step3
+    buildLoggingEventAndAppend(localFQCN, marker, level, msg, params, t);
+}
+</code></pre><p>这里面有三个步骤：</p>
+<ol>
+<li>执行TurboFilter的处理逻辑</li>
+<li>根据TurboFilter返回的结果和Level信息做判断，如果不需要写日志则直接退出</li>
+<li>需要写日志了，调用buildLoggingEventAndAppend()方法来构建日志并写入。</li>
+</ol>
+<p>TurboFilter的处理逻辑我们后面再来仔细研究，先假设当前配置中没有设置TurboFilter的最简单的情况。这种情况下，下面的这个逻辑被执行，用来检查当前logger配置的日志等级和传入的日志请求指定的日志等级，以决定是否需要打印这条日志：</p>
+<pre><code>if (decision == FilterReply.NEUTRAL) {
+      if (effectiveLevelInt &gt; level.levelInt) {
+        return;
+      }
+</code></pre><p>如果检测结果是需要打印，则调用buildLoggingEventAndAppend()方法：</p>
+<pre><code>private void buildLoggingEventAndAppend(final String localFQCN,
+  final Marker marker, final Level level, final String msg,
+  final Object[] params, final Throwable t) {
+    LoggingEvent le = new LoggingEvent(localFQCN, this, level, msg, t, params);
+    le.setMarker(marker);
+    callAppenders(le);
+}
+</code></pre><p>buildLoggingEventAndAppend()中先构建了LoggingEvent对象，然后调用callAppenders()方法：</p>
+<pre><code>public void callAppenders(ILoggingEvent event) {
+    int writes = 0;
+    for (Logger l = this; l != null; l = l.parent) {
+      writes += l.appendLoopOnAppenders(event);
+      if (!l.additive) {
+        break;
+      }
+    }
+    // No appenders in hierarchy
+    if (writes == 0) {
+      loggerContext.noAppenderDefinedWarning(this);
+    }
+}
+</code></pre><p>callAppenders()方法中从当前Logger开始，通过每个logger对象的parent属性依次向上游历所有的相关logger，直到root logger。如果遇到有某个logger的additive属性被设置为false，则中断这个向上的游历过程。additive属性的使用我们后面再来总结，这里先简单跳过。</p>
+<h3 id="Appender"><a href="#Appender" class="headerlink" title="Appender"></a>Appender</h3><p>游历过程中，每个logger的appendLoopOnAppenders()方法将被调用，这个方法会返回其调用并使用过的appender的个数，writes变量会统计总数。游历结束后，会检查writes统计的结果，如果为0表明整个过程中都没有任何appender被使用，则会打印警告：</p>
+<pre><code>final void noAppenderDefinedWarning(final Logger logger) {
+    if (noAppenderWarning++ == 0) {
+      getStatusManager().add(
+              new WarnStatus(&quot;No appenders present in context [&quot; + getName()
+                      + &quot;] for logger [&quot; + logger.getName() + &quot;].&quot;, logger));
+    }
+}
+</code></pre><p>所以平时如果看到这个警告，就要注意检查对应logger的appender设置了。</p>
+<p>继续看appendLoopOnAppenders()方法：</p>
+<pre><code>transient private AppenderAttachableImpl&lt;ILoggingEvent&gt; aai;
+
+private int appendLoopOnAppenders(ILoggingEvent event) {
+    if (aai != null) {
+      return aai.appendLoopOnAppenders(event);
+    } else {
+      return 0;
+    }
+}
+</code></pre><p>这里涉及到AppenderAttachableImpl类的实例aai，这个AppenderAttachableImpl类也挺复杂的，涉及到并发和线程安全，后面依然会有单独的章节来细细研究它。我们先跳过它的细节，将它简化为一个appender list，这样看aai.appendLoopOnAppenders()方法中的代码就简单了：</p>
+<pre><code>public int appendLoopOnAppenders(E e) {
+    int size = 0;
+      for (Appender&lt;E&gt; appender : appenderList) {
+        appender.doAppend(e);
+        size++;
+      }
+    return size;
+}
+</code></pre><p>取出当前logger对象的所有appender(注意logger对象容许配置多个appender，虽然我们日常很少这样使用)，逐个调用每个appender的doAppend()方法。logback中appender的实现有很多种，我们以最简单的ConsoleAppender为例：</p>
+<pre><code>&lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+&lt;/appender&gt;
+&lt;root level=&quot;DEBUG&quot;&gt;          
+    &lt;appender-ref ref=&quot;STDOUT&quot; /&gt;
+&lt;/root&gt;
+</code></pre><p>这里有几个术语，几乎所有的appender都会使用到：</p>
+<ol>
+<li>encoder 这个是logback从 0.9.19 版本之后引入的，替代原有的layout</li>
+<li>layout 不再直接被appender使用，为了保持兼容，有一个LayoutWrappingEncoder 类将layout包装为encoder</li>
+<li>pattern 用来指定日志打印的格式</li>
+</ol>
+<p>上面例子中的日志内容将被pattern格式化，然后被encoder输出到控制台打印出来，这样 logger.debug(“hello world!”) 方法就完成了它的功能。</p>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>最后，我们来总结一下logback打印日志的总体流程(在跳过若干细节)：</p>
+<p><img src="/images/logback-process/logback-process.png" alt="logback-process.png"></p>
+<p>注意在这个过程中，有两次循环：</p>
+<ol>
+<li>从当前logger到root logger，按照parent属性依次游历</li>
+<li>调用logger对象的每个appender</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/logback/">logback</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2014/09/11/logback-process/" data-title="logback中日志打印流程源码分析 | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/23/logback-additivity/" title="logback中additivity属性源码分析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  logback中additivity属性源码分析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/08/logback-logger-creation/"  title="logback中logger对象的创建过程源码分析">
+ <strong>下一篇：</strong><br/> 
+ <span>logback中logger对象的创建过程源码分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/09/11/logback-process/" data-title="logback中日志打印流程源码分析" data-url="http://skyao.github.io/2014/09/11/logback-process/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4EE3_u7801_u5206_u6790"><span class="toc-number">1.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Logger"><span class="toc-number">1.1.</span> <span class="toc-text">Logger</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Appender"><span class="toc-number">1.2.</span> <span class="toc-text">Appender</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

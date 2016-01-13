@@ -1,0 +1,878 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>(记录)在ubuntu服务器上搭建全套开发环境 | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="资料收集，在ubuntu服务器上搭建全套开发环境。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(记录)在ubuntu服务器上搭建全套开发环境">
+<meta property="og:url" content="http://skyao.github.io/2015/07/03/linux-server-setup/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="资料收集，在ubuntu服务器上搭建全套开发环境。">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(记录)在ubuntu服务器上搭建全套开发环境">
+<meta name="twitter:description" content="资料收集，在ubuntu服务器上搭建全套开发环境。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/03/linux-server-setup/" title="(记录)在ubuntu服务器上搭建全套开发环境" itemprop="url">(记录)在ubuntu服务器上搭建全套开发环境</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-03T14:15:50.000Z" itemprop="datePublished"> 發表於 2015-07-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u670D_u52A1_u5668_u914D_u7F6E"><span class="toc-number">2.</span> <span class="toc-text">服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u589E_u52A0user"><span class="toc-number">2.1.</span> <span class="toc-text">增加user</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BBE_u7F6Eapt_u6E90"><span class="toc-number">2.2.</span> <span class="toc-text">设置apt源</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5F00_u53D1_u73AF_u5883_u642D_u5EFA"><span class="toc-number">3.</span> <span class="toc-text">开发环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u76F8_u5173"><span class="toc-number">3.1.</span> <span class="toc-text">Java相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5JDK"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装JDK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7248_u672C_u63A7_u5236"><span class="toc-number">3.2.</span> <span class="toc-text">版本控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5Git"><span class="toc-number">3.2.1.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5gitlab"><span class="toc-number">3.2.2.</span> <span class="toc-text">安装gitlab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5gitolite_28_u5F03_u7528_2C_u6539_u4E3Agitlab_29"><span class="toc-number">3.2.3.</span> <span class="toc-text">安装gitolite(弃用,改为gitlab)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5BFC_u5165_u539F_u6709git_u4ED3_u5E93"><span class="toc-number">3.2.4.</span> <span class="toc-text">导入原有git仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6253_u5305_u53D1_u5E03_u5DE5_u5177"><span class="toc-number">3.3.</span> <span class="toc-text">打包发布工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5ant"><span class="toc-number">3.3.1.</span> <span class="toc-text">安装ant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5ivy"><span class="toc-number">3.3.2.</span> <span class="toc-text">安装ivy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5maven"><span class="toc-number">3.3.3.</span> <span class="toc-text">安装maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5artifactory"><span class="toc-number">3.3.4.</span> <span class="toc-text">安装artifactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u914D_u7F6Emaven"><span class="toc-number">3.3.5.</span> <span class="toc-text">配置maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5gradle"><span class="toc-number">3.3.6.</span> <span class="toc-text">安装gradle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6301_u7EED_u96C6_u6210_u73AF_u5883"><span class="toc-number">3.4.</span> <span class="toc-text">持续集成环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5Jenkins"><span class="toc-number">3.4.1.</span> <span class="toc-text">安装Jenkins</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8FD0_u884C_u73AF_u5883_u642D_u5EFA"><span class="toc-number">4.</span> <span class="toc-text">运行环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#web_u670D_u52A1_u5668"><span class="toc-number">4.1.</span> <span class="toc-text">web服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5nginx"><span class="toc-number">4.1.1.</span> <span class="toc-text">安装nginx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u636E_u5E93_u670D_u52A1_u5668"><span class="toc-number">4.2.</span> <span class="toc-text">数据库服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5mongodb"><span class="toc-number">4.2.1.</span> <span class="toc-text">安装mongodb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5redis"><span class="toc-number">4.2.2.</span> <span class="toc-text">安装redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5mysql"><span class="toc-number">4.2.3.</span> <span class="toc-text">安装mysql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5F00_u53D1_u5DE5_u5177"><span class="toc-number">4.3.</span> <span class="toc-text">开发工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5sonar"><span class="toc-number">4.3.1.</span> <span class="toc-text">安装sonar</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>资料收集，在ubuntu服务器上搭建全套开发环境。</p>
+<a id="more"></a>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>最近打算更换开发用的服务器，需要将全套开发测试环境搬过去。坦白说这个过程挺麻烦的，记录一下全过程，以备下次使用。</p>
+<p>后续发生变化或者增加新的内容时，会持续更新此文。</p>
+<h1 id="u670D_u52A1_u5668_u914D_u7F6E"><a href="#u670D_u52A1_u5668_u914D_u7F6E" class="headerlink" title="服务器配置"></a>服务器配置</h1><p>在选择linux服务器版本，犹豫了一下，最后还是选择了自己最熟悉的ubuntu server 14.04版本。主要是这些年用apt-get用的比较爽…</p>
+<p>开发环境而已，要求不用高，符合自己习惯就好，就不折腾其他高级货色了。</p>
+<h2 id="u589E_u52A0user"><a href="#u589E_u52A0user" class="headerlink" title="增加user"></a>增加user</h2><p>增加自己习惯的user，这个user需要拥有sudo的权限：</p>
+<pre><code>adduser sky
+adduser sky sudo
+</code></pre><p>在某些机器上（如vpsdime的主机上）会发现sudo命令没有安装的变态事情，需要使用root账户先安装好sudo命令</p>
+<pre><code>apt-get install sudo
+</code></pre><h2 id="u8BBE_u7F6Eapt_u6E90"><a href="#u8BBE_u7F6Eapt_u6E90" class="headerlink" title="设置apt源"></a>设置apt源</h2><p>如果服务器在国内，则可以考虑设置apt源为国内代理，这样速度要好很多。</p>
+<p>首先备份源列表:</p>
+<pre><code>sudo cp /etc/apt/sources.list /etc/apt/sources.list_backup
+</code></pre><p>然后修改/etc/apt/sources.list文件，我选择用163的镜像:</p>
+<pre><code>deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre><p>记得执行update命令：</p>
+<pre><code>sudo apt-get update
+</code></pre><h1 id="u5F00_u53D1_u73AF_u5883_u642D_u5EFA"><a href="#u5F00_u53D1_u73AF_u5883_u642D_u5EFA" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h1><p>搭建开发环境中会经常使用到add-apt-repository命令，如果系统没有默认安装，可以通过下面的命令来安装：</p>
+<pre><code>apt-get install software-properties-common
+</code></pre><h2 id="Java_u76F8_u5173"><a href="#Java_u76F8_u5173" class="headerlink" title="Java相关"></a>Java相关</h2><h3 id="u5B89_u88C5JDK"><a href="#u5B89_u88C5JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><p>安装jdk7，暂时不上jdk8. 懒得手工安装了，直接apt-get。</p>
+<pre><code>sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+sudo apt-get install oracle-java7-set-default
+</code></pre><p><a href="http://ubuntuhandbook.org/index.php/2014/02/install-oracle-java-6-7-or-8-ubuntu-14-04/" target="_blank" rel="external">参考地址</a>。</p>
+<p>运行java –version的结果：</p>
+<pre><code>java version &quot;1.7.0_72&quot;
+Java(TM) SE Runtime Environment (build 1.7.0_72-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 24.72-b04, mixed mode)
+</code></pre><p>执行 echo $JAVA_HOME看了一下JAVA_HOME的设置：</p>
+<pre><code>/usr/lib/jvm/java-7-oracle
+</code></pre><p>如果手工安装，可以从oracle网站下载安装文件，如jdk-7u75-linux-x64.gz（对于ubuntu不要下载rpm版本）。</p>
+<p>手工解压缩到安装路径:</p>
+<pre><code>gunzip jdk-7u75-linux-x64.gz
+gunzip jdk-7u75-linux-x64.gz
+sudo mkdir /usr/lib/jvm
+sudo mv jdk-7u75-linux-x64 /usr/lib/jvm/jdk7
+</code></pre><p>修改/etc/profile文件，在最后加入以下内容：</p>
+<pre><code># java
+export JAVA_HOME=/usr/lib/jvm/jdk7
+export PATH=$JAVA_HOME/bin:$PATH
+</code></pre><p>安装好后检验一下：</p>
+<pre><code>source /etc/profile
+java -version
+</code></pre><p>如果要安装jdk8，只要简单修改命令</p>
+<pre><code>sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get install oracle-java8-set-default
+</code></pre><p>安装完成之后，用which java命令看java命令行的位置，如果发现使用jre，可以修改为使用jdk，修改/etc/profile文：</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+export PATH=$JAVA_HOME/bin:$PATH
+</code></pre><h2 id="u7248_u672C_u63A7_u5236"><a href="#u7248_u672C_u63A7_u5236" class="headerlink" title="版本控制"></a>版本控制</h2><h3 id="u5B89_u88C5Git"><a href="#u5B89_u88C5Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>为了拿到最新版本的git，增加仓库：</p>
+<pre><code>sudo add-apt-repository ppa:git-core/ppa
+sudo apt-get update
+sudo apt-get install git
+</code></pre><p><a href="http://stackoverflow.com/questions/19109542/installing-latest-version-of-git-in-ubuntu" target="_blank" rel="external">参考地址</a></p>
+<h3 id="u5B89_u88C5gitlab"><a href="#u5B89_u88C5gitlab" class="headerlink" title="安装gitlab"></a>安装gitlab</h3><p>详细安装配置过程见另外一个blog:<a href="http://skyao.github.io/2015/02/16/git-gitlab-setup/">gitlab安装配置</a>.</p>
+<h3 id="u5B89_u88C5gitolite_28_u5F03_u7528_2C_u6539_u4E3Agitlab_29"><a href="#u5B89_u88C5gitolite_28_u5F03_u7528_2C_u6539_u4E3Agitlab_29" class="headerlink" title="安装gitolite(弃用,改为gitlab)"></a>安装gitolite(弃用,改为gitlab)</h3><p>先增加git的group和user：</p>
+<pre><code>addgroup git
+adduser --ingroup git git
+</code></pre><p>然后用其他账号登录服务器，先准备一份ssh key：</p>
+<pre><code>ssh-keygen -t rsa
+</code></pre><p>生成的~/.ssh/id_rsa.pub 文件后面要用到。</p>
+<p>然后su 到git用户，执行下面的命令：</p>
+<pre><code>su git
+git clone git://github.com/sitaramc/gitolite
+mkdir -p $HOME/bin
+gitolite/install -to $HOME/bin
+$HOME/bin/gitolite setup -pk path/to/above/id_rsa.pub
+</code></pre><p>输出如下：</p>
+<pre><code>Initialized empty Git repository in /home/git/repositories/gitolite-admin.git/
+Initialized empty Git repository in /home/git/repositories/testing.git/
+WARNING: /home/git/.ssh missing; creating a new one
+    (this is normal on a brand new install)
+WARNING: /home/git/.ssh/authorized_keys missing; creating a new one
+    (this is normal on a brand new install)
+</code></pre><p>退出git账号，回到刚才的账号，试试git clone。</p>
+<pre><code>git clone git@localhost:gitolite-admin.git
+git clone git@localhost:testing.git
+</code></pre><p>不出意外的话应该可以clone下来，说明    gitolite 安装完成。还可以这样检查，执行ssh git@localhost命令：</p>
+<pre><code>ssh git@localhost
+PTY allocation request failed on channel 0
+hello root, this is git@sky1 running gitolite3 v3.6.2-4-g2471e18 on git 2.1.3
+
+ R W    gitolite-admin
+ R W    testing
+Connection to localhost closed.
+</code></pre><p>安装时忘了先创建非root账号了，所以上面看到的用户是root。后来创建了sky账号，需要用root账号将sky的ssh key复制到gitolite-admin/keydir，然后提交。另外需要修改gitolite-admin/conf/gitolite.conf文件，增加sky的仓库访问权限。为了方便起见，建立group admin：</p>
+<pre><code>@admin=root sky
+
+repo gitolite-admin
+    RW+     =   @admin
+
+repo testing
+    RW+     =   @all
+</code></pre><h3 id="u5BFC_u5165_u539F_u6709git_u4ED3_u5E93"><a href="#u5BFC_u5165_u539F_u6709git_u4ED3_u5E93" class="headerlink" title="导入原有git仓库"></a>导入原有git仓库</h3><p>将原有gitolite下的git 仓库打成tar包，然后传到新机器。解开tar，将tar包中repositories下各个git仓库复制到/home/git/repositories/下(记得gitolite-admin除外)，然后修改gitolite-admin/conf/gitolite.conf，增加各个仓库的对应访问信息即可。</p>
+<h2 id="u6253_u5305_u53D1_u5E03_u5DE5_u5177"><a href="#u6253_u5305_u53D1_u5E03_u5DE5_u5177" class="headerlink" title="打包发布工具"></a>打包发布工具</h2><h3 id="u5B89_u88C5ant"><a href="#u5B89_u88C5ant" class="headerlink" title="安装ant"></a>安装ant</h3><p>执行命令：</p>
+<pre><code>sudo apt-get install ant
+</code></pre><p>检查安装之后的版本:</p>
+<pre><code>ant -version
+Apache Ant(TM) version 1.9.3 compiled on April 8 2014
+</code></pre><p>默认没有设置ANT_HOME，还是自己手工加上吧。打开/etc/profile,在最后加入：</p>
+<pre><code>export ANT_HOME=/usr/share/ant
+</code></pre><h3 id="u5B89_u88C5ivy"><a href="#u5B89_u88C5ivy" class="headerlink" title="安装ivy"></a>安装ivy</h3><p>理论上从apache ivy的网站下载ivy的jar包放到ant安装目录的lib文件夹下即可。复制时看到ant/lib下的jar包都是link到/usr/share/java下，所以也同样将ivy-2.4.0-rc1.jar复制到/usr/share/java，然后link过去：</p>
+<pre><code>sudo ln -s ../../java/ivy-2.4.0-rc1.jar .
+</code></pre><h3 id="u5B89_u88C5maven"><a href="#u5B89_u88C5maven" class="headerlink" title="安装maven"></a>安装maven</h3><p><a href="http://www.sysads.co.uk/2014/05/install-apache-maven-3-2-1-ubuntu-14-04/" target="_blank" rel="external">参考地址</a>，步骤如下：</p>
+<ol>
+<li>Remove older version</li>
+<li>Add following lines to sources.list</li>
+<li>Update Repository and Install</li>
+<li>Add Symbolic Link</li>
+</ol>
+<p>具体执行命令依次如下：</p>
+<pre><code>sudo apt-get remove maven2
+sudo add-apt-repository &quot;deb http://ppa.launchpad.net/natecarlson/maven3/ubuntu precise main&quot;
+sudo apt-get update
+sudo apt-get install maven3
+sudo ln -s /usr/share/maven3/bin/mvn /usr/bin/mvn
+</code></pre><h3 id="u5B89_u88C5artifactory"><a href="#u5B89_u88C5artifactory" class="headerlink" title="安装artifactory"></a>安装artifactory</h3><p>从<a href="https://www.jfrog.com/open-source/" target="_blank" rel="external">https://www.jfrog.com/open-source/</a>下载到最新的artifactory，将zip包解压。</p>
+<p>安装前需要确保JAVA_HOME有正确设置，可以修改 /etc/environment，加入JAVA_HOME：</p>
+<pre><code>JAVA_HOME=/usr/lib/jvm/java-8-oracle
+</code></pre><p>最新版本的artifactory会要求至少jdk1.8版本, 否则无法启动.如果遇到在安装好jdk8之后再安装jdk7一起安装的情况, 需要额外执行一次命令:</p>
+<pre><code>sudo apt-get install oracle-java8-set-default
+</code></pre><p>将目录复制到/usr/lib，执行安装:</p>
+<pre><code>sudo mv artifactory*** /usr/lib/
+sudo mv artifactory*** artifactory
+cd artifactory/bin
+sudo ./installService.sh
+service artifactory check
+sudo service artifactory start
+</code></pre><p>安装成功后就可以通过<a href="http://localhost:8081" target="_blank" rel="external">http://localhost:8081</a>访问artifactory的页面了，默认管理员账号和密码为admin/password。</p>
+<p><a href="http://www.softwarepassion.com/install-artifactory-on-ubuntu-box/" target="_blank" rel="external">参考地址</a>。</p>
+<p>安全起见，登录后先修改admin密码，点击Admin -&gt; Security -&gt; Users -&gt; User List -&gt; admin，修改密码即可。 </p>
+<p>另外，Admin -&gt; Security -&gt; General, 取消”Allow Anonymous Access”。</p>
+<h3 id="u914D_u7F6Emaven"><a href="#u914D_u7F6Emaven" class="headerlink" title="配置maven"></a>配置maven</h3><p>为了让mvn能连接到本地的artifactory，需要配置maven。</p>
+<p>修改maven的配置文件，全局配置文件在maven3安装路径 /usr/share/maven3/conf/ 下，需要更新server配置信息和profile 配置信息。</p>
+<p>server配置段：</p>
+<pre><code>&lt;servers&gt;
+ &lt;server&gt;
+    &lt;username&gt;****&lt;/username&gt;
+    &lt;password&gt;****&lt;/password&gt;
+    &lt;id&gt;releases&lt;/id&gt;
+  &lt;/server&gt;
+  &lt;server&gt;
+    &lt;username&gt;****&lt;/username&gt;
+    &lt;password&gt;****&lt;/password&gt;
+    &lt;id&gt;snapshots&lt;/id&gt;
+  &lt;/server&gt;
+&lt;/servers&gt;
+</code></pre><p>profile配置段：</p>
+<pre><code>&lt;profiles&gt;
+  &lt;profile&gt;
+    &lt;repositories&gt;
+      &lt;repository&gt;
+        &lt;snapshots&gt;
+          &lt;enabled&gt;false&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+        &lt;id&gt;releases&lt;/id&gt;
+        &lt;name&gt;libs-release&lt;/name&gt;
+        &lt;url&gt;http://localhost:8081/artifactory/libs-release&lt;/url&gt;
+      &lt;/repository&gt;
+      &lt;repository&gt;
+        &lt;snapshots /&gt;
+        &lt;id&gt;snapshots&lt;/id&gt;
+        &lt;name&gt;libs-snapshot&lt;/name&gt;
+        &lt;url&gt;http://localhost:8081/artifactory/libs-snapshot&lt;/url&gt;
+      &lt;/repository&gt;
+    &lt;/repositories&gt;
+    &lt;pluginRepositories&gt;
+      &lt;pluginRepository&gt;
+        &lt;snapshots&gt;
+          &lt;enabled&gt;false&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+        &lt;id&gt;releases&lt;/id&gt;
+        &lt;name&gt;plugins-release&lt;/name&gt;
+        &lt;url&gt;http://localhost:8081/artifactory/plugins-release&lt;/url&gt;
+      &lt;/pluginRepository&gt;
+      &lt;pluginRepository&gt;
+        &lt;snapshots /&gt;
+        &lt;id&gt;snapshots&lt;/id&gt;
+        &lt;name&gt;plugins-snapshot&lt;/name&gt;
+        &lt;url&gt;http://localhost:8081/artifactory/plugins-snapshot&lt;/url&gt;
+      &lt;/pluginRepository&gt;
+    &lt;/pluginRepositories&gt;
+    &lt;id&gt;artifactory&lt;/id&gt;
+  &lt;/profile&gt;
+&lt;/profiles&gt;
+
+&lt;activeProfiles&gt;
+  &lt;activeProfile&gt;artifactory&lt;/activeProfile&gt;
+&lt;/activeProfiles&gt;
+</code></pre><h3 id="u5B89_u88C5gradle"><a href="#u5B89_u88C5gradle" class="headerlink" title="安装gradle"></a>安装gradle</h3><p>为了安装最新的版本，增加gradle的源后再安装：</p>
+<pre><code>sudo add-apt-repository ppa:cwchien/gradle
+sudo apt-get update
+sudo apt-get install gradle
+</code></pre><p>执行gradle -version：</p>
+<pre><code>sky@sky2:~$ gradle -version
+
+------------------------------------------------------------
+Gradle 2.9
+------------------------------------------------------------
+
+Build time:   2015-11-17 07:02:17 UTC
+Build number: none
+Revision:     b463d7980c40d44c4657dc80025275b84a29e31f
+
+Groovy:       2.4.4
+Ant:          Apache Ant(TM) version 1.9.3 compiled on December 23 2013
+JVM:          1.8.0_66 (Oracle Corporation 25.66-b17)
+OS:           Linux 2.6.32-042stab102.9 amd64
+</code></pre><h2 id="u6301_u7EED_u96C6_u6210_u73AF_u5883"><a href="#u6301_u7EED_u96C6_u6210_u73AF_u5883" class="headerlink" title="持续集成环境"></a>持续集成环境</h2><h3 id="u5B89_u88C5Jenkins"><a href="#u5B89_u88C5Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h3><p>执行以下命令安装jenkins：</p>
+<pre><code>wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c &apos;echo deb http://pkg.jenkins-ci.org/debian binary/ &gt; /etc/apt/sources.list.d/jenkins.list&apos;
+sudo apt-get update
+sudo apt-get install jenkins
+</code></pre><p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu" target="_blank" rel="external">参考地址</a>。</p>
+<p>安装完成后Jenkins 运行于8080端口。用PS命令可以看到一些Jenkins运行的配置信息，如JENKINS_HOME.</p>
+<pre><code>ps -ef |grep jenkins
+jenkins   7158     1  0 07:50 ?        00:00:00 /usr/bin/daemon --name=jenkins --inherit --env=JENKINS_HOME=/var/lib/jenkins --output=/var/log/jenkins/jenkins.log --pidfile=/var/run/jenkins/jenkins.pid -- /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1
+jenkins   7159  7158 99 07:50 ?        00:00:24 /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1
+</code></pre><p>如果需要修改为8080之外的其他端口，需要修改配置文件”/etc/default/jenkins”</p>
+<pre><code># port for HTTP connector (default 8080; disable with -1)
+HTTP_PORT=8080
+</code></pre><p>修改后执行”sudo service jenkins restart”重启jenkins。</p>
+<p>同样安全起见，不能让匿名用户有太多权限。</p>
+<ol>
+<li>Jenkins -&gt; Configure Global Security -&gt; 启用安全 勾上，访问控制选 Jenkins专用用户数据库（千万记得选上“容许用户注册”！）， 授权策略选 登录用户可以做任何事。</li>
+<li>保存之后页面跳转要求登录，这个时候选注册，填写表单后注册成功，用刚注册的用户名登录</li>
+<li>Jenkins -&gt; Configure Global Security，取消 “容许用户注册”</li>
+</ol>
+<h1 id="u8FD0_u884C_u73AF_u5883_u642D_u5EFA"><a href="#u8FD0_u884C_u73AF_u5883_u642D_u5EFA" class="headerlink" title="运行环境搭建"></a>运行环境搭建</h1><p>虽然是开发环境，好歹搭点东西可以跑个Demo什么的。</p>
+<h2 id="web_u670D_u52A1_u5668"><a href="#web_u670D_u52A1_u5668" class="headerlink" title="web服务器"></a>web服务器</h2><h3 id="u5B89_u88C5nginx"><a href="#u5B89_u88C5nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><p>执行命令：</p>
+<pre><code>sudo apt-get update
+sudo apt-get install nginx
+</code></pre><p>默认nginx安装完成后自动启动，监听80端口，而且开机自启也是默认做好的。</p>
+<p>默认配置文件在/etc/nginx/nginx.conf，默认site配置在/etc/nginx/sites-enabled/default。</p>
+<p>默认site的文件在/usr/share/nginx/html。</p>
+<h2 id="u6570_u636E_u5E93_u670D_u52A1_u5668"><a href="#u6570_u636E_u5E93_u670D_u52A1_u5668" class="headerlink" title="数据库服务器"></a>数据库服务器</h2><h3 id="u5B89_u88C5mongodb"><a href="#u5B89_u88C5mongodb" class="headerlink" title="安装mongodb"></a>安装mongodb</h3><p>执行以下命令（<a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="external">参考地址</a>）：</p>
+<pre><code>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo &apos;deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen&apos; | sudo tee /etc/apt/sources.list.d/mongodb.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+</code></pre><p>安装完成后，看看mongodb的版本，执行mongod –version：</p>
+<pre><code>db version v2.6.5
+2014-11-28T06:50:30.454+0000 git version: e99d4fcb4279c0279796f237aa92fe3b64560bf6
+</code></pre><h3 id="u5B89_u88C5redis"><a href="#u5B89_u88C5redis" class="headerlink" title="安装redis"></a>安装redis</h3><h3 id="u5B89_u88C5mysql"><a href="#u5B89_u88C5mysql" class="headerlink" title="安装mysql"></a>安装mysql</h3><p>执行以下命令:</p>
+<pre><code>sudo apt-get install mysql-server
+</code></pre><p>中途会要求设置root密码，安装完成后mysql就已经自动启动了，可以用下面的命令来操作mysql：</p>
+<pre><code>sudo service mysql start
+sudo service mysql stop
+sudo service mysql restart
+</code></pre><p>执行下面命令来初始化mysql安装设置，记得容许root用户远程访问：</p>
+<pre><code>/usr/bin/mysql_secure_installation
+</code></pre><p>如果不执行上面的脚本，也可以自己登录mysql后手工设置：</p>
+<pre><code>mysql -uroot -p
+</code></pre><p>输入root密码，登录后在mysql的命令行中执行：</p>
+<pre><code>mysql&gt;use mysql;
+mysql&gt;delete from user where password=&quot;&quot;;
+mysql&gt;update user set host = &apos;%&apos; where user = &apos;root&apos;;
+mysql&gt;flush privileges;
+mysql&gt;quit
+</code></pre><p>对于root账号，如果考虑安全应该新建其他账号用于远程登录，root账号可以不必开启远程登录。不过对于一般使用，没有太多安全需求，允许root用户远程登录可以方便管理，毕竟使用专用管理软件的图形界面在操作方面要方便的多。</p>
+<p>也可以用root账号设置好其他使用账号之后，再禁用root账号的远程访问功能。</p>
+<p>mysql默认是监听127.0.0.1地址的，为了让外网可以访问mysql，需要修改mysql配置文件：</p>
+<pre><code>sudo vi /etc/mysql/my.cnf
+</code></pre><p>找到该行并注释掉</p>
+<pre><code>#bind-address　　　　　 = 127.0.0.1
+</code></pre><p>保存修改后的my.cnf文件后执行 sudo service mysql restart 重启mysql即可远程访问。</p>
+<h2 id="u5F00_u53D1_u5DE5_u5177"><a href="#u5F00_u53D1_u5DE5_u5177" class="headerlink" title="开发工具"></a>开发工具</h2><h3 id="u5B89_u88C5sonar"><a href="#u5B89_u88C5sonar" class="headerlink" title="安装sonar"></a>安装sonar</h3><p>先准备好mysql，在mysql中新建名为sonar的database,encoding选择为UTF-8，然后新建名为sonar密码也是sonar的用户，设置好对sonar database的权限。</p>
+<p>从<a href="http://www.sonarqube.org/downloads/" target="_blank" rel="external">sonar官网</a>下载最新的<a href="http://downloads.sonarsource.com/sonarqube/sonarqube-5.1.1.zip" target="_blank" rel="external">sonar zip包</a>，然后解压缩。</p>
+<p>修改conf/sonar.properties文件，打开一下注释：</p>
+<pre><code>sonar.jdbc.username=sonar
+sonar.jdbc.password=sonar
+
+sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance
+
+sonar.web.port=6800
+</code></pre><p>然后执行 “./bin/linux-x86-32/sonar.sh start”，启动sonar。打开浏览器访问<a href="http://yourip:6800/" target="_blank" rel="external">http://yourip:6800/</a> 即可。默认管理员账号密码为: admin/admin。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/server/">server</a><a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2015/07/03/linux-server-setup/" data-title="(记录)在ubuntu服务器上搭建全套开发环境 | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/07/14/computer-fanqiang/" title="使用shadowsocks实现科学上网">
+  <strong>上一篇：</strong><br/>
+  <span>
+  使用shadowsocks实现科学上网</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/06/29/mint-install-nodejs/"  title="(记录)在mint linux 下安装nodejs">
+ <strong>下一篇：</strong><br/> 
+ <span>(记录)在mint linux 下安装nodejs
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/07/03/linux-server-setup/" data-title="(记录)在ubuntu服务器上搭建全套开发环境" data-url="http://skyao.github.io/2015/07/03/linux-server-setup/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u670D_u52A1_u5668_u914D_u7F6E"><span class="toc-number">2.</span> <span class="toc-text">服务器配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u589E_u52A0user"><span class="toc-number">2.1.</span> <span class="toc-text">增加user</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BBE_u7F6Eapt_u6E90"><span class="toc-number">2.2.</span> <span class="toc-text">设置apt源</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5F00_u53D1_u73AF_u5883_u642D_u5EFA"><span class="toc-number">3.</span> <span class="toc-text">开发环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u76F8_u5173"><span class="toc-number">3.1.</span> <span class="toc-text">Java相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5JDK"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装JDK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7248_u672C_u63A7_u5236"><span class="toc-number">3.2.</span> <span class="toc-text">版本控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5Git"><span class="toc-number">3.2.1.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5gitlab"><span class="toc-number">3.2.2.</span> <span class="toc-text">安装gitlab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5gitolite_28_u5F03_u7528_2C_u6539_u4E3Agitlab_29"><span class="toc-number">3.2.3.</span> <span class="toc-text">安装gitolite(弃用,改为gitlab)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5BFC_u5165_u539F_u6709git_u4ED3_u5E93"><span class="toc-number">3.2.4.</span> <span class="toc-text">导入原有git仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6253_u5305_u53D1_u5E03_u5DE5_u5177"><span class="toc-number">3.3.</span> <span class="toc-text">打包发布工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5ant"><span class="toc-number">3.3.1.</span> <span class="toc-text">安装ant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5ivy"><span class="toc-number">3.3.2.</span> <span class="toc-text">安装ivy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5maven"><span class="toc-number">3.3.3.</span> <span class="toc-text">安装maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5artifactory"><span class="toc-number">3.3.4.</span> <span class="toc-text">安装artifactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u914D_u7F6Emaven"><span class="toc-number">3.3.5.</span> <span class="toc-text">配置maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5gradle"><span class="toc-number">3.3.6.</span> <span class="toc-text">安装gradle</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6301_u7EED_u96C6_u6210_u73AF_u5883"><span class="toc-number">3.4.</span> <span class="toc-text">持续集成环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5Jenkins"><span class="toc-number">3.4.1.</span> <span class="toc-text">安装Jenkins</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8FD0_u884C_u73AF_u5883_u642D_u5EFA"><span class="toc-number">4.</span> <span class="toc-text">运行环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#web_u670D_u52A1_u5668"><span class="toc-number">4.1.</span> <span class="toc-text">web服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5nginx"><span class="toc-number">4.1.1.</span> <span class="toc-text">安装nginx</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6570_u636E_u5E93_u670D_u52A1_u5668"><span class="toc-number">4.2.</span> <span class="toc-text">数据库服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5mongodb"><span class="toc-number">4.2.1.</span> <span class="toc-text">安装mongodb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5redis"><span class="toc-number">4.2.2.</span> <span class="toc-text">安装redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5mysql"><span class="toc-number">4.2.3.</span> <span class="toc-text">安装mysql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5F00_u53D1_u5DE5_u5177"><span class="toc-number">4.3.</span> <span class="toc-text">开发工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5sonar"><span class="toc-number">4.3.1.</span> <span class="toc-text">安装sonar</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

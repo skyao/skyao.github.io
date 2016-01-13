@@ -1,0 +1,611 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>(记录)windows8.1安装配置 | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="资料收集，关于安装配置windows8.1的TIPS。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(记录)windows8.1安装配置">
+<meta property="og:url" content="http://skyao.github.io/2015/02/09/computer-win8-install/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="资料收集，关于安装配置windows8.1的TIPS。">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(记录)windows8.1安装配置">
+<meta name="twitter:description" content="资料收集，关于安装配置windows8.1的TIPS。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/09/computer-win8-install/" title="(记录)windows8.1安装配置" itemprop="url">(记录)windows8.1安装配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-09T03:59:38.000Z" itemprop="datePublished"> 發表於 2015-02-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BBE_u7F6EUEFI_+_GPT"><span class="toc-number">1.</span> <span class="toc-text">设置UEFI + GPT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8F6C_u79FB_u7528_u6237_u6587_u4EF6_u5939"><span class="toc-number">2.</span> <span class="toc-text">转移用户文件夹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4FEE_u6539_u5E94_u7528_u9ED8_u8BA4_u5B89_u88C5_u8DEF_u5F84"><span class="toc-number">3.</span> <span class="toc-text">修改应用默认安装路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8F6F_u4EF6_u8BBE_u7F6E"><span class="toc-number">4.</span> <span class="toc-text">软件设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u81EA_u52A8_u9690_u85CFoutlook_u5230_u6258_u76D8"><span class="toc-number">4.1.</span> <span class="toc-text">自动隐藏outlook到托盘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u7CFB_u7EDF_u4F18_u5316"><span class="toc-number">5.</span> <span class="toc-text">系统优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5173_u95EDWindows_Defender"><span class="toc-number">5.1.</span> <span class="toc-text">关闭Windows Defender</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u52A0_u901F_u684C_u9762_u53F3_u952E_u83DC_u5355"><span class="toc-number">5.2.</span> <span class="toc-text">加速桌面右键菜单</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>资料收集，关于安装配置windows8.1的TIPS。</p>
+<a id="more"></a>
+<h1 id="u8BBE_u7F6EUEFI_+_GPT"><a href="#u8BBE_u7F6EUEFI_+_GPT" class="headerlink" title="设置UEFI + GPT"></a>设置UEFI + GPT</h1><p>全新安装Win7或者Win8系统过程中，在选择目标磁盘时，按住“Shift+F10”，在弹出的命令窗口中输入”diskpart”。</p>
+<p>具体内容，参考这个文章： <a href="http://www.beihaiting.com/a/XTJC/XTJQ/2014/0815/5127.html" target="_blank" rel="external">利用diskpart命令创建GPT磁盘分区图文教程</a></p>
+<h1 id="u8F6C_u79FB_u7528_u6237_u6587_u4EF6_u5939"><a href="#u8F6C_u79FB_u7528_u6237_u6587_u4EF6_u5939" class="headerlink" title="转移用户文件夹"></a>转移用户文件夹</h1><p>最安全的方式：在安装完WIN8系统后，配置新用户之前，先别急着创建用户，按住“Shift+F10”，在弹出的命令窗口中输入“Regedit”进入注册表编辑器。</p>
+<p>依次按以下顺序打开：</p>
+<blockquote>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList </p>
+</blockquote>
+<p>特别提醒：这里是“<strong>Windows NT</strong>”。</p>
+<p>找到名为 ProfilesDirectory 的字符串值,将 %SystemDrive%\Users 改为你期望的目录,如 D:\Users。</p>
+<p>修改完毕后，关闭注册表编辑器，再来创建用户也不迟。</p>
+<h1 id="u4FEE_u6539_u5E94_u7528_u9ED8_u8BA4_u5B89_u88C5_u8DEF_u5F84"><a href="#u4FEE_u6539_u5E94_u7528_u9ED8_u8BA4_u5B89_u88C5_u8DEF_u5F84" class="headerlink" title="修改应用默认安装路径"></a>修改应用默认安装路径</h1><p>安装网上方案修改，老是后面安装应用时出错，折腾了挺久。</p>
+<p>不浪费时间了，就让应用默认安装在C盘好，大不了将C盘空间放大一点就是。</p>
+<h1 id="u8F6F_u4EF6_u8BBE_u7F6E"><a href="#u8F6F_u4EF6_u8BBE_u7F6E" class="headerlink" title="软件设置"></a>软件设置</h1><h2 id="u81EA_u52A8_u9690_u85CFoutlook_u5230_u6258_u76D8"><a href="#u81EA_u52A8_u9690_u85CFoutlook_u5230_u6258_u76D8" class="headerlink" title="自动隐藏outlook到托盘"></a>自动隐藏outlook到托盘</h2><p>打开outlook后，在右下角托盘中找到outlook的图标，用鼠标左键点击，弹出菜单时点选“最小化时隐藏”。</p>
+<p>之后不用outlook的时候，只要点击最小化，就会隐藏到托盘，而不是默认的那种会最小化到任务栏。</p>
+<h1 id="u7CFB_u7EDF_u4F18_u5316"><a href="#u7CFB_u7EDF_u4F18_u5316" class="headerlink" title="系统优化"></a>系统优化</h1><h2 id="u5173_u95EDWindows_Defender"><a href="#u5173_u95EDWindows_Defender" class="headerlink" title="关闭Windows Defender"></a>关闭Windows Defender</h2><p>参考 <a href="http://jingyan.baidu.com/article/ca00d56c8e14f2e99eebcf9a.html" target="_blank" rel="external">win8.1如何关闭Windows Defender</a></p>
+<h2 id="u52A0_u901F_u684C_u9762_u53F3_u952E_u83DC_u5355"><a href="#u52A0_u901F_u684C_u9762_u53F3_u952E_u83DC_u5355" class="headerlink" title="加速桌面右键菜单"></a>加速桌面右键菜单</h2><p>需要删除桌面右键菜单中显卡的选项，包括nvidia显卡和intel显卡。</p>
+<p>参考 <a href="http://jingyan.baidu.com/article/00a07f38b8224382d028dc3d.html" target="_blank" rel="external">WIN7如何为桌面右键菜单减肥和加速？</a></p>
+<p>按照上述方法搞定了nvidia显卡， 但是intel显卡无效。</p>
+<p>最后参考这里 <a href="http://jingyan.baidu.com/article/6d704a130b7d0828db51ca2c.html" target="_blank" rel="external">win8.1右键单击桌面空白反应变慢</a></p>
+<pre><code>运行 右键管家--菜单管理--目录背景    把“The DeskTopContextMenu Class”关闭可以了
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/windows/">windows</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2015/02/09/computer-win8-install/" data-title="(记录)windows8.1安装配置 | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/02/16/git-gitlab-setup/" title="(记录)gitlab安装配置">
+  <strong>上一篇：</strong><br/>
+  <span>
+  (记录)gitlab安装配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/02/05/git-fix-gitbash-crash/"  title="(记录)解决git bash启动时报错的问题">
+ <strong>下一篇：</strong><br/> 
+ <span>(记录)解决git bash启动时报错的问题
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/02/09/computer-win8-install/" data-title="(记录)windows8.1安装配置" data-url="http://skyao.github.io/2015/02/09/computer-win8-install/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u8BBE_u7F6EUEFI_+_GPT"><span class="toc-number">1.</span> <span class="toc-text">设置UEFI + GPT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8F6C_u79FB_u7528_u6237_u6587_u4EF6_u5939"><span class="toc-number">2.</span> <span class="toc-text">转移用户文件夹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4FEE_u6539_u5E94_u7528_u9ED8_u8BA4_u5B89_u88C5_u8DEF_u5F84"><span class="toc-number">3.</span> <span class="toc-text">修改应用默认安装路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u8F6F_u4EF6_u8BBE_u7F6E"><span class="toc-number">4.</span> <span class="toc-text">软件设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u81EA_u52A8_u9690_u85CFoutlook_u5230_u6258_u76D8"><span class="toc-number">4.1.</span> <span class="toc-text">自动隐藏outlook到托盘</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u7CFB_u7EDF_u4F18_u5316"><span class="toc-number">5.</span> <span class="toc-text">系统优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5173_u95EDWindows_Defender"><span class="toc-number">5.1.</span> <span class="toc-text">关闭Windows Defender</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u52A0_u901F_u684C_u9762_u53F3_u952E_u83DC_u5355"><span class="toc-number">5.2.</span> <span class="toc-text">加速桌面右键菜单</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

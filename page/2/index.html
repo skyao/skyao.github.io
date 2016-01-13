@@ -1,0 +1,1731 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sky's Blog">
+<meta property="og:url" content="http://skyao.github.io/page/2/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sky's Blog">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/17/computer-sublime-tips/" title="sublime 3 tips" itemprop="url">sublime 3 tips</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-17T15:39:19.000Z" itemprop="datePublished"> 發表於 2015-02-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Sublime 3 使用中的一些TIPS。</p>
+<h1 id="u9700_u8981_u89E3_u51B3_u7684_u95EE_u9898"><a href="#u9700_u8981_u89E3_u51B3_u7684_u95EE_u9898" class="headerlink" title="需要解决的问题"></a>需要解决的问题</h1><h2 id="u4E2D_u6587_u4E71_u7801"><a href="#u4E2D_u6587_u4E71_u7801" class="headerlink" title="中文乱码"></a>中文乱码</h2><p>步骤：</p>
+<p>在Sublime Text里，按ctrl+`，打开Console，一次性输入如下代码：</p>
+<blockquote>
+<p>import urllib.request,os; pf = ‘Package Control.sublime-package’; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), ‘wb’).write(urllib.request.urlopen( ‘<a href="http://sublime.wbond.net/" target="_blank" rel="external">http://sublime.wbond.net/</a>‘ + pf.replace(‘ ‘,’%20’)).read())</p>
+</blockquote>
+<p>这样Sublime Text就会安装我们需要的Package Control。否则后面会找不到Package。</p>
+<p>重启Sublime Text。</p>
+<p>在Sublime Text中，按Ctrl+Shift+P打开命令行模式，输入Install Package关键字，然后点击自动出现的下拉菜单里的第一项：Package Control: Install Package。</p>
+<p>此时你会看到左下角有个=号来回动，稍等一会，会再次在命令行下弹出一个下拉菜单。输入“ConvertToUTF8”或者“GBK Encoding Support”，选择匹配项。</p>
+<p>中文字符就可以正常显示了。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/computer/">computer</a><a href="/tags/sublime/">sublime</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/02/17/computer-sublime-tips/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/17/computer-sublime-tips/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/17/gitbook-setup-ci/" title="自动出书-实现gitbook的持续集成" itemprop="url">自动出书-实现gitbook的持续集成</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-17T07:18:54.000Z" itemprop="datePublished"> 發表於 2015-02-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>总结并分享一下将为gitbook搭建的持续集成环境，实现书籍编写提交后，CI自动获取最新内容生成页面并发布到web服务器的全过程。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/02/17/gitbook-setup-ci/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Git/">Git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/gitbook/">gitbook</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/02/17/gitbook-setup-ci/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/17/gitbook-setup-ci/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/16/git-gitlab-setup/" title="(记录)gitlab安装配置" itemprop="url">(记录)gitlab安装配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-16T07:44:29.000Z" itemprop="datePublished"> 發表於 2015-02-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>资料记录，关于gitlab的安装配置。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/02/16/git-gitlab-setup/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Git/">Git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a><a href="/tags/gitlab/">gitlab</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/02/16/git-gitlab-setup/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/16/git-gitlab-setup/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/09/computer-win8-install/" title="(记录)windows8.1安装配置" itemprop="url">(记录)windows8.1安装配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-09T03:59:38.000Z" itemprop="datePublished"> 發表於 2015-02-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>资料收集，关于安装配置windows8.1的TIPS。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/02/09/computer-win8-install/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/windows/">windows</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/02/09/computer-win8-install/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/09/computer-win8-install/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/05/git-fix-gitbash-crash/" title="(记录)解决git bash启动时报错的问题" itemprop="url">(记录)解决git bash启动时报错的问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-05T07:09:19.000Z" itemprop="datePublished"> 發表於 2015-02-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>解决git bash启动时报”couldn’t reserve space for cygwin’s heap”的错误。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/02/05/git-fix-gitbash-crash/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Git/">Git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/02/05/git-fix-gitbash-crash/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/05/git-fix-gitbash-crash/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/05/plantuml-installation/" title="(记录)plantuml安装配置" itemprop="url">(记录)plantuml安装配置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-05T04:13:15.000Z" itemprop="datePublished"> 發表於 2014-12-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>记录plantuml的安装配置，以及和其他工具的集成。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/12/05/plantuml-installation/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Design/">Design</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/plantuml/">plantuml</a><a href="/tags/uml/">uml</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/12/05/plantuml-installation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/12/05/plantuml-installation/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/03/git-tag-collection/" title="(资料)git tag命令资料收集" itemprop="url">(资料)git tag命令资料收集</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-03T04:08:12.000Z" itemprop="datePublished"> 發表於 2014-12-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>记录git中tag命令的用法。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/12/03/git-tag-collection/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Git/">Git</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/git/">git</a><a href="/tags/tag/">tag</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/12/03/git-tag-collection/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/12/03/git-tag-collection/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/02/java-javadoc-collection/" title="(资料)javadoc资料收集" itemprop="url">(资料)javadoc资料收集</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-02T06:35:10.000Z" itemprop="datePublished"> 發表於 2014-12-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>资料收集，关于java中的javadoc。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/12/02/java-javadoc-collection/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/doclet/">doclet</a><a href="/tags/java/">java</a><a href="/tags/javadoc/">javadoc</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/12/02/java-javadoc-collection/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/12/02/java-javadoc-collection/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/27/ci-jenkins-setup/" title="(记录)配置Jenkins服务器" itemprop="url">(记录)配置Jenkins服务器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-27T08:22:27.000Z" itemprop="datePublished"> 發表於 2014-11-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>资料收集，在ubuntu服务器上搭建并配置Jenkins CI服务器。</p>
+<p>Last Update: 2015-11-26</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/11/27/ci-jenkins-setup/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/CI/">CI</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CI/">CI</a><a href="/tags/jenkins/">jenkins</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/11/27/ci-jenkins-setup/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/11/27/ci-jenkins-setup/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/24/hexo-upgrade/" title="(记录)升级hexo和pacman到最新版本" itemprop="url">(记录)升级hexo和pacman到最新版本</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-24T09:39:26.000Z" itemprop="datePublished"> 發表於 2014-11-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>记录hexo和pacman主题的升级。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/11/24/hexo-upgrade/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/杂谈/">杂谈</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hexo/">hexo</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/11/24/hexo-upgrade/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/11/24/hexo-upgrade/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/09/linux-arch-usbwriter/" title="(记录)用usbwriter来制作archlinux启动U盘" itemprop="url">(记录)用usbwriter来制作archlinux启动U盘</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-09T00:19:17.000Z" itemprop="datePublished"> 發表於 2014-11-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>解决U盘安装archlinux时遇到的无法从u盘启动的问题。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/11/09/linux-arch-usbwriter/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/archlinux/">archlinux</a><a href="/tags/linux/">linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/11/09/linux-arch-usbwriter/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/11/09/linux-arch-usbwriter/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/02/linux-systemd-upstart/" title="(资料)linux初始化之upstart VS systemd" itemprop="url">(资料)linux初始化之upstart VS systemd</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-02T15:41:38.000Z" itemprop="datePublished"> 發表於 2014-11-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>资料收集，关于linux初始化系统，主要是upstart和systemd。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/11/02/linux-systemd-upstart/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/systemd/">systemd</a><a href="/tags/ubuntu/">ubuntu</a><a href="/tags/upstart/">upstart</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/11/02/linux-systemd-upstart/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/11/02/linux-systemd-upstart/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/02/redis-install-aptget/" title="(记录)Ubuntu下用apt-get安装最新版本的Redis" itemprop="url">(记录)Ubuntu下用apt-get安装最新版本的Redis</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-02T02:19:01.000Z" itemprop="datePublished"> 發表於 2014-11-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>记录使用apt-get在ubuntu server上安装最新版本Redis的过程。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/11/02/redis-install-aptget/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/install/">install</a><a href="/tags/linux/">linux</a><a href="/tags/redis/">redis</a><a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/11/02/redis-install-aptget/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/11/02/redis-install-aptget/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/25/redis-repl-check/" title="判断Redis复制是否完成的方法" itemprop="url">判断Redis复制是否完成的方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-25T07:44:24.000Z" itemprop="datePublished"> 發表於 2014-09-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>当需要使用Redis的复制功能时，有时需要能及时的得到复制完成的信息，或者说复制的进度。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/09/25/redis-repl-check/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/redis/">redis</a><a href="/tags/replication/">replication</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/09/25/redis-repl-check/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/09/25/redis-repl-check/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/25/redis-install/" title="(记录)Ubuntu下安装Redis" itemprop="url">(记录)Ubuntu下安装Redis</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-25T07:01:29.000Z" itemprop="datePublished"> 發表於 2014-09-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>记录Redis在ubuntu server上的安装过程。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/09/25/redis-install/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Redis/">Redis</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/install/">install</a><a href="/tags/linux/">linux</a><a href="/tags/redis/">redis</a><a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/09/25/redis-install/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/09/25/redis-install/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/23/logback-process-filter/" title="logback中的filter" itemprop="url">logback中的filter</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-23T08:14:47.000Z" itemprop="datePublished"> 發表於 2014-09-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在前面研究logback是如何打印日志内容的过程中，我们跳过了TurboFilter和Filter的内容。现在我们来看看这两个功能是如何工作的。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/09/23/logback-process-filter/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/logback/">logback</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/09/23/logback-process-filter/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/09/23/logback-process-filter/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/23/logback-additivity/" title="logback中additivity属性源码分析" itemprop="url">logback中additivity属性源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-23T03:38:25.000Z" itemprop="datePublished"> 發表於 2014-09-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在前面研究logback打印日志内容的过程中，我们跳过了不少细节。现在回头来逐个看看，先看看logger的additivity属性。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/09/23/logback-additivity/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/logback/">logback</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/09/23/logback-additivity/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/09/23/logback-additivity/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/11/logback-process/" title="logback中日志打印流程源码分析" itemprop="url">logback中日志打印流程源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-11T03:57:09.000Z" itemprop="datePublished"> 發表於 2014-09-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>继续研究logback，看看logback中是如何将日志信息打印出来的。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/09/11/logback-process/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/logback/">logback</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/09/11/logback-process/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/09/11/logback-process/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/08/logback-logger-creation/" title="logback中logger对象的创建过程源码分析" itemprop="url">logback中logger对象的创建过程源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-08T03:33:38.000Z" itemprop="datePublished"> 發表於 2014-08-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>这次我们继续详细研究一下logback，看看logback中是如何创建Logger对象的。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/08/08/logback-logger-creation/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/logback/">logback</a><a href="/tags/logger/">logger</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/08/08/logback-logger-creation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/08/08/logback-logger-creation/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/23/logback-initiation/" title="logback初始化过程源码分析" itemprop="url">logback初始化过程源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-23T07:48:53.000Z" itemprop="datePublished"> 發表於 2014-07-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>上一篇Blog中研究了一下Slf4j是如何在运行时和底层的log api实现做绑定。当时举的例子是slf4j-simple和log4j. </p>
+<p>这次我们来详细研究一下logback，顺便看看logback是怎么完成初始化配置的。</p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/07/23/logback-initiation/#more">阅读全文</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/logback/">logback</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/07/23/logback-initiation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2014/07/23/logback-initiation/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

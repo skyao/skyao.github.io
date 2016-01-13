@@ -1,0 +1,659 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>(记录)配置Jenkins服务器 | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="资料收集，在ubuntu服务器上搭建并配置Jenkins CI服务器。
+Last Update: 2015-11-26">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(记录)配置Jenkins服务器">
+<meta property="og:url" content="http://skyao.github.io/2014/11/27/ci-jenkins-setup/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="资料收集，在ubuntu服务器上搭建并配置Jenkins CI服务器。
+Last Update: 2015-11-26">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(记录)配置Jenkins服务器">
+<meta name="twitter:description" content="资料收集，在ubuntu服务器上搭建并配置Jenkins CI服务器。
+Last Update: 2015-11-26">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/27/ci-jenkins-setup/" title="(记录)配置Jenkins服务器" itemprop="url">(记录)配置Jenkins服务器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-27T08:22:27.000Z" itemprop="datePublished"> 發表於 2014-11-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5B89_u88C5Jenkins"><span class="toc-number">1.</span> <span class="toc-text">安装Jenkins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5B89_u88C5_u63D2_u4EF6"><span class="toc-number">2.</span> <span class="toc-text">安装插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u53D6_u6D88_u4E0D_u9700_u8981_u7684_u5DF2_u5B89_u88C5_u63D2_u4EF6"><span class="toc-number">2.1.</span> <span class="toc-text">取消不需要的已安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5B89_u88C5_u65B0_u63D2_u4EF6"><span class="toc-number">2.2.</span> <span class="toc-text">安装新插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git_u76F8_u5173"><span class="toc-number">2.2.1.</span> <span class="toc-text">git相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#view__u6392_u7248"><span class="toc-number">2.2.2.</span> <span class="toc-text">view 排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD0_u884C_u72B6_u6001"><span class="toc-number">2.2.3.</span> <span class="toc-text">运行状态</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u914D_u7F6EJenkins"><span class="toc-number">3.</span> <span class="toc-text">配置Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4FEE_u6539_u7CFB_u7EDF_u914D_u7F6E"><span class="toc-number">3.1.</span> <span class="toc-text">修改系统配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907git"><span class="toc-number">3.2.</span> <span class="toc-text">准备git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907maven"><span class="toc-number">3.3.</span> <span class="toc-text">准备maven</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u914D_u7F6Eartifactory"><span class="toc-number">3.3.1.</span> <span class="toc-text">配置artifactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u914D_u7F6Emaven"><span class="toc-number">3.3.2.</span> <span class="toc-text">配置maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u89C1_u95EE_u9898"><span class="toc-number">3.3.3.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#id_u7684_u5BF9_u5E94_u5173_u7CFB"><span class="toc-number">3.3.4.</span> <span class="toc-text">id的对应关系</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>资料收集，在ubuntu服务器上搭建并配置Jenkins CI服务器。</p>
+<p>Last Update: 2015-11-26</p>
+<a id="more"></a>
+<h1 id="u5B89_u88C5Jenkins"><a href="#u5B89_u88C5Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h1><p>在上一个Blog中已经介绍了如何在ubuntu服务器上安装Jenkins并配置用户登录。</p>
+<h1 id="u5B89_u88C5_u63D2_u4EF6"><a href="#u5B89_u88C5_u63D2_u4EF6" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="u53D6_u6D88_u4E0D_u9700_u8981_u7684_u5DF2_u5B89_u88C5_u63D2_u4EF6"><a href="#u53D6_u6D88_u4E0D_u9700_u8981_u7684_u5DF2_u5B89_u88C5_u63D2_u4EF6" class="headerlink" title="取消不需要的已安装插件"></a>取消不需要的已安装插件</h2><p>以下插件暂时用不上，先取消，万一需要了再启用不迟：</p>
+<ol>
+<li>CVS plugin</li>
+<li>LDAP plugin</li>
+<li>PAM Authentication Plugin</li>
+<li>Subversion Plugin</li>
+<li>Translation Assistance Plugin</li>
+<li>Windows Slaves Plugin</li>
+</ol>
+<p>Update: 在最新的Jenkins版本中, 这些plugin不容许被取消, 只好继续保留.</p>
+<h2 id="u5B89_u88C5_u65B0_u63D2_u4EF6"><a href="#u5B89_u88C5_u65B0_u63D2_u4EF6" class="headerlink" title="安装新插件"></a>安装新插件</h2><p>需要安装以下插件：</p>
+<h3 id="git_u76F8_u5173"><a href="#git_u76F8_u5173" class="headerlink" title="git相关"></a>git相关</h3><ol>
+<li>Git Client Plugin</li>
+<li>Git Parameter Plugin</li>
+</ol>
+<h3 id="view__u6392_u7248"><a href="#view__u6392_u7248" class="headerlink" title="view 排版"></a>view 排版</h3><ol>
+<li>Nested View Plugin</li>
+<li>Sectioned View Plugin</li>
+</ol>
+<h3 id="u8FD0_u884C_u72B6_u6001"><a href="#u8FD0_u884C_u72B6_u6001" class="headerlink" title="运行状态"></a>运行状态</h3><ol>
+<li>Green Balls</li>
+</ol>
+<h1 id="u914D_u7F6EJenkins"><a href="#u914D_u7F6EJenkins" class="headerlink" title="配置Jenkins"></a>配置Jenkins</h1><h2 id="u4FEE_u6539_u7CFB_u7EDF_u914D_u7F6E"><a href="#u4FEE_u6539_u7CFB_u7EDF_u914D_u7F6E" class="headerlink" title="修改系统配置"></a>修改系统配置</h2><p>登录后，系统管理 -&gt; 系统设置。</p>
+<p>在这里配置好JDK/ant/maven/git, 注意必须配置, 否则跑Job的时候会出错.</p>
+<h2 id="u51C6_u5907git"><a href="#u51C6_u5907git" class="headerlink" title="准备git"></a>准备git</h2><p>需要为jenkins用户准备git访问权限：</p>
+<pre><code>sudo su jenkins
+ssh-keygen -t rsa
+</code></pre><p>将得到的pub key提交到gitlab/github的ssh key中.</p>
+<h2 id="u51C6_u5907maven"><a href="#u51C6_u5907maven" class="headerlink" title="准备maven"></a>准备maven</h2><h3 id="u914D_u7F6Eartifactory"><a href="#u914D_u7F6Eartifactory" class="headerlink" title="配置artifactory"></a>配置artifactory</h3><p>在 artifactory 中增加一个新的jenkins 用户，设置权限为可以读和upload。</p>
+<p>Update: 在新版本的artifactory中, 默认permission里面居然没有带upload权限的permission, 需要自己先创建一个permission, 选择带有read和upload权限,然后再关联到group或用户.</p>
+<p>如果没有upload权限, 会报”Access denied”错误:</p>
+<blockquote>
+<p>[ERROR] Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy (default-deploy) on project ut-cidemo: Failed to deploy artifacts: Could not transfer artifact io.xuexi.ut:ut-cidemo:jar:0.1.0-20151126.090302-1 from/to snapshots (<a href="http://localhost:8081/artifactory/libs-snapshot-local" target="_blank" rel="external">http://localhost:8081/artifactory/libs-snapshot-local</a>): Access denied to: <a href="http://localhost:8081/artifactory/libs-snapshot-local/io/xuexi/ut/ut-cidemo/0.1.0-SNAPSHOT/ut-cidemo-0.1.0-20151126.090302-1.jar" target="_blank" rel="external">http://localhost:8081/artifactory/libs-snapshot-local/io/xuexi/ut/ut-cidemo/0.1.0-SNAPSHOT/ut-cidemo-0.1.0-20151126.090302-1.jar</a>, ReasonPhrase: Forbidden. -&gt; [Help 1]</p>
+</blockquote>
+<h3 id="u914D_u7F6Emaven"><a href="#u914D_u7F6Emaven" class="headerlink" title="配置maven"></a>配置maven</h3><p>修改maven的配置文件，server配置段：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">servers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">server</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">username</span>&gt;</span>jenkins<span class="tag">&lt;/<span class="title">username</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">password</span>&gt;</span>****<span class="tag">&lt;/<span class="title">password</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">id</span>&gt;</span>releases<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">server</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">server</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">username</span>&gt;</span>jenkins<span class="tag">&lt;/<span class="title">username</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">password</span>&gt;</span>****<span class="tag">&lt;/<span class="title">password</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">id</span>&gt;</span>snapshots<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后试着su 到 jenkins用户，试找打包代码和发布到artifactory，如果一切顺利，说明jenkins用户的git/maven/artifactory都可以正常使用。这样就可以去jenkins上创建相应的job了。</p>
+<h3 id="u5E38_u89C1_u95EE_u9898"><a href="#u5E38_u89C1_u95EE_u9898" class="headerlink" title="常见问题"></a>常见问题</h3><p>配置后，在deploy打包好的jar包到artifactory时遇到两个问题，解决后才反应过来，原来N年前配置的时候也遇到过……</p>
+<p>真是无语，所以还是记录下来避免日后再浪费时间。</p>
+<ol>
+<li><p>报错为”repository element was not specified in the POM inside distributionManagement element or in -DaltDeploymentRepository=id::layout::url parameter”</p>
+<p> 这个报错的原因是pom.xml里面没有distributionManagement配置，这个是用来告诉maven要deploy打包之后的文件到artifactory的哪个仓库，没有这个信息artifactory无法工作。我不大喜欢在pom.xml文件中制定，因为可能在不同的机器上发布的artifactory是不一样的。所以一般用-DaltDeploymentRepository参数来制定。</p>
+</li>
+<li><p>报错为”Return code is: 405, ReasonPhrase: Method Not Allowed.”</p>
+<p> 这个错误有点低级了，前面maven的settings.xml文件里面有一个release(或者snapshort)的仓库地址，如 <a href="http://localhost:8081/artifactory/libs-release" target="_blank" rel="external">http://localhost:8081/artifactory/libs-release</a> 。 但是这个仓库是一个虚拟仓库，是不能直接deploy到这里的。应该修改为 <a href="http://localhost:8081/artifactory/libs-release-local" target="_blank" rel="external">http://localhost:8081/artifactory/libs-release-local</a> 。 这个libs-release-local仓库才是满足我们要求的仓库。</p>
+</li>
+</ol>
+<p>下面是一个执行deploy的maven命令：</p>
+<pre><code>mvn -DaltDeploymentRepository=releases::default::http://localhost:8081/artifactory/libs-release-local -DperformRelease=true -Dgpg.skip -DskipTests deploy
+</code></pre><h3 id="id_u7684_u5BF9_u5E94_u5173_u7CFB"><a href="#id_u7684_u5BF9_u5E94_u5173_u7CFB" class="headerlink" title="id的对应关系"></a>id的对应关系</h3><p>有三个地方的id是必须一一对应的:</p>
+<ol>
+<li><p>profile设置中repository的id</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">repositories</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">snapshots</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="title">enabled</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">snapshots</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">id</span>&gt;</span>releases<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">name</span>&gt;</span>libs-release<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://localhost:8081/artifactory/libs-release<span class="tag">&lt;/<span class="title">url</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">repository</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">snapshots</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">id</span>&gt;</span>snapshots<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">name</span>&gt;</span>libs-snapshot<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">url</span>&gt;</span>http://localhost:8081/artifactory/libs-snapshot<span class="tag">&lt;/<span class="title">url</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">repositories</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>server设置中的id</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">servers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">server</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">username</span>&gt;</span>jenkins<span class="tag">&lt;/<span class="title">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">password</span>&gt;</span>****<span class="tag">&lt;/<span class="title">password</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">id</span>&gt;</span>releases<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">server</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">username</span>&gt;</span>jenkins<span class="tag">&lt;/<span class="title">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">password</span>&gt;</span>****<span class="tag">&lt;/<span class="title">password</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">id</span>&gt;</span>snapshots<span class="tag">&lt;/<span class="title">id</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">server</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">servers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mvn命令行参数”-DaltDeploymentRepository=id::layout::url”中的id</p>
+<blockquote>
+<p>mvn -DaltDeploymentRepository=releases::default::<a href="http://localhost:8081/artifactory/libs-release-local" target="_blank" rel="external">http://localhost:8081/artifactory/libs-release-local</a></p>
+</blockquote>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/CI/">CI</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/CI/">CI</a><a href="/tags/jenkins/">jenkins</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2014/11/27/ci-jenkins-setup/" data-title="(记录)配置Jenkins服务器 | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/12/02/java-javadoc-collection/" title="(资料)javadoc资料收集">
+  <strong>上一篇：</strong><br/>
+  <span>
+  (资料)javadoc资料收集</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/24/hexo-upgrade/"  title="(记录)升级hexo和pacman到最新版本">
+ <strong>下一篇：</strong><br/> 
+ <span>(记录)升级hexo和pacman到最新版本
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/11/27/ci-jenkins-setup/" data-title="(记录)配置Jenkins服务器" data-url="http://skyao.github.io/2014/11/27/ci-jenkins-setup/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5B89_u88C5Jenkins"><span class="toc-number">1.</span> <span class="toc-text">安装Jenkins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u5B89_u88C5_u63D2_u4EF6"><span class="toc-number">2.</span> <span class="toc-text">安装插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u53D6_u6D88_u4E0D_u9700_u8981_u7684_u5DF2_u5B89_u88C5_u63D2_u4EF6"><span class="toc-number">2.1.</span> <span class="toc-text">取消不需要的已安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5B89_u88C5_u65B0_u63D2_u4EF6"><span class="toc-number">2.2.</span> <span class="toc-text">安装新插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git_u76F8_u5173"><span class="toc-number">2.2.1.</span> <span class="toc-text">git相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#view__u6392_u7248"><span class="toc-number">2.2.2.</span> <span class="toc-text">view 排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD0_u884C_u72B6_u6001"><span class="toc-number">2.2.3.</span> <span class="toc-text">运行状态</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u914D_u7F6EJenkins"><span class="toc-number">3.</span> <span class="toc-text">配置Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4FEE_u6539_u7CFB_u7EDF_u914D_u7F6E"><span class="toc-number">3.1.</span> <span class="toc-text">修改系统配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907git"><span class="toc-number">3.2.</span> <span class="toc-text">准备git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907maven"><span class="toc-number">3.3.</span> <span class="toc-text">准备maven</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u914D_u7F6Eartifactory"><span class="toc-number">3.3.1.</span> <span class="toc-text">配置artifactory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u914D_u7F6Emaven"><span class="toc-number">3.3.2.</span> <span class="toc-text">配置maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u89C1_u95EE_u9898"><span class="toc-number">3.3.3.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#id_u7684_u5BF9_u5E94_u5173_u7CFB"><span class="toc-number">3.3.4.</span> <span class="toc-text">id的对应关系</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

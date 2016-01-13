@@ -1,0 +1,843 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>(记录)使用mint linux 17.2作为日常操作系统 | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。
+后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2016-01-13)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(记录)使用mint linux 17.2作为日常操作系统">
+<meta property="og:url" content="http://skyao.github.io/2016/01/13/linux-desktop-setup/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。
+后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2016-01-13)。">
+<meta property="og:image" content="http://skyao.github.io/">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(记录)使用mint linux 17.2作为日常操作系统">
+<meta name="twitter:description" content="打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。
+后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2016-01-13)。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/13/linux-desktop-setup/" title="(记录)使用mint linux 17.2作为日常操作系统" itemprop="url">(记录)使用mint linux 17.2作为日常操作系统</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-13T15:34:01.000Z" itemprop="datePublished"> 發表於 2016-01-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4F18_u5148_u8BBE_u7F6E"><span class="toc-number">2.</span> <span class="toc-text">优先设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BBE_u7F6E_u8F6F_u4EF6_u6E90_u5E76_u66F4_u65B0"><span class="toc-number">2.1.</span> <span class="toc-text">设置软件源并更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4FEE_u6539_u89E6_u6478_u677F_u8BBE_u7F6E"><span class="toc-number">2.2.</span> <span class="toc-text">修改触摸板设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5B89_u88C5_u641C_u72D7_u4E2D_u6587_u8F93_u5165_u6CD5"><span class="toc-number">2.3.</span> <span class="toc-text">安装搜狗中文输入法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u7CFB_u7EDF_u914D_u7F6E"><span class="toc-number">3.</span> <span class="toc-text">系统配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u786C_u4EF6_u76F8_u5173"><span class="toc-number">3.1.</span> <span class="toc-text">硬件相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5nvidia_u663E_u5361_u9A71_u52A8"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装nvidia显卡驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BBE_u7F6E_u5C4F_u5E55_u4EAE_u5EA6"><span class="toc-number">3.1.2.</span> <span class="toc-text">设置屏幕亮度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u589E_u52A0_u5BF9exfat_u7684_u652F_u6301"><span class="toc-number">3.1.3.</span> <span class="toc-text">增加对exfat的支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F00_u673A_u81EA_u52A8_u88C5_u8F7Dwindows_u5206_u533A"><span class="toc-number">3.1.4.</span> <span class="toc-text">开机自动装载windows分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpu_u8282_u80FDcpufreqd"><span class="toc-number">3.1.5.</span> <span class="toc-text">cpu节能cpufreqd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8F7B_u91CF_u7EA7_u7CFB_u7EDF_u76D1_u63A7_u5DE5_u5177Conky"><span class="toc-number">3.1.6.</span> <span class="toc-text">轻量级系统监控工具Conky</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u786C_u4EF6_u4FE1_u606F_u67E5_u770B_u5DE5_u5177hardinfo"><span class="toc-number">3.1.7.</span> <span class="toc-text">硬件信息查看工具hardinfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intel_cpu_u777F_u9891_u67E5_u770B_u5DE5_u5177i7z"><span class="toc-number">3.1.8.</span> <span class="toc-text">Intel cpu睿频查看工具i7z</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u786C_u4EF6_u6E29_u5EA6_u76D1_u63A7_u5DE5_u5177Psensor"><span class="toc-number">3.1.9.</span> <span class="toc-text">硬件温度监控工具Psensor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7CFB_u7EDF_u5DE5_u5177"><span class="toc-number">3.2.</span> <span class="toc-text">系统工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E94_u7528_u7A0B_u5E8F_u542F_u52A8_u5668_gnome_do"><span class="toc-number">3.2.1.</span> <span class="toc-text">应用程序启动器 gnome do</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7EC8_u7AEF_guake"><span class="toc-number">3.2.2.</span> <span class="toc-text">终端 guake</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7F51_u7EDC_u8BBE_u7F6E"><span class="toc-number">3.3.</span> <span class="toc-text">网络设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BBE_u7F6EDNS"><span class="toc-number">3.3.1.</span> <span class="toc-text">设置DNS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u65E5_u5E38_u8F6F_u4EF6"><span class="toc-number">4.</span> <span class="toc-text">日常软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5DE5_u5177"><span class="toc-number">4.1.</span> <span class="toc-text">工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u622A_u56FE_u7A0B_u5E8F_shutter"><span class="toc-number">4.1.1.</span> <span class="toc-text">截图程序 shutter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7FFB_u8BD1_u8F6F_u4EF6__u6709_u9053_u8BCD_u5178"><span class="toc-number">4.1.2.</span> <span class="toc-text">翻译软件 有道词典</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7CFB_u7EDF_u8F6F_u4EF6"><span class="toc-number">4.2.</span> <span class="toc-text">系统软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows_u517C_u5BB9_u5C42_wine"><span class="toc-number">4.2.1.</span> <span class="toc-text">windows兼容层 wine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vmware_workstation"><span class="toc-number">4.2.2.</span> <span class="toc-text">vmware workstation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7F51_u7EDC_u8F6F_u4EF6"><span class="toc-number">4.3.</span> <span class="toc-text">网络软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u7528_u7F51_u7EDC_u5DE5_u5177_u8F6F_u4EF6"><span class="toc-number">4.3.1.</span> <span class="toc-text">常用网络工具软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F7F_u7528_u7EC8_u7AEF_u505Assh_client"><span class="toc-number">4.3.2.</span> <span class="toc-text">使用终端做ssh client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#google_chrome__u6D4F_u89C8_u5668"><span class="toc-number">4.3.3.</span> <span class="toc-text">google chrome 浏览器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7FFB_u5899_u8F6F_u4EF6_shadowsocks"><span class="toc-number">4.3.4.</span> <span class="toc-text">翻墙软件 shadowsocks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH_u5FEB_u6377_u7FFB_u5899"><span class="toc-number">4.3.5.</span> <span class="toc-text">SSH快捷翻墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chrome_u63D2_u4EF6SwitchyOmega"><span class="toc-number">4.3.6.</span> <span class="toc-text">chrome插件SwitchyOmega</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDC_u7A0B_u684C_u9762_u8F6F_u4EF6_Remmina"><span class="toc-number">4.3.7.</span> <span class="toc-text">远程桌面软件 Remmina</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7F16_u8F91_u5668"><span class="toc-number">4.4.</span> <span class="toc-text">编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6587_u672C_u7F16_u8F91_u5668VIM"><span class="toc-number">4.4.1.</span> <span class="toc-text">文本编辑器VIM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6587_u672C_u7F16_u8F91_u5668sublime_text_3"><span class="toc-number">4.4.2.</span> <span class="toc-text">文本编辑器sublime text 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown_u7F16_u8F91_u5668cutemarked"><span class="toc-number">4.4.3.</span> <span class="toc-text">markdown编辑器cutemarked</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown_u7F16_u8F91_u5668_Haroopad"><span class="toc-number">4.4.4.</span> <span class="toc-text">markdown编辑器 Haroopad</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5F71_u97F3_u5A31_u4E50"><span class="toc-number">4.5.</span> <span class="toc-text">影音娱乐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F51_u6613_u4E91_u97F3_u4E50"><span class="toc-number">4.5.1.</span> <span class="toc-text">网易云音乐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u9177_u6211_u97F3_u4E50linux_u5BA2_u6237_u7AEF"><span class="toc-number">4.5.2.</span> <span class="toc-text">酷我音乐linux客户端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u7F16_u7A0B_u5F00_u53D1_u8F6F_u4EF6"><span class="toc-number">5.</span> <span class="toc-text">编程开发软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5DE5_u5177_u8F6F_u4EF6"><span class="toc-number">5.1.</span> <span class="toc-text">工具软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git"><span class="toc-number">5.1.1.</span> <span class="toc-text">Git</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u76F8_u5173"><span class="toc-number">5.2.</span> <span class="toc-text">Java相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK"><span class="toc-number">5.2.1.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java_u6253_u5305_u5DE5_u5177"><span class="toc-number">5.2.2.</span> <span class="toc-text">java打包工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDE"><span class="toc-number">5.2.3.</span> <span class="toc-text">IDE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u53C2_u8003_u8D44_u6599"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+		
+		</div>
+		
+		<p>打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。</p>
+<p>后续发生变化或者增加新的内容时，会持续更新此文(最后更新于2016-01-13)。</p>
+<a id="more"></a>
+<h1 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h1><p>虽然windows 10很是不错，但是还是想试试用linux做桌面。坦白说这个过程挺麻烦的，记录一下全过程，以备下次使用。</p>
+<p>注: 我最后选定的linux发型版本时mint linux 17.2, 因为看评论这个发行版本比较容易上手. 安装过程不介绍了,挺简单,一路轻松安装好.</p>
+<h1 id="u4F18_u5148_u8BBE_u7F6E"><a href="#u4F18_u5148_u8BBE_u7F6E" class="headerlink" title="优先设置"></a>优先设置</h1><p>安装完成之后, 在安装软件或者设置前,下面的这些操作是务必先执行的.</p>
+<h2 id="u8BBE_u7F6E_u8F6F_u4EF6_u6E90_u5E76_u66F4_u65B0"><a href="#u8BBE_u7F6E_u8F6F_u4EF6_u6E90_u5E76_u66F4_u65B0" class="headerlink" title="设置软件源并更新"></a>设置软件源并更新</h2><p>打开 菜单 -&gt; 系统管理 -&gt; 软件源，修改源设置:</p>
+<ul>
+<li>主要选   nchc</li>
+<li>基础 aliyun</li>
+</ul>
+<p>然后刷新。点右下角的更新管理器图标，”选择全部” -&gt; “安装更新”, 直接将系统更新到最新.</p>
+<h2 id="u4FEE_u6539_u89E6_u6478_u677F_u8BBE_u7F6E"><a href="#u4FEE_u6539_u89E6_u6478_u677F_u8BBE_u7F6E" class="headerlink" title="修改触摸板设置"></a>修改触摸板设置</h2><p>打开 系统设置 -&gt; 鼠标和触摸板，点触摸板，开启 “打字时禁用触摸板”。实在不能忍受打字时不小心碰到触摸板,然后光标跑不知道哪里去了的感觉….</p>
+<p>注：随即发现打字时还是容易被触摸板影响，只好选择关闭。</p>
+<h2 id="u5B89_u88C5_u641C_u72D7_u4E2D_u6587_u8F93_u5165_u6CD5"><a href="#u5B89_u88C5_u641C_u72D7_u4E2D_u6587_u8F93_u5165_u6CD5" class="headerlink" title="安装搜狗中文输入法"></a>安装搜狗中文输入法</h2><p>默认不带中文输入法，这个当然不能容忍，第一时间执行以下命令安装搜狗中文输入法：</p>
+<pre><code>sudo add-apt-repository ppa:fcitx-team/nightly
+sudo aptitude update
+sudo aptitude install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic
+</code></pre><p>注意：fcitx-sogoupinyin” 会提示无法安装，忽略即可.在搜狗主页下载“搜狗for Linx”, 下载后双击安装.</p>
+<p>打开 菜单 -&gt; 首选项 -&gt; 输入法，设置为“fcitx”. 重启就OK</p>
+<p>注：以上参考 <a href="http://jingyan.baidu.com/article/ca00d56c51f399e99eebcfe0.html" target="_blank" rel="external">http://jingyan.baidu.com/article/ca00d56c51f399e99eebcfe0.html</a></p>
+<h1 id="u7CFB_u7EDF_u914D_u7F6E"><a href="#u7CFB_u7EDF_u914D_u7F6E" class="headerlink" title="系统配置"></a>系统配置</h1><h2 id="u786C_u4EF6_u76F8_u5173"><a href="#u786C_u4EF6_u76F8_u5173" class="headerlink" title="硬件相关"></a>硬件相关</h2><h3 id="u5B89_u88C5nvidia_u663E_u5361_u9A71_u52A8"><a href="#u5B89_u88C5nvidia_u663E_u5361_u9A71_u52A8" class="headerlink" title="安装nvidia显卡驱动"></a>安装nvidia显卡驱动</h3><p>打开 系统管理 -&gt; 驱动管理器，可以看到默认时使用备选的驱动。选择列表中最新的版本安装即可，比如我的是346.82。</p>
+<p>为了节能，在右下角找到nvidia的图标，设置中找到”select the gpu you would like to use”，默认时NVIDIA，修改为Intel，这样平时用Intel集显比较节能。需要用到nvidia独立显卡时再改回来。</p>
+<h3 id="u8BBE_u7F6E_u5C4F_u5E55_u4EAE_u5EA6"><a href="#u8BBE_u7F6E_u5C4F_u5E55_u4EAE_u5EA6" class="headerlink" title="设置屏幕亮度"></a>设置屏幕亮度</h3><p>默认屏幕亮度会自动设置到最大亮度, 很明显这个行为对眼睛很不友好……</p>
+<p>通过功能键或者电源设置, 修改到适当亮度之后, 会发现一旦重启一切又变回来了.</p>
+<p>解决的方法参考这个文章 <a href="http://itsfoss.com/ubuntu-mint-brightness-settings/" target="_blank" rel="external">Ubuntu Does Not Remember Brightness Settings</a> :</p>
+<pre><code>sudo add-apt-repository ppa:nrbrtx/sysvinit-backlight
+sudo apt-get update
+sudo apt-get install sysvinit-backlight
+</code></pre><h3 id="u589E_u52A0_u5BF9exfat_u7684_u652F_u6301"><a href="#u589E_u52A0_u5BF9exfat_u7684_u652F_u6301" class="headerlink" title="增加对exfat的支持"></a>增加对exfat的支持</h3><p>移动硬盘一般用的文件格式exfat，mint linux默认不支持，需要安装exfat-fuse / exfat-utils</p>
+<pre><code>sudo apt-get install exfat-fuse exfat-utils
+</code></pre><p>重启后生效。</p>
+<h3 id="u5F00_u673A_u81EA_u52A8_u88C5_u8F7Dwindows_u5206_u533A"><a href="#u5F00_u673A_u81EA_u52A8_u88C5_u8F7Dwindows_u5206_u533A" class="headerlink" title="开机自动装载windows分区"></a>开机自动装载windows分区</h3><p>更新时间: 2015-10-30</p>
+<p>linux mint安装之后自带了ntfs-3g, 天然支持ntfs格式, 默认情况在开机的时候就会在桌面出现两个文件(我的windows C盘和D盘), 双击之后就可以安装windows分区. 虽然还是需要自己动手双击一下, 但是至少还算方便, 就这样一直用着.</p>
+<p>某天, 貌似是做了一个大的更新之后, 突然上述功能没有了, 导致访问windows分区非常不方便. 搞不懂出了什么状况, 只好自己动手. 参考<a href="http://blog.csdn.net/cjw517/article/details/42586213" target="_blank" rel="external">网上找到的文章</a>.</p>
+<p>在开机启动程序中增加两个开机启动的命令, 内容为下面这两个命令, 分别装载两个ntfs分区:</p>
+<pre><code>udisksctl mount -p block_devices/sdb4
+udisksctl mount -p block_devices/sdb5
+</code></pre><p>终于又可以愉快的访问windows了……</p>
+<h3 id="cpu_u8282_u80FDcpufreqd"><a href="#cpu_u8282_u80FDcpufreqd" class="headerlink" title="cpu节能cpufreqd"></a>cpu节能cpufreqd</h3><pre><code>sudo add-apt-repository ppa:artfwo/ppa
+sudo apt-get update
+sudo apt-get install cpufreqd
+</code></pre><p>配置中发现cpufreqd 提供了非常灵活的调节方式, 惊为天人!</p>
+<p>为此单独写了一个blog来记录, 详情请参考这里:  <a href="/../../08/linux-cpufreqd/">linux下的cpu节能神器cpufreqd</a></p>
+<p>注: 看到有人推荐indicator-cpufreq, 实际安装后发现不好用,后来选择了 Conky.</p>
+<h3 id="u8F7B_u91CF_u7EA7_u7CFB_u7EDF_u76D1_u63A7_u5DE5_u5177Conky"><a href="#u8F7B_u91CF_u7EA7_u7CFB_u7EDF_u76D1_u63A7_u5DE5_u5177Conky" class="headerlink" title="轻量级系统监控工具Conky"></a>轻量级系统监控工具Conky</h3><p>安装命令:</p>
+<pre><code>sudo apt-add-repository -y ppa:teejee2008/ppa
+sudo apt-get update
+sudo apt-get install conky-manager
+</code></pre><p>之后打开conky-manager,选择需要的weget,可以通过编辑weget的属性来调整在桌面的位置.</p>
+<h3 id="u786C_u4EF6_u4FE1_u606F_u67E5_u770B_u5DE5_u5177hardinfo"><a href="#u786C_u4EF6_u4FE1_u606F_u67E5_u770B_u5DE5_u5177hardinfo" class="headerlink" title="硬件信息查看工具hardinfo"></a>硬件信息查看工具hardinfo</h3><pre><code>sudo apt-get install hardinfo
+</code></pre><p>然后执行 hardinfo 命令就可以在图形界面上看到硬件信息.</p>
+<h3 id="Intel_cpu_u777F_u9891_u67E5_u770B_u5DE5_u5177i7z"><a href="#Intel_cpu_u777F_u9891_u67E5_u770B_u5DE5_u5177i7z" class="headerlink" title="Intel cpu睿频查看工具i7z"></a>Intel cpu睿频查看工具i7z</h3><p>参考这个文章:</p>
+<p><a href="http://www.tuicool.com/articles/UnQzie" target="_blank" rel="external">i7z: Monitor Intel i7, i5 And i3 Frequencies, Multipliers And More Under Linux</a></p>
+<p>安装方式:</p>
+<pre><code>sudo apt-get install i7z
+sudo apt-get install i7z-gui
+</code></pre><p>运行命令:</p>
+<pre><code>sudo i7z
+</code></pre><p>或者看图形界面:</p>
+<pre><code>gksu i7z_GUI
+</code></pre><p>注: 这个没有温度显示, 所以后面用Psensor了.</p>
+<h3 id="u786C_u4EF6_u6E29_u5EA6_u76D1_u63A7_u5DE5_u5177Psensor"><a href="#u786C_u4EF6_u6E29_u5EA6_u76D1_u63A7_u5DE5_u5177Psensor" class="headerlink" title="硬件温度监控工具Psensor"></a>硬件温度监控工具Psensor</h3><p>参考这个文章:  <a href="http://www.linuxidc.com/Linux/2015-06/119201.htm" target="_blank" rel="external">如何在 Ubuntu 中检查笔记本 CPU 的温度</a>.</p>
+<p>运行安装命令:</p>
+<pre><code>sudo apt-get install lm-sensors hddtemp
+</code></pre><p>检测硬件传感器：</p>
+<pre><code>sudo sensors-detect
+</code></pre><p>确保已经工作，运行下面的命令：</p>
+<pre><code>sensors
+</code></pre><p>使用下面的命令安装Psensor：</p>
+<pre><code>sudo apt-get install psensor
+</code></pre><p>之后执行Psensor命令就可以看到各个传感器的温度,包括cpu温度,还可以设置温度报警.</p>
+<h2 id="u7CFB_u7EDF_u5DE5_u5177"><a href="#u7CFB_u7EDF_u5DE5_u5177" class="headerlink" title="系统工具"></a>系统工具</h2><p>注: 以下工具大都可以通过apt-get安装, 后来发现通过软件管理器安装更加简单,所以如果没有特别说明后面的软件都是通过软件管理器安装的.</p>
+<h3 id="u5E94_u7528_u7A0B_u5E8F_u542F_u52A8_u5668_gnome_do"><a href="#u5E94_u7528_u7A0B_u5E8F_u542F_u52A8_u5668_gnome_do" class="headerlink" title="应用程序启动器 gnome do"></a>应用程序启动器 gnome do</h3><p>无需多言, 最喜欢的小应用了, 有了它, 打开程序或者文件就太方便了.</p>
+<p>gnome do还支持插件, 有几个是非常使用的:</p>
+<ul>
+<li>files and folds: 可以用来指定若干个目录, 然后可以方便的用gnome do 来查找这些目录和它的子目录 (有一个深度参数可以订制子目录层次)</li>
+<li>chromium: 可以搜索google chrome 浏览器的书签, 这个特别方便</li>
+<li>putty: 可以访问保存的putty session</li>
+</ul>
+<h3 id="u7EC8_u7AEF_guake"><a href="#u7EC8_u7AEF_guake" class="headerlink" title="终端 guake"></a>终端 guake</h3><p>快捷的终端，安装完之后，记得在开机启动里面增加它的启动项.</p>
+<p>补充: 发现开机自动启动guake也不见得是好事, 还是取消开机启动项吧.第一次用的时候,可以考虑用gnome do启动guake.</p>
+<h2 id="u7F51_u7EDC_u8BBE_u7F6E"><a href="#u7F51_u7EDC_u8BBE_u7F6E" class="headerlink" title="网络设置"></a>网络设置</h2><h3 id="u8BBE_u7F6EDNS"><a href="#u8BBE_u7F6EDNS" class="headerlink" title="设置DNS"></a>设置DNS</h3><p>设置阿里的DNS，提高网络响应速度, 实测效果明显.</p>
+<p>打开终端执行:</p>
+<pre><code>sudo vim /etc/resolvconf/resolv.conf.d/tail
+</code></pre><p>添加下面两行Alidns：</p>
+<pre><code>nameserver 223.5.5.5
+nameserver 223.6.6.6
+</code></pre><p>保存后执行:</p>
+<pre><code>sudo resolvconf -u
+</code></pre><p>查看/etc/resolv.conf可以看到多了上面两条nameserver.</p>
+<h1 id="u65E5_u5E38_u8F6F_u4EF6"><a href="#u65E5_u5E38_u8F6F_u4EF6" class="headerlink" title="日常软件"></a>日常软件</h1><h2 id="u5DE5_u5177"><a href="#u5DE5_u5177" class="headerlink" title="工具"></a>工具</h2><h3 id="u622A_u56FE_u7A0B_u5E8F_shutter"><a href="#u622A_u56FE_u7A0B_u5E8F_shutter" class="headerlink" title="截图程序 shutter"></a>截图程序 shutter</h3><p>直接用软件管理器安装, 另外需要安装几个配套的软件才能使用全面的功能:</p>
+<ul>
+<li>gnome-web-photo: a tool to generate full-size image files and thumbnails from HTML files and web pages 用于抓取整个网页</li>
+<li>libgoo-canvas-perl: canvas widget 用于编辑抓图文件,增加标注等</li>
+</ul>
+<p>用了一下勉强还算凑合, 最主要的三个截图方式都支持: 特定区域、窗口、 整个屏幕。</p>
+<h3 id="u7FFB_u8BD1_u8F6F_u4EF6__u6709_u9053_u8BCD_u5178"><a href="#u7FFB_u8BD1_u8F6F_u4EF6__u6709_u9053_u8BCD_u5178" class="headerlink" title="翻译软件 有道词典"></a>翻译软件 有道词典</h3><p>从<a href="http://cidian.youdao.com/index-linux.html" target="_blank" rel="external">有道词典官网下载</a> 到deb安装包, 直接安装即可.</p>
+<p>安装过程中需要下载众多依赖包, 请耐心等待完成.</p>
+<p>注意: 不要安装deepin的版本, 在下面有for ubuntu的版本.</p>
+<h2 id="u7CFB_u7EDF_u8F6F_u4EF6"><a href="#u7CFB_u7EDF_u8F6F_u4EF6" class="headerlink" title="系统软件"></a>系统软件</h2><h3 id="windows_u517C_u5BB9_u5C42_wine"><a href="#windows_u517C_u5BB9_u5C42_wine" class="headerlink" title="windows兼容层 wine"></a>windows兼容层 wine</h3><p>wine是Microsoft windows compatibility layer,让我们可以在linux上跑起来一些windows下的软件,对于某些只有windows版本的软件也是一种选择.</p>
+<p>用mint linux的软件管理器, 搜索安装以下内容:</p>
+<ul>
+<li>wine</li>
+<li>wine mono: microsoft .net framework 支持</li>
+<li>wine gecho</li>
+<li>playonelinux</li>
+<li>ttf-mscorefonts-installer: PlayOnLinux 第一次开启时会建议安装这个包</li>
+</ul>
+<p>为了安装最新版本的playonelinux，请参考<a href="https://www.playonlinux.com/en/download.html" target="_blank" rel="external">playonlinux的说明</a>:</p>
+<pre><code>wget -q &quot;http://deb.playonlinux.com/public.gpg&quot; -O- | sudo apt-key add -
+sudo wget http://deb.playonlinux.com/playonlinux_trusty.list -O /etc/apt/sources.list.d/playonlinux.list
+sudo apt-get update
+sudo apt-get install playonlinux
+</code></pre><h3 id="vmware_workstation"><a href="#vmware_workstation" class="headerlink" title="vmware workstation"></a>vmware workstation</h3><p><a href="http://down.tech.sina.com.cn/page/3748.html" target="_blank" rel="external">http://down.tech.sina.com.cn/page/3748.html</a></p>
+<p>下载下来的bundle文件，打开文件属性设置为可执行，然后用root账号执行就可开始安装界面。</p>
+<p>系列号： 1F04Z-6D111-7Z029-AV0Q4-3AEH8</p>
+<h2 id="u7F51_u7EDC_u8F6F_u4EF6"><a href="#u7F51_u7EDC_u8F6F_u4EF6" class="headerlink" title="网络软件"></a>网络软件</h2><h3 id="u5E38_u7528_u7F51_u7EDC_u5DE5_u5177_u8F6F_u4EF6"><a href="#u5E38_u7528_u7F51_u7EDC_u5DE5_u5177_u8F6F_u4EF6" class="headerlink" title="常用网络工具软件"></a>常用网络工具软件</h3><p>这几个算是最常用的网络工具软件了:</p>
+<ul>
+<li>ftp客户端 filezilla</li>
+<li>curl</li>
+<li>putty: 注意gnome do有putty的插件,可以非常方便的打开putty保存的session</li>
+</ul>
+<h3 id="u4F7F_u7528_u7EC8_u7AEF_u505Assh_client"><a href="#u4F7F_u7528_u7EC8_u7AEF_u505Assh_client" class="headerlink" title="使用终端做ssh client"></a>使用终端做ssh client</h3><p>发现putty和Remmina做ssh客户端都不是太好用, 远不如windows平台上的securyCrt和putty. 后来看到大家一般都推荐直接用linux的终端做sshclient, 简单敲个”ssh server_name”就连上去了.</p>
+<p>为了减少每次敲击密码的麻烦, 还可以通过authorized_keys的方式来登录.</p>
+<ol>
+<li>上传本机的.ssh/id_isa.pub文件到服务器端</li>
+<li><p>在远程服务器上运行</p>
+<blockquote>
+<p>cd .ssh<br>cat ~/id_rsa.pub &gt;&gt; authorized_keys</p>
+</blockquote>
+</li>
+<li><p>在本机终端中输入”ssh server_address”即可直接登录远程服务器</p>
+</li>
+</ol>
+<h3 id="google_chrome__u6D4F_u89C8_u5668"><a href="#google_chrome__u6D4F_u89C8_u5668" class="headerlink" title="google chrome 浏览器"></a>google chrome 浏览器</h3><p>在<a href="http://www.google.cn/chrome/browser/thankyou.html?platform=linux" target="_blank" rel="external">以下地址</a>下载适合的64位debian dev 版本，然后直接安装即可</p>
+<p>或者直接用这个下载链接:</p>
+<p><a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" target="_blank" rel="external">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a></p>
+<h3 id="u7FFB_u5899_u8F6F_u4EF6_shadowsocks"><a href="#u7FFB_u5899_u8F6F_u4EF6_shadowsocks" class="headerlink" title="翻墙软件 shadowsocks"></a>翻墙软件 shadowsocks</h3><p>之前有单独的 blog 谈到这个话题: <a href="/../../../../2015/07/14/computer-fanqiang/">使用shadowsocks实现科学上网</a>, linux上我继续使用 shadowsocks.</p>
+<h3 id="SSH_u5FEB_u6377_u7FFB_u5899"><a href="#SSH_u5FEB_u6377_u7FFB_u5899" class="headerlink" title="SSH快捷翻墙"></a>SSH快捷翻墙</h3><p>在本地执行以下命令</p>
+<blockquote>
+<p>ssh -D 10085 server_address</p>
+</blockquote>
+<p>然后就可以在浏览器中设置代理服务器连接为socket4/127.0.0.1/10085端口, 就可以做代理上网. 如果远程服务器在国外, 就是翻墙了. 原理和用putty设置dynamic是一样的.</p>
+<h3 id="chrome_u63D2_u4EF6SwitchyOmega"><a href="#chrome_u63D2_u4EF6SwitchyOmega" class="headerlink" title="chrome插件SwitchyOmega"></a>chrome插件SwitchyOmega</h3><p>在google chrome中安装SwitchyOmega 插件,然后加入场景设置使用本地shadowsocks作为代理.</p>
+<p>为了方便, SwitchyOmega 中设置自动切换,规则列表设置格式为AutoProxy,规则列表网址为下面地址,保存后更新:</p>
+<p><a href="https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt" target="_blank" rel="external">https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt</a></p>
+<p>这样用chrome上网就可以自动切换代理,需要翻墙时自动连shadowsocks,不需要时直接走.</p>
+<h3 id="u8FDC_u7A0B_u684C_u9762_u8F6F_u4EF6_Remmina"><a href="#u8FDC_u7A0B_u684C_u9762_u8F6F_u4EF6_Remmina" class="headerlink" title="远程桌面软件 Remmina"></a>远程桌面软件 Remmina</h3><p>需要使用软件管理器安装remmina和几个插件:</p>
+<ul>
+<li>remmina</li>
+<li>remmina-common</li>
+<li>remmmina-plugin-gnome</li>
+<li>remmina-plugin-rdp: 这个一定要安装,连接windows桌面就是走rdp协议</li>
+<li>remmina-plugin-vnc</li>
+</ul>
+<p>安装完成之后,打开remmina, “connection” -&gt; “new”, Protocol 选 “RDP - Remote Desktop Protocol”, 设置链接参数和账号,就可以连接到windows桌面.</p>
+<h2 id="u7F16_u8F91_u5668"><a href="#u7F16_u8F91_u5668" class="headerlink" title="编辑器"></a>编辑器</h2><h3 id="u6587_u672C_u7F16_u8F91_u5668VIM"><a href="#u6587_u672C_u7F16_u8F91_u5668VIM" class="headerlink" title="文本编辑器VIM"></a>文本编辑器VIM</h3><p>直接用软件管理器安装Vim / Vim-gnome.</p>
+<p>但是郁闷的是操作系统中找不到安装好的vim,只能通过命令行的方式来启动vim.</p>
+<h3 id="u6587_u672C_u7F16_u8F91_u5668sublime_text_3"><a href="#u6587_u672C_u7F16_u8F91_u5668sublime_text_3" class="headerlink" title="文本编辑器sublime text 3"></a>文本编辑器sublime text 3</h3><p>从<a href="http://www.sublimetext.com/3" target="_blank" rel="external">官网下载</a> 对应的deb包直接安装即可.</p>
+<p>但是发现安装完成之后找不到程序, 只能命令行启动.</p>
+<p>卸载后用软件管理器, 发现没有这个问题. 因此推荐使用软件管理器安装, 安装完成后系统和gnome do都可以识别.</p>
+<h3 id="markdown_u7F16_u8F91_u5668cutemarked"><a href="#markdown_u7F16_u8F91_u5668cutemarked" class="headerlink" title="markdown编辑器cutemarked"></a>markdown编辑器cutemarked</h3><p>详细见单独的blog: <a href="/../../../../2015/08/07/cutemarked-install/">推荐linux下的markdown编辑器cutemarked</a></p>
+<p>补充: 最后由于无法在cutemarked中使用搜狗输入法,不得已替换为haroopad.</p>
+<h3 id="markdown_u7F16_u8F91_u5668_Haroopad"><a href="#markdown_u7F16_u8F91_u5668_Haroopad" class="headerlink" title="markdown编辑器 Haroopad"></a>markdown编辑器 Haroopad</h3><p>从 <a href="http://pad.haroopress.com/" target="_blank" rel="external">http://pad.haroopress.com/</a> 下载, 比较奇怪的是下载速度奇慢无比, 只有10k-20k的速度, 好不容易才下载好.</p>
+<p>安装简单,直接运行下载好的 haroopad-v0.13.1-x64.deb 就可以了.</p>
+<p>简单试用了一下,这个软件还是比较好用的,不错的markdown编辑器,以后就用它了.</p>
+<h2 id="u5F71_u97F3_u5A31_u4E50"><a href="#u5F71_u97F3_u5A31_u4E50" class="headerlink" title="影音娱乐"></a>影音娱乐</h2><p>虽然是在linux下,但是我们也不能放弃音乐对不对?</p>
+<h3 id="u7F51_u6613_u4E91_u97F3_u4E50"><a href="#u7F51_u6613_u4E91_u97F3_u4E50" class="headerlink" title="网易云音乐"></a>网易云音乐</h3><p>我最喜欢的在线音乐播放器了, 但是很遗憾的发现没有linux版本……</p>
+<p>2016年1月更新： 找到<a href="https://github.com/hillwoodroc/winetricks-zh" target="_blank" rel="external">winetricks-zh</a>，安装很简单拿，将解压缩后得到的winetricks-zh文件复制到 /usr/bin/ 即可。</p>
+<p>winetricks-zh启动wine之后，还在在报告说需要安装gecho。</p>
+<p>gecho的安装，参考<a href="http://wiki.winehq.org/Gecko" target="_blank" rel="external">官网的说明</a>:</p>
+<pre><code>wget http://dl.winehq.org/wine/wine-gecko/2.40//wine_gecko-2.40-x86_64.msi
+sudo mkdir -p /usr/share/wine/gecko
+sudo mv wine_gecko-2.40-x86_64.msi /usr/share/wine/gecko/
+</code></pre><p>这个地址下载速度非常的慢，而且还不能用百度云来离线下载。但是很奇怪的是，及时做了上面的工作，到winetricks-zh还是报需要装gecho…… 果断取消安装，然后安装过程继续，自动安装了directx等多个软件之后终于开始安装网易云音乐，一路顺利完成，打开之后可以。</p>
+<p>但是有个不好的地方：我的分辨率太高，3k分辨率下网易云音乐显得字很小，点的好累。</p>
+<h3 id="u9177_u6211_u97F3_u4E50linux_u5BA2_u6237_u7AEF"><a href="#u9177_u6211_u97F3_u4E50linux_u5BA2_u6237_u7AEF" class="headerlink" title="酷我音乐linux客户端"></a>酷我音乐linux客户端</h3><p>baidu时发现的好东东, 没有想到linux下居然有这么好的在线音乐播放器, 真是喜出望外<img src="/" alt=""></p>
+<p><a href="https://github.com/LiuLang/kwplayer" target="_blank" rel="external">网站在这里</a>, 这是它的介绍: kwplayer是一款运行在linux桌面的网络音乐播放器, 它使用 酷我音乐盒 的音乐资源.</p>
+<p><a href="https://github.com/LiuLang/kwplayer-packages" target="_blank" rel="external">下载在这里</a>,建议在页面右边直接下载整个zip包.</p>
+<p>然后按照要求的顺序先后安装下面三个deb文件:</p>
+<ul>
+<li>python3-xlib</li>
+<li>python3-keybinder</li>
+<li>kwplayer</li>
+</ul>
+<h1 id="u7F16_u7A0B_u5F00_u53D1_u8F6F_u4EF6"><a href="#u7F16_u7A0B_u5F00_u53D1_u8F6F_u4EF6" class="headerlink" title="编程开发软件"></a>编程开发软件</h1><h2 id="u5DE5_u5177_u8F6F_u4EF6"><a href="#u5DE5_u5177_u8F6F_u4EF6" class="headerlink" title="工具软件"></a>工具软件</h2><h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p>直接apt-get:</p>
+<pre><code>sudo add-apt-repository ppa:git-core/ppa
+sudo apt-get update
+sudo apt-get install git
+</code></pre><h2 id="Java_u76F8_u5173"><a href="#Java_u76F8_u5173" class="headerlink" title="Java相关"></a>Java相关</h2><h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>安装jdk7，直接apt-get:</p>
+<pre><code>sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-installer
+sudo apt-get install oracle-java7-set-default
+</code></pre><p>之前都是这么搞定的, 但是今天遇到问题, 卡在这里无法继续:</p>
+<p>Resolving edelivery.oracle.com (edelivery.oracle.com)… 104.90.218.20<br>Connecting to edelivery.oracle.com (edelivery.oracle.com)|104.90.218.20|:443… connected.</p>
+<p>只好放弃,手工安装JDK:</p>
+<pre><code>gunzip jdk-7u75-linux-x64.gz
+gunzip jdk-7u75-linux-x64.gz
+sudo mkdir /usr/lib/jvm
+sudo mv jdk-7u75-linux-x64 /usr/lib/jvm/jdk7
+</code></pre><p>修改/etc/profile文件，在最后加入以下内容：</p>
+<pre><code># java
+export JAVA_HOME=/usr/lib/jvm/jdk7
+export PATH=$JAVA_HOME/bin:$PATH
+</code></pre><p>安装好后检验一下：</p>
+<pre><code>source /etc/profile
+java -version
+</code></pre><h3 id="java_u6253_u5305_u5DE5_u5177"><a href="#java_u6253_u5305_u5DE5_u5177" class="headerlink" title="java打包工具"></a>java打包工具</h3><p>以下工具的安装参考之前的blog<a href="/../../../../2015/07/03/linux-server-setup/#打包发布工具">在ubuntu服务器上搭建全套开发环境</a>,安装方式是一样的.</p>
+<ul>
+<li>ant</li>
+<li>maven</li>
+<li>gradle</li>
+</ul>
+<h3 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h3><ul>
+<li><p>intellij idea</p>
+<p>  从官网下载linux 版本例如 ideaIU-14.1.4.tar.gz, 解压后 然后依照 Install-Linux-tar.txt 的提示运行 idea.sh 就安装好了.</p>
+<p>  安装过程中记得选择”create desktop entry”, 这样可以让操作系统知道有安装intellij idea并创建快捷方式. </p>
+<p>  也可以在安装完成后通过菜单项 Tools -&gt; “create desktop entry” 来处理.</p>
+</li>
+<li><p>webstorm</p>
+<p>  安装方式和intellij idea 一样.</p>
+</li>
+<li><p>eclipse</p>
+<p>  从<a href="http://www.eclipse.org/downloads/" target="_blank" rel="external">eclipse 官网下载</a> for linux 64 的版本如 eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz.</p>
+<p>  解压即可直接使用,为了方便我们需要为eclipse 增加desktop entry,执行命令:</p>
+<pre><code>sudo gedit /usr/share/applications/eclipse.desktop
+</code></pre><p>  输入以下内容并保存:</p>
+<pre><code>[Desktop Entry]
+Name=eclipse
+Name[zh_CN]=Eclipse
+Comment=eclipse Client
+Exec=/home/sky/work/soft/java/eclipse/eclipse
+Icon=/home/sky/work/soft/java/eclipse/icon.xpm
+Terminal=false
+Type=Application
+Categories=Application;Development;
+Encoding=UTF-8
+StartupNotify=true
+</code></pre><p>  备注: 暂时还没有找到方法可以让gnome do这样的应用启动工具可以支持eclipse.</p>
+</li>
+</ul>
+<h1 id="u53C2_u8003_u8D44_u6599"><a href="#u53C2_u8003_u8D44_u6599" class="headerlink" title="参考资料"></a>参考资料</h1><p>期间陆陆续续百度/谷歌, 部分信息参考自以下文章:</p>
+<ul>
+<li><a href="http://linux.it.net.cn/e/Linuxit/2014/0710/2825.html" target="_blank" rel="external">安装Linux Mint 17后要做的20件事</a></li>
+<li><a href="http://www.mintos.org/config/speedup-mint.html" target="_blank" rel="external">多快好省：10个技巧加速你的LinuxMint/Ubuntu</a></li>
+<li><a href="http://jingyan.baidu.com/article/6525d4b150b472ac7d2e94a6.html" target="_blank" rel="external">查看linux系统CPU信息的经验</a></li>
+<li><a href="http://www.linuxidc.com/Linux/2015-06/119201.htm" target="_blank" rel="external">如何在 Ubuntu 中检查笔记本 CPU 的温度</a><br>-<a href="http://www.lvzejun.cn/2015/03/31/ubuntu-software/" target="_blank" rel="external">Ubuntu常用软件合集</a></li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2016/01/13/linux-desktop-setup/" data-title="(记录)使用mint linux 17.2作为日常操作系统 | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/13/java-string-practice/" title="java中String和byte数组转换的小技巧">
+  <strong>上一篇：</strong><br/>
+  <span>
+  java中String和byte数组转换的小技巧</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/12/github-update-fork/"  title="更新github上fork的仓库">
+ <strong>下一篇：</strong><br/> 
+ <span>更新github上fork的仓库
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/01/13/linux-desktop-setup/" data-title="(记录)使用mint linux 17.2作为日常操作系统" data-url="http://skyao.github.io/2016/01/13/linux-desktop-setup/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u8A00"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4F18_u5148_u8BBE_u7F6E"><span class="toc-number">2.</span> <span class="toc-text">优先设置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u8BBE_u7F6E_u8F6F_u4EF6_u6E90_u5E76_u66F4_u65B0"><span class="toc-number">2.1.</span> <span class="toc-text">设置软件源并更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4FEE_u6539_u89E6_u6478_u677F_u8BBE_u7F6E"><span class="toc-number">2.2.</span> <span class="toc-text">修改触摸板设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5B89_u88C5_u641C_u72D7_u4E2D_u6587_u8F93_u5165_u6CD5"><span class="toc-number">2.3.</span> <span class="toc-text">安装搜狗中文输入法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u7CFB_u7EDF_u914D_u7F6E"><span class="toc-number">3.</span> <span class="toc-text">系统配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u786C_u4EF6_u76F8_u5173"><span class="toc-number">3.1.</span> <span class="toc-text">硬件相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B89_u88C5nvidia_u663E_u5361_u9A71_u52A8"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装nvidia显卡驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BBE_u7F6E_u5C4F_u5E55_u4EAE_u5EA6"><span class="toc-number">3.1.2.</span> <span class="toc-text">设置屏幕亮度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u589E_u52A0_u5BF9exfat_u7684_u652F_u6301"><span class="toc-number">3.1.3.</span> <span class="toc-text">增加对exfat的支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F00_u673A_u81EA_u52A8_u88C5_u8F7Dwindows_u5206_u533A"><span class="toc-number">3.1.4.</span> <span class="toc-text">开机自动装载windows分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpu_u8282_u80FDcpufreqd"><span class="toc-number">3.1.5.</span> <span class="toc-text">cpu节能cpufreqd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8F7B_u91CF_u7EA7_u7CFB_u7EDF_u76D1_u63A7_u5DE5_u5177Conky"><span class="toc-number">3.1.6.</span> <span class="toc-text">轻量级系统监控工具Conky</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u786C_u4EF6_u4FE1_u606F_u67E5_u770B_u5DE5_u5177hardinfo"><span class="toc-number">3.1.7.</span> <span class="toc-text">硬件信息查看工具hardinfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intel_cpu_u777F_u9891_u67E5_u770B_u5DE5_u5177i7z"><span class="toc-number">3.1.8.</span> <span class="toc-text">Intel cpu睿频查看工具i7z</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u786C_u4EF6_u6E29_u5EA6_u76D1_u63A7_u5DE5_u5177Psensor"><span class="toc-number">3.1.9.</span> <span class="toc-text">硬件温度监控工具Psensor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7CFB_u7EDF_u5DE5_u5177"><span class="toc-number">3.2.</span> <span class="toc-text">系统工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E94_u7528_u7A0B_u5E8F_u542F_u52A8_u5668_gnome_do"><span class="toc-number">3.2.1.</span> <span class="toc-text">应用程序启动器 gnome do</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7EC8_u7AEF_guake"><span class="toc-number">3.2.2.</span> <span class="toc-text">终端 guake</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7F51_u7EDC_u8BBE_u7F6E"><span class="toc-number">3.3.</span> <span class="toc-text">网络设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8BBE_u7F6EDNS"><span class="toc-number">3.3.1.</span> <span class="toc-text">设置DNS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u65E5_u5E38_u8F6F_u4EF6"><span class="toc-number">4.</span> <span class="toc-text">日常软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5DE5_u5177"><span class="toc-number">4.1.</span> <span class="toc-text">工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u622A_u56FE_u7A0B_u5E8F_shutter"><span class="toc-number">4.1.1.</span> <span class="toc-text">截图程序 shutter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7FFB_u8BD1_u8F6F_u4EF6__u6709_u9053_u8BCD_u5178"><span class="toc-number">4.1.2.</span> <span class="toc-text">翻译软件 有道词典</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7CFB_u7EDF_u8F6F_u4EF6"><span class="toc-number">4.2.</span> <span class="toc-text">系统软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows_u517C_u5BB9_u5C42_wine"><span class="toc-number">4.2.1.</span> <span class="toc-text">windows兼容层 wine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vmware_workstation"><span class="toc-number">4.2.2.</span> <span class="toc-text">vmware workstation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7F51_u7EDC_u8F6F_u4EF6"><span class="toc-number">4.3.</span> <span class="toc-text">网络软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5E38_u7528_u7F51_u7EDC_u5DE5_u5177_u8F6F_u4EF6"><span class="toc-number">4.3.1.</span> <span class="toc-text">常用网络工具软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F7F_u7528_u7EC8_u7AEF_u505Assh_client"><span class="toc-number">4.3.2.</span> <span class="toc-text">使用终端做ssh client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#google_chrome__u6D4F_u89C8_u5668"><span class="toc-number">4.3.3.</span> <span class="toc-text">google chrome 浏览器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7FFB_u5899_u8F6F_u4EF6_shadowsocks"><span class="toc-number">4.3.4.</span> <span class="toc-text">翻墙软件 shadowsocks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH_u5FEB_u6377_u7FFB_u5899"><span class="toc-number">4.3.5.</span> <span class="toc-text">SSH快捷翻墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chrome_u63D2_u4EF6SwitchyOmega"><span class="toc-number">4.3.6.</span> <span class="toc-text">chrome插件SwitchyOmega</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDC_u7A0B_u684C_u9762_u8F6F_u4EF6_Remmina"><span class="toc-number">4.3.7.</span> <span class="toc-text">远程桌面软件 Remmina</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7F16_u8F91_u5668"><span class="toc-number">4.4.</span> <span class="toc-text">编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6587_u672C_u7F16_u8F91_u5668VIM"><span class="toc-number">4.4.1.</span> <span class="toc-text">文本编辑器VIM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6587_u672C_u7F16_u8F91_u5668sublime_text_3"><span class="toc-number">4.4.2.</span> <span class="toc-text">文本编辑器sublime text 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown_u7F16_u8F91_u5668cutemarked"><span class="toc-number">4.4.3.</span> <span class="toc-text">markdown编辑器cutemarked</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown_u7F16_u8F91_u5668_Haroopad"><span class="toc-number">4.4.4.</span> <span class="toc-text">markdown编辑器 Haroopad</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5F71_u97F3_u5A31_u4E50"><span class="toc-number">4.5.</span> <span class="toc-text">影音娱乐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u7F51_u6613_u4E91_u97F3_u4E50"><span class="toc-number">4.5.1.</span> <span class="toc-text">网易云音乐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u9177_u6211_u97F3_u4E50linux_u5BA2_u6237_u7AEF"><span class="toc-number">4.5.2.</span> <span class="toc-text">酷我音乐linux客户端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u7F16_u7A0B_u5F00_u53D1_u8F6F_u4EF6"><span class="toc-number">5.</span> <span class="toc-text">编程开发软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5DE5_u5177_u8F6F_u4EF6"><span class="toc-number">5.1.</span> <span class="toc-text">工具软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Git"><span class="toc-number">5.1.1.</span> <span class="toc-text">Git</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java_u76F8_u5173"><span class="toc-number">5.2.</span> <span class="toc-text">Java相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK"><span class="toc-number">5.2.1.</span> <span class="toc-text">JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#java_u6253_u5305_u5DE5_u5177"><span class="toc-number">5.2.2.</span> <span class="toc-text">java打包工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDE"><span class="toc-number">5.2.3.</span> <span class="toc-text">IDE</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u53C2_u8003_u8D44_u6599"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

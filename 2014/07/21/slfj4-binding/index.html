@@ -1,0 +1,759 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>slf4j初始化绑定源码分析 | Sky&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Sky Ao">
+    
+
+    
+    <meta name="description" content="通过阅读源码研究一下 Slf4j 是如何在运行时绑定具体的log api实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="slf4j初始化绑定源码分析">
+<meta property="og:url" content="http://skyao.github.io/2014/07/21/slfj4-binding/index.html">
+<meta property="og:site_name" content="Sky's Blog">
+<meta property="og:description" content="通过阅读源码研究一下 Slf4j 是如何在运行时绑定具体的log api实现。">
+<meta property="og:image" content="http://skyao.github.io/images/slfj4-binding/ImplClassInSlf4jApiSource.jpg">
+<meta property="og:image" content="http://skyao.github.io/images/slfj4-binding/ImplClassNotInSlf4jApiJar.jpg">
+<meta property="og:image" content="http://skyao.github.io/images/slfj4-binding/StaticLoggerBinderInSlf4jSimple.jpg">
+<meta property="og:image" content="http://skyao.github.io/images/slfj4-binding/slf4j-bind-simple.png">
+<meta property="og:image" content="http://skyao.github.io/images/slfj4-binding/slf4j-bind-log4j.png">
+<meta property="og:updated_time" content="2016-01-13T15:26:33.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="slf4j初始化绑定源码分析">
+<meta name="twitter:description" content="通过阅读源码研究一下 Slf4j 是如何在运行时绑定具体的log api实现。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Sky&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Sky&#39;s Blog" title="Sky&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Sky&#39;s Blog">Sky&#39;s Blog</a></h1>
+				<h2 class="blog-motto">当才能不足以撑不起雄心壮志时，就应该静下心好好学习</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/21/slfj4-binding/" title="slf4j初始化绑定源码分析" itemprop="url">slf4j初始化绑定源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Sky Ao" target="_blank" itemprop="author">Sky Ao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-21T08:37:21.000Z" itemprop="datePublished"> 發表於 2014-07-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6E90_u7801_u8FFD_u8E2A"><span class="toc-number">1.</span> <span class="toc-text">源码追踪</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#slf4j-api_u7684_u6E90_u7801"><span class="toc-number">1.1.</span> <span class="toc-text">slf4j-api的源码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4EE3_u7801_u548C_u7C7B_u5206_u6790"><span class="toc-number">2.</span> <span class="toc-text">代码和类分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+		
+		</div>
+		
+		<p>通过阅读源码研究一下 Slf4j 是如何在运行时绑定具体的log api实现。  </p>
+<a id="more"></a>
+<h1 id="u6E90_u7801_u8FFD_u8E2A"><a href="#u6E90_u7801_u8FFD_u8E2A" class="headerlink" title="源码追踪"></a>源码追踪</h1><h2 id="slf4j-api_u7684_u6E90_u7801"><a href="#slf4j-api_u7684_u6E90_u7801" class="headerlink" title="slf4j-api的源码"></a>slf4j-api的源码</h2><p>我们来看看slf4j的源代码，看当这段常见的写日志代码在第一次执行时，slf4j会如何工作</p>
+<pre><code>Logger logger = LoggerFactory.getLogger(SomeClass.class);
+logger.debug(&quot;first log&quot;);
+</code></pre><p>打开类 org.slf4j.LoggerFactory的源码，看到getLogger()方法的代码如下：</p>
+<pre><code>public static Logger getLogger(String name) {
+    ILoggerFactory iLoggerFactory = getILoggerFactory();
+    return iLoggerFactory.getLogger(name);
+}
+</code></pre><p>继续看 getILoggerFactory()方法的代码实现：</p>
+<pre><code>static int INITIALIZATION_STATE = UNINITIALIZED;
+
+public static ILoggerFactory getILoggerFactory() {
+    if (INITIALIZATION_STATE == UNINITIALIZED) {
+        INITIALIZATION_STATE = ONGOING_INITIALIZATION;
+        performInitialization();
+    }
+
+    switch (INITIALIZATION_STATE) {
+        case SUCCESSFUL_INITIALIZATION:
+            return StaticLoggerBinder.getSingleton().getLoggerFactory();
+    ...
+}
+</code></pre><p>这里涉及到一个名为INITIALIZATION_STATE 的静态变量，用来记录当前初始化的状态。默认是UNINITIALIZED，第一次调用getILoggerFactory()方法时，检查到INITIALIZATION_STATE == UNINITIALIZED，就会调用performInitialization()方法来进行初始化。</p>
+<p>performInitialization()方法在初始化完成时，会设置INITIALIZATION_STATE为SUCCESSFUL_INITIALIZATION。这样后面的switch语句就会调用StaticLoggerBinder.getSingleton().getLoggerFactory()来返回需要的ILoggerFactory。</p>
+<p>我们继续深入看performInitialization()方法的代码实现：</p>
+<pre><code>private final static void performInitialization() {
+    bind();
+    if (INITIALIZATION_STATE == SUCCESSFUL_INITIALIZATION) {
+        versionSanityCheck();
+    }
+}
+</code></pre><p>继续看bind()方法，忽略错误处理的代码：</p>
+<pre><code>private final static void bind() {
+    try {
+      Set staticLoggerBinderPathSet = findPossibleStaticLoggerBinderPathSet();
+      reportMultipleBindingAmbiguity(staticLoggerBinderPathSet);
+      // the next line does the binding
+      StaticLoggerBinder.getSingleton();
+      INITIALIZATION_STATE = SUCCESSFUL_INITIALIZATION;
+      reportActualBinding(staticLoggerBinderPathSet);
+      emitSubstituteLoggerWarning();
+    } ......
+}
+</code></pre><p>这里是关键代码了，findPossibleStaticLoggerBinderPathSet()方法用来查找当前classpath下可能的StaticLoggerBinder的实现，如果有多个的话，则reportMultipleBindingAmbiguity()和reportActualBinding()方法会在绑定前后打印相应的信息。</p>
+<p>看findPossibleStaticLoggerBinderPathSet()里面干了什么：</p>
+<pre><code>private static String STATIC_LOGGER_BINDER_PATH = &quot;org/slf4j/impl/StaticLoggerBinder.class&quot;;
+
+private static Set findPossibleStaticLoggerBinderPathSet() {
+    // use Set instead of list in order to deal with  bug #138
+    // LinkedHashSet appropriate here because it preserves insertion order during iteration
+    Set staticLoggerBinderPathSet = new LinkedHashSet();
+    try {
+      ClassLoader loggerFactoryClassLoader = LoggerFactory.class
+              .getClassLoader();
+      Enumeration paths;
+      if (loggerFactoryClassLoader == null) {
+        paths = ClassLoader.getSystemResources(STATIC_LOGGER_BINDER_PATH);
+      } else {
+        paths = loggerFactoryClassLoader
+                .getResources(STATIC_LOGGER_BINDER_PATH);
+      }
+      while (paths.hasMoreElements()) {
+        URL path = (URL) paths.nextElement();
+        staticLoggerBinderPathSet.add(path);
+      }
+    } catch (IOException ioe) {
+      Util.report(&quot;Error getting resources from path&quot;, ioe);
+    }
+    return staticLoggerBinderPathSet;
+}
+</code></pre><p>忽略细节，findPossibleStaticLoggerBinderPathSet()方法其实就是通过classloader的getResources()方法找到所有的名为”org/slf4j/impl/StaticLoggerBinder.class”的resource。</p>
+<p>我们再回来看bind()方法，其实真正绑定的代码只有一行</p>
+<pre><code>import org.slf4j.impl.StaticLoggerBinder;
+
+private final static void bind() {
+    ......
+    // the next line does the binding
+    StaticLoggerBinder.getSingleton();
+    ......
+}
+</code></pre><p>这里调用了StaticLoggerBinder.getSingleton()方法。我们看StaticLoggerBinder类的权限定名，恰好和findPossibleStaticLoggerBinderPathSet()方法中查找的一致。</p>
+<p>StaticLoggerBinder类是从哪里来的？我们看代码的时候，可以发现在slf4j-api的源代码中，的确有对应的package和类存在。</p>
+<p><img src="/images/slfj4-binding/ImplClassInSlf4jApiSource.jpg" alt="ImplClassInSlf4jApiSource.jpg"></p>
+<p>但是打开打包好的slf4j-api.jar，却发现根本没有这个implpackage。</p>
+<p><img src="/images/slfj4-binding/ImplClassNotInSlf4jApiJar.jpg" alt="ImplClassNotInSlf4jApiJar.jpg"></p>
+<p>而且这个StaticLoggerBinder类的代码也明确说这个类不应当被打包到slf4j-api.jar：</p>
+<pre><code>private StaticLoggerBinder() {
+    throw new UnsupportedOperationException(
+        &quot;This code should have never made it into slf4j-api.jar&quot;);
+}
+</code></pre><p>在slf4j-api项目的pom.xml文件中，我们可以找到下面的内容：</p>
+<pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-antrun-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+      &lt;execution&gt;
+        &lt;phase&gt;process-classes&lt;/phase&gt;
+        &lt;goals&gt;
+         &lt;goal&gt;run&lt;/goal&gt;
+        &lt;/goals&gt;
+      &lt;/execution&gt;
+    &lt;/executions&gt;
+    &lt;configuration&gt;
+      &lt;tasks&gt;
+        &lt;echo&gt;Removing slf4j-api&apos;s dummy StaticLoggerBinder and StaticMarkerBinder&lt;/echo&gt;
+        &lt;delete dir=&quot;target/classes/org/slf4j/impl&quot;/&gt;
+      &lt;/tasks&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre><p>这里通过调用ant在打包为jar文件前，将package org.slf4j.impl和其下的class都删除掉了。</p>
+<p>实际上这里的impl package内的代码，只是用来占位以保证可以编译通过(所谓dummy)。需要在运行时再进行绑定。</p>
+<p>##具体的log api的源码</p>
+<p>我们再来看，具体的log api实现要如何做才能和slf4j绑定和装载。</p>
+<p>slf4j自带了一个极度简化的log实现slf4j-simple,这里我们可以找到slf4j-api需要的”org/slf4j/impl/StaticLoggerBinder.class”:</p>
+<p><img src="/images/slfj4-binding/StaticLoggerBinderInSlf4jSimple.jpg" alt="StaticLoggerBinderInSlf4jSimple.jpg"></p>
+<p>同样在slf4j-log4j12, slf4j-jkd14, slf4j-jcl的项目中可以找到类似的”org/slf4j/impl/StaticLoggerBinder.class”，这三个项目分别用于集成java社区最常见的几个log实现：log4j, jdk logging, apache common logging.</p>
+<p>继续看回StaticLoggerBinder的代码，以slf4j-simple为例：</p>
+<pre><code>private final ILoggerFactory loggerFactory;
+
+private StaticLoggerBinder() {
+  loggerFactory = new SimpleLoggerFactory();
+}
+
+public ILoggerFactory getLoggerFactory() {
+  return loggerFactory;
+}
+</code></pre><p>这里的getLoggerFactory()方法会返回slf4j-simple实现的SimpleLoggerFactory。</p>
+<pre><code>public class SimpleLoggerFactory implements ILoggerFactory {
+
+    ConcurrentMap&lt;String, Logger&gt; loggerMap;
+
+    public Logger getLogger(String name) {
+        Logger simpleLogger = loggerMap.get(name);
+        if (simpleLogger != null) {
+            return simpleLogger;
+        } else {
+            Logger newInstance = new SimpleLogger(name);
+            Logger oldInstance = loggerMap.putIfAbsent(name, newInstance);
+            return oldInstance == null ? newInstance : oldInstance;
+        }
+    }
+}
+</code></pre><p>SimpleLoggerFactory实现slf4j定义的ILoggerFactory interface，getLogger()方法中负责创建SimpleLogger对象并返回(为了提高性能做了cache)。</p>
+<p>类似的slf4j-log4j12中会返回Log4jLoggerFactory，而Log4jLoggerFactory中通过调用log4j的LogManager来创建log4j的Logger对象并通过Log4jLoggerAdapter类来包装为slf4j的Logger(adapter模式)。</p>
+<pre><code>log4jLogger = LogManager.getLogger(name);
+Logger newInstance = new Log4jLoggerAdapter(log4jLogger);
+</code></pre><h1 id="u4EE3_u7801_u548C_u7C7B_u5206_u6790"><a href="#u4EE3_u7801_u548C_u7C7B_u5206_u6790" class="headerlink" title="代码和类分析"></a>代码和类分析</h1><p>初始化流程中涉及到的类：</p>
+<ol>
+<li>org.slf4j.Logger</li>
+<li>org.slf4j.LoggerFactory</li>
+<li>org.slf4j.ILoggerFactory</li>
+<li>org.slf4j.impl.StaticLoggerBinder</li>
+<li>org.slf4j.ILoggerFactory</li>
+<li>具体log api的Logger实现类</li>
+</ol>
+<p>Logger和LoggerFactory是slf4j定义好的，业务代码通过LoggerFactory来创建Logger对象，并调用这个logger对象来写日志。业务代码在此时是无需知道（也无法知道）具体底层是哪个log api实现，从而摆脱对具体log api的依赖。</p>
+<p>LoggerFactory通过装载StaticLoggerBinder类来绑定具体的log api实现，得到该log api实现ILoggerFactory接口的类示例。</p>
+<p>这个ILoggerFactory接口的类示例调用底层log api的实现来获取需要logger。</p>
+<p>这里有个细节，如果该Logger类已经实现了org.slf4j.Logger这个interface，就直接返回。比如绑定slf4j-simple时：</p>
+<p><img src="/images/slfj4-binding/slf4j-bind-simple.png" alt="slf4j-bind-simple.png"></p>
+<p>如果没有，比如Log4j的Logger，肯定不会实现org.slf4j.Logger这个interface，这时就需要包装为slf4j的Logger。在slf4j-log4jl2中，有一个Log4jLoggerAdapter类，实现了org.slf4j.Logger, 然后将方法调用转发给log4j的Logger：</p>
+<p><img src="/images/slfj4-binding/slf4j-bind-log4j.png" alt="slf4j-bind-log4j.png"></p>
+<h1 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h1><p>通过翻看Slf4j的代码，我们可以清楚的看到slf4j在运行时绑定具体的log api实现的方式。其实非常简单，关键之处就在于 org.slf4j.impl.StaticLoggerBinder 。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Log/">Log</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/log/">log</a><a href="/tags/slf4j/">slf4j</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://skyao.github.io/2014/07/21/slfj4-binding/" data-title="slf4j初始化绑定源码分析 | Sky&#39;s Blog" data-tsina="1967338300" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/07/23/logback-initiation/" title="logback初始化过程源码分析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  logback初始化过程源码分析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/04/22/gitbook-publish/"  title="轻松将gitbook内容发布到github pages上">
+ <strong>下一篇：</strong><br/> 
+ <span>轻松将gitbook内容发布到github pages上
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/07/21/slfj4-binding/" data-title="slf4j初始化绑定源码分析" data-url="http://skyao.github.io/2014/07/21/slfj4-binding/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6E90_u7801_u8FFD_u8E2A"><span class="toc-number">1.</span> <span class="toc-text">源码追踪</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#slf4j-api_u7684_u6E90_u7801"><span class="toc-number">1.1.</span> <span class="toc-text">slf4j-api的源码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u4EE3_u7801_u548C_u7C7B_u5206_u6790"><span class="toc-number">2.</span> <span class="toc-text">代码和类分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CI/" title="CI">CI<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Design/" title="Design">Design<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Log/" title="Log">Log<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Network/" title="Network">Network<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Redis/" title="Redis">Redis<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂谈/" title="杂谈">杂谈<sup>10</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/linux/" title="linux">linux<sup>11</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitbook/" title="gitbook">gitbook<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/log/" title="log">log<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logback/" title="logback">logback<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/redis/" title="redis">redis<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/java/" title="java">java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/install/" title="install">install<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/uml/" title="uml">uml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/study/" title="study">study<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitlab/" title="gitlab">gitlab<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/plantuml/" title="plantuml">plantuml<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mint/" title="mint">mint<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/replication/" title="replication">replication<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/logger/" title="logger">logger<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/systemd/" title="systemd">systemd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/upstart/" title="upstart">upstart<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/server/" title="server">server<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">標簽雲</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/apiblueprint/" style="font-size: 10px;">apiblueprint</a> <a href="/tags/archlinux/" style="font-size: 10px;">archlinux</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/computer/" style="font-size: 10px;">computer</a> <a href="/tags/doclet/" style="font-size: 10px;">doclet</a> <a href="/tags/ebook/" style="font-size: 10px;">ebook</a> <a href="/tags/exquilla/" style="font-size: 10px;">exquilla</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/gitbook/" style="font-size: 18px;">gitbook</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gitlab/" style="font-size: 12px;">gitlab</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/install/" style="font-size: 12px;">install</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/javadoc/" style="font-size: 10px;">javadoc</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/log/" style="font-size: 18px;">log</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/logger/" style="font-size: 10px;">logger</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mint/" style="font-size: 10px;">mint</a> <a href="/tags/netty/" style="font-size: 10px;">netty</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/performance/" style="font-size: 10px;">performance</a> <a href="/tags/plantuml/" style="font-size: 12px;">plantuml</a> <a href="/tags/redis/" style="font-size: 14px;">redis</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/server/" style="font-size: 10px;">server</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/study/" style="font-size: 12px;">study</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/systemd/" style="font-size: 10px;">systemd</a> <a href="/tags/tag/" style="font-size: 10px;">tag</a> <a href="/tags/ubuntu/" style="font-size: 16px;">ubuntu</a> <a href="/tags/uml/" style="font-size: 12px;">uml</a> <a href="/tags/upstart/" style="font-size: 10px;">upstart</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/翻墙/" style="font-size: 10px;">翻墙</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1967338300&verifier=&dpc=1"></iframe>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Sky comes from VIPS. <br/>
+			This is my blog, welcome!</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/aoxiaojian" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/skyao" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:aoxiaojian@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Sky Ao">Sky Ao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"skyao"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-49977582-1', 'skyao.github.io');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
