@@ -1,7 +1,7 @@
 title: (记录)使用mint linux 17.2作为日常操作系统
-date: 2015-08-07 20:34:01
+date: 2016-01-13 23:34:01
 categories: Linux
-tags: [linux,mint linux]
+tags: [linux]
 ---
 
 打算使用mint linux 作为平时工作开发的日常操作系统，谨以此文记录在整个搭建和使用过程中的点点滴滴。
