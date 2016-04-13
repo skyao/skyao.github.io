@@ -18,6 +18,14 @@ tags: [plantuml,uml]
 
 安装好后，设置环境变量GRAPHVIZ_DOT，指向dot.exe,如 “GRAPHVIZ_DOT=D:\soft\tools\graphviz\bin\dot.exe”.
 
+### linux 安装
+
+用apt-get之类的命令可以直接安装：
+
+	sudo apt-get graphviz
+
+安装完成之后，dot可执行文件的路径是 /usr/bin/dot。
+
 ## 下载plantuml
 
 从 [plantuml网站](http://plantuml.sourceforge.net/download.html) 下载最新的plantuml.jar。理论上只要运行一下命令就可以得到需要的uml输出：
